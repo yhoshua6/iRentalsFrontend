@@ -15,7 +15,6 @@
   angular
     .module('iRentalsFrontApp')
     .config(routesConfig);
-
   routesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function routesConfig($stateProvider, $urlRouterProvider) {
     /*
