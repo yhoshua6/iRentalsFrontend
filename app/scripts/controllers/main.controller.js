@@ -15,3 +15,16 @@ angular.module('iRentalsFrontApp')
       'Karma'
     ];
   });
+
+
+/*
+ vm.showOrdersModal = function()
+ {
+ angular.element('#ordersModal').openModal();
+ };
+
+ vm.hideOrdersModal = function()
+ {
+ angular.element('#ordersModal').closeModal();
+ };
+ */

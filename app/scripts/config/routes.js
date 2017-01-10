@@ -18,11 +18,6 @@
   routesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function routesConfig($stateProvider, $urlRouterProvider) {
     /*
-     var itemsState = {
-     name: 'items',
-     url: '/items/{categoryid}',
-     templateUrl: 'ItemsView.html',
-     controller: "ItemsController as itemDetail",
      resolve: {
      itemList: ['$stateParams', 'MenuDataService', function ($stateParams, MenuDataService) {
      return MenuDataService.getItemsForCategory($stateParams.categoryid);
@@ -31,6 +26,30 @@
      };
      */
 
+    var contactUsState = {
+      name: 'contactUs',
+      url: '/contact',
+      templateUrl: '/views/contact_us.html',
+      controller: "ContactUsCtrl as contactCtrl"
+    };
+
+    var aboutUsState = {
+      name: 'aboutUs',
+      url: '/about',
+      templateUrl: '/views/about_us.html',
+      controller: "AboutUsCtrl as aboutCtrl"
+    };
+
+    var homeState = {
+      name: 'home',
+      url: '/',
+      templateUrl: '/views/main.html',
+      controller: "MainCtrl as mainCtrl"
+    };
+
+    $stateProvider.state(contactUsState);
+    $stateProvider.state(aboutUsState);
+    $stateProvider.state(homeState);
     $urlRouterProvider.otherwise('/');
   }
 })();
