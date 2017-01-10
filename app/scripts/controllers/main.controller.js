@@ -1,30 +1,26 @@
-'use strict';
+(function(){
+  'use strict';
 
-/**
- * @ngdoc function
- * @name iRentalsFrontApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the iRentalsFrontApp
- */
-angular.module('iRentalsFrontApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  /**
+   * @ngdoc function
+   * @name iRentalsFrontApp.controller:MainCtrl
+   * @description
+   * # MainCtrl
+   * Controller of the iRentalsFrontApp
+   */
+  angular.module('iRentalsFrontApp')
+    .controller('MainCtrl', mainCtrl);
 
+  function mainCtrl() {
+    var mainScope = this;
 
-/*
- vm.showOrdersModal = function()
- {
- angular.element('#ordersModal').openModal();
- };
+    mainScope.showLoginModal = function(){
+      //angular.element('#ordersModal').openModal();
+    };
 
- vm.hideOrdersModal = function()
- {
- angular.element('#ordersModal').closeModal();
- };
- */
+    mainScope.hideLoginModal = function() {
+      //angular.element('#ordersModal').closeModal();
+    };
+  }
+})();
+
