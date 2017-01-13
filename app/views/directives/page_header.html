@@ -2,14 +2,9 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Add your site or application content here -->
-<nav>
-  <div class="nav-wrapper blue-grey darken-3">
-    <a href="#" class="brand-logo">iRentals</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li class="active"><a href="#/">Home</a></li>
-      <li><a ui-sref="aboutUs" ui-sref-active="active">About</a></li>
-      <li><a ui-sref="contactUs">Contact</a></li>
-      <li><a ui-sref="home">Sign in</a></li>
-    </ul>
-  </div>
-</nav>
+<md-nav-bar md-selected-nav-item="currentNavItem" layout="row" layout-align="center end">
+  <md-nav-item md-nav-sref="home" name="home">iRentals</md-nav-item>
+  <md-nav-item md-nav-sref="aboutUs" name="aboutUs">About us</md-nav-item>
+  <md-nav-item md-nav-sref="contactUs" name="contactUs">Contact</md-nav-item>
+  <md-button class="md-accent md-raised" ng-click="header.showTabDialog()">Sign in</md-button>
+</md-nav-bar>

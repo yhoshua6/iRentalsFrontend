@@ -1,3 +1,33 @@
-<div>
-  <h1>Contact us</h1>
+<div layout="row">
+  <div flex>
+    <h2>Some Image</h2>
+    <md-icon md-font-icon="android" aria-label="android"></md-icon>
+    <md-icon class="icon_home" aria-label="Home"></md-icon>
+  </div>
+  <form name="contactForm" flex layout="column">
+    <md-input-container flex flex-order="0">
+      <label>Your name:</label>
+      <input name="userName" ng-model="contactCtrl.userName" required>
+      <div ng-messages="contactForm.userName.$error">
+        <div ng-message="required">This is required!</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex flex-order="1">
+      <label>Your email:</label>
+      <input name="userEmail" ng-model="contactCtrl.userEmail" required>
+      <div ng-messages="contactForm.userEmail.$error">
+        <div ng-message="required">This is required!</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex flex-order="2">
+      <label>Comments:</label>
+      <input name="userComments" ng-model="contactCtrl.userComments" required>
+      <div ng-messages="contactForm.userComments.$error">
+        <div ng-message="required">This is required!</div>
+      </div>
+    </md-input-container>
+    <md-button class="md-accent md-raised" flex flex-order="3">
+      Send my comments!
+    </md-button>
+  </form>
 </div>

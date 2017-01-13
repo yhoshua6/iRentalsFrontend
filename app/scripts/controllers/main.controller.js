@@ -11,16 +11,9 @@
   angular.module('iRentalsFrontApp')
     .controller('MainCtrl', mainCtrl);
 
-  function mainCtrl() {
+  mainCtrl.$inject = ["$log"];
+  function mainCtrl($log) {
     var mainScope = this;
-
-    mainScope.showLoginModal = function(){
-      //angular.element('#ordersModal').openModal();
-    };
-
-    mainScope.hideLoginModal = function() {
-      //angular.element('#ordersModal').closeModal();
-    };
   }
 })();
 
