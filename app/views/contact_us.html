@@ -1,31 +1,33 @@
-<div layout="row">
+<div layout="row" layout-align="center center">
   <div flex>
-    <h2>Some Image</h2>
+    <img width="550" height="350" ng-src="https://coedmagazine.files.wordpress.com/2014/11/star-wars-force-awakens-gifs-6.gif?w=750" alt="Description" />
   </div>
-  <form name="contactForm" flex layout="column">
-    <md-input-container flex flex-order="0">
-      <label>Your name:</label>
-      <input name="userName" ng-model="contactCtrl.userName" required>
-      <div ng-messages="contactForm.userName.$error">
-        <div ng-message="required">This is required!</div>
-      </div>
-    </md-input-container>
-    <md-input-container flex flex-order="1">
-      <label>Your email:</label>
-      <input name="userEmail" ng-model="contactCtrl.userEmail" required>
-      <div ng-messages="contactForm.userEmail.$error">
-        <div ng-message="required">This is required!</div>
-      </div>
-    </md-input-container>
-    <md-input-container flex flex-order="2">
-      <label>Comments:</label>
-      <input name="userComments" ng-model="contactCtrl.userComments" required>
-      <div ng-messages="contactForm.userComments.$error">
-        <div ng-message="required">This is required!</div>
-      </div>
-    </md-input-container>
-    <md-button class="md-accent md-raised" flex flex-order="3">
-      Send my comments!
-    </md-button>
-  </form>
+  <div flex>
+    <form name="contactForm" layout="column">
+      <md-input-container flex flex-order="0">
+        <label>Your name:</label>
+        <input name="userName" ng-model="contactCtrl.userName" required>
+        <div ng-messages="contactForm.userName.$error">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex flex-order="1">
+        <label>Your email:</label>
+        <input name="userEmail" ng-model="contactCtrl.userEmail" required>
+        <div ng-messages="contactForm.userEmail.$error">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex flex-order="2">
+        <label>Comments:</label>
+        <input name="userComments" ng-model="contactCtrl.userComments" required>
+        <div ng-messages="contactForm.userComments.$error">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised" flex flex-order="3">
+        Send my comments!
+      </md-button>
+    </form>
+  </div>
 </div>
