@@ -18,7 +18,8 @@
       'ngResource',
       'ngSanitize',
       'ui.router',
-      'ngMaterial'
+      'ngMaterial',
+      'jkAngularCarousel'
     ]);
 
 })();
