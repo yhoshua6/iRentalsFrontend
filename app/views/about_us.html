@@ -1,21 +1,11 @@
-<!--<div>
-  <div>
-    <div class="text-center">
-      <h2>About us</h2>
-      <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id libero justo. Nunc molestie est ipsum, eget luctus nisl consectetur quis.</p>
-      <p>Nulla at consectetur ligula, quis venenatis nisi. Suspendisse non ante vitae ipsum condimentum pellentesque. Sed posuere finibus justo </p>
-      <p>vitae dapibus. Nulla facilisi. Sed lorem turpis, vehicula eu nibh nec, rhoncus egestas enim. Phasellus mollis, mi dictum fermentum faucibus, </p>
-    </div>
+<div layout layout-align="center center">
+  <div flex layout="column">
+    <h2 flex>¡Look at this cool company goal</h2>
+    <ol flex ng-repeat="companyGoal in aboutCtrl.companyGoals">
+      <md-checkbox ng-checked="true">{{companyGoal.goal}}</md-checkbox>
+    </ol>
   </div>
-
-  <div>
-    <img class="img-responsive" src="http://68.media.tumblr.com/7ce59e03bdeed1bdf14305389561e9b4/tumblr_o4z4n4xpr51rlapeio1_540.gif" alt="">
+  <div flex>
+    <img width="550" height="350" ng-src="http://images6.fanpop.com/image/photos/39400000/Kylo-Ren-GIF-by-madfilmstudent-tumblr-kylo-ren-39430519-400-240.gif">
   </div>
-</div>-->
-
-<div layout="row" layout-align="space-between center">
-  <div style="background-color: red;">one</div>
-  <div style="background-color: blue;">two</div>
-  <div style="background-color: green;">three</div>
 </div>

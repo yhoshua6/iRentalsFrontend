@@ -9,6 +9,13 @@
 
 
   function aboutUsCtrl() {
+    var aboutScope = this;
 
+    aboutScope.companyGoals = [
+      {goal: "First goal of the company"},
+      {goal: "Second goal of the company"},
+      {goal: "Third goal of the company"},
+      {goal: "Fourth goal of the company"}
+    ];
   }
 })();
