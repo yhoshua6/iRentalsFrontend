@@ -9,7 +9,6 @@
 
 
   dialogCtrl.$inject = ['$mdDialog', 'requestService'];
-
   function dialogCtrl($mdDialog, requestService) {
     var dialogScope = this;
     dialogScope.user = '';

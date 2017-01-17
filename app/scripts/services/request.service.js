@@ -11,11 +11,7 @@
   function requestService ($log, $http, LOGIN_URL_DEV, PROPERTIES_URL_DEV) {
     var requestScope = this;
 
-    requestScope.makeLoginRequest = function (user, pwd) {
-      var userToLogin = {
-        "user": user,
-        "password": pwd
-      };
+    requestScope.makeLoginRequest = function (userToLogin) {
       var userData = angular.toJson(userToLogin);
       var httpPromise = $http({
         method: "POST",
@@ -26,7 +22,7 @@
         }
       })
         .then(function(response) {
-          $log.log(response);
+          $log.log(response.status, "----", response.statusText, "---", response.data.authToken);
         })
         .catch(function(err) {
           $log.log("Request Service: err=", err);

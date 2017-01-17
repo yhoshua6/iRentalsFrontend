@@ -26,6 +26,13 @@
      };
      */
 
+    var loginState = {
+      name: 'login',
+      url: '/login',
+      templateUrl: '/views/login.html',
+      controller: "loginCtrl as loginCtrl"
+    };
+
     var contactUsState = {
       name: 'contactUs',
       url: '/contact',
@@ -47,6 +54,7 @@
       controller: "MainCtrl as mainCtrl"
     };
 
+    $stateProvider.state(loginState);
     $stateProvider.state(contactUsState);
     $stateProvider.state(aboutUsState);
     $stateProvider.state(homeState);

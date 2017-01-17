@@ -11,8 +11,7 @@
   function contactUsCtrl() {
     var contactScope = this;
     contactScope.userName = '';
-    contactScope.userName = '';
-    contactScope.userName = '';
-    contactScope.userName = '';
+    contactScope.userEmail = '';
+    contactScope.userComments = '';
   }
 })();
