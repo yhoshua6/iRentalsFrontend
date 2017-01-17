@@ -15,13 +15,15 @@
   function mainCtrl($log) {
     var mainScope = this;
 
-
     mainScope.carouselData = [
-      {src: "http://www.sideshowtoy.com/wp-content/uploads/2016/09/star-wars-rogue1-death-trooper-specialist-02.jpg"},
-      {src: "https://coedmagazine.files.wordpress.com/2014/11/star-wars-force-awakens-gifs-6.gif?w=750"},
-      {src: "http://bestanimations.com/Sci-Fi/StarWars/star-wars-animated-gif-30.gif"},
-      {src: "http://www.radiotimes.com/uploads/images/Original/102092.gif"},
-      {src: "https://metrouk2.files.wordpress.com/2016/10/star-wars-rogue-one-gif.gif?w=620&h=348&crop=1"}
+      { src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg' },
+      { src: 'http://www.parasholidays.in/blog/wp-content/uploads/2014/05/holiday-tour-packages-for-usa.jpg' },
+      { src: 'http://clickker.in/wp-content/uploads/2016/03/new-zealand-fy-8-1-Copy.jpg' },
+      { src: 'http://images.kuoni.co.uk/73/indonesia-34834203-1451484722-ImageGalleryLightbox.jpg' },
+      { src: 'http://www.holidaysaga.com/wp-content/uploads/2014/09/Day08-SIN-day-Free-City-View.jpg' },
+      { src: 'http://images.kuoni.co.uk/73/malaysia-21747826-1446726337-ImageGalleryLightbox.jpg' },
+      { src: 'http://www.kimcambodiadriver.com/uploads/images/tours/kim-cambodia-driver-angkor-wat.jpg' },
+      { src: 'https://www.travcoa.com/sites/default/files/styles/flexslider_full/public/tours/images/imperialvietnam-halong-bay-14214576.jpg?itok=O-q1yr5_' }
     ];
   }
 })();

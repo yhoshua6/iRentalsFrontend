@@ -8,10 +8,13 @@
     .controller('dialogCtrl', dialogCtrl);
 
 
-  dialogCtrl.$inject = ['$mdDialog'];
+  dialogCtrl.$inject = ['$mdDialog', 'requestService'];
 
-  function dialogCtrl($mdDialog) {
+  function dialogCtrl($mdDialog, requestService) {
     var dialogScope = this;
+    dialogScope.user = '';
+    dialogScope.userPwd = '';
+
     dialogScope.hide = function() {
       $mdDialog.hide();
     };
@@ -23,5 +26,9 @@
     dialogScope.answer = function(answer) {
       $mdDialog.hide(answer);
     };
+
+    dialogScope.makeRequest = function(user, pwd) {
+      requestService.makeLoginRequest(user, pwd);
+    }
   }
 })();
