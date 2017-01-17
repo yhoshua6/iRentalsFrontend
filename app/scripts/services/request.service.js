@@ -13,7 +13,7 @@
 
     requestScope.makeLoginRequest = function (userToLogin) {
       var userData = angular.toJson(userToLogin);
-      var httpPromise = $http({
+      $http({
         method: "POST",
         url: LOGIN_URL_DEV,
         data: userData,
@@ -29,5 +29,4 @@
         });
     };
   }
-
 })();

@@ -8,8 +8,8 @@
     .controller('loginCtrl', loginCtrl);
 
 
-  loginCtrl.$inject = ['$log', 'requestService'];
-  function loginCtrl($log, requestService) {
+  loginCtrl.$inject = ['$log', 'requestService', 'toastServices'];
+  function loginCtrl($log, requestService, toastServices) {
     var loginScope = this;
 
     loginScope.loginRequest = function(user, pwd) {
@@ -18,6 +18,8 @@
         "password": pwd
       };
       requestService.makeLoginRequest(userToLogin);
-    }
+      toastServices.showSimpleToast()
+    };
   }
+
 })();
