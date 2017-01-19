@@ -17,47 +17,51 @@
     .config(routesConfig);
   routesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function routesConfig($stateProvider, $urlRouterProvider) {
-    /*
-     resolve: {
-     itemList: ['$stateParams', 'MenuDataService', function ($stateParams, MenuDataService) {
-     return MenuDataService.getItemsForCategory($stateParams.categoryid);
-     }]
-     }
-     };
-     */
 
-    var loginState = {
-      name: 'login',
-      url: '/login',
-      templateUrl: '/views/login.html',
-      controller: "loginCtrl as loginCtrl"
-    };
-
-    var contactUsState = {
-      name: 'contactUs',
-      url: '/contact',
-      templateUrl: '/views/contact_us.html',
-      controller: "ContactUsCtrl as contactCtrl"
-    };
-
-    var aboutUsState = {
-      name: 'aboutUs',
-      url: '/about',
-      templateUrl: '/views/about_us.html',
-      controller: "AboutUsCtrl as aboutCtrl"
-    };
-
-    var homeState = {
-      name: 'home',
+    var rootState = {
+      name: 'root',
+      abstract: true,
       url: '/',
-      templateUrl: '/views/main.html',
+      templateUrl: '/views/templates/home_tmpl.html'
+    };
+
+    var rootHomeState = {
+      name: 'root.home',
+      url: 'home',
+      templateUrl: '/views/home/main.html',
       controller: "MainCtrl as mainCtrl"
     };
 
-    $stateProvider.state(loginState);
-    $stateProvider.state(contactUsState);
-    $stateProvider.state(aboutUsState);
-    $stateProvider.state(homeState);
+    var rootContactUsState = {
+      name: 'root.contactUs',
+      url: 'contact',
+      templateUrl: '/views/home/contact_us.html',
+      controller: "ContactUsCtrl as contactCtrl"
+    };
+
+    var rootAboutUsState = {
+      name: 'root.aboutUs',
+      url: 'about',
+      templateUrl: '/views/home/about_us.html',
+      controller: "AboutUsCtrl as aboutCtrl"
+    };
+
+    var rootLoginState = {
+      name: 'root.login',
+      url: 'login',
+      templateUrl: '/views/home/login.html',
+      controller: "loginCtrl as loginCtrl"
+    };
+
+    var dashboardRootstate = {
+
+    };
+
+    $stateProvider.state(rootState);
+    $stateProvider.state(rootHomeState);
+    $stateProvider.state(rootContactUsState);
+    $stateProvider.state(rootAboutUsState);
+    $stateProvider.state(rootLoginState);
     $urlRouterProvider.otherwise('/');
   }
 })();
