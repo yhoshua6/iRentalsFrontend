@@ -22,7 +22,7 @@
       name: 'root',
       abstract: true,
       url: '/',
-      templateUrl: '/views/templates/home_tmpl.html'
+      templateUrl: '/views/templates/home_template.html'
     };
 
     var rootHomeState = {
@@ -54,14 +54,26 @@
     };
 
     var dashboardRootstate = {
-
+      name: 'dashboardRoot',
+      abstract: true,
+      url: '/',
+      templateUrl: '/views/templates/dashboard_template.html'
     };
 
+    var dashboardHomestate = {
+      name: 'dashboardRoot.home',
+      url: 'dashboard',
+      templateUrl: '/views/dashboard/dashboard.html'
+    };
+    //Not logged
     $stateProvider.state(rootState);
     $stateProvider.state(rootHomeState);
     $stateProvider.state(rootContactUsState);
     $stateProvider.state(rootAboutUsState);
     $stateProvider.state(rootLoginState);
-    $urlRouterProvider.otherwise('/');
+    //logged
+    $stateProvider.state(dashboardRootstate);
+    $stateProvider.state(dashboardHomestate);
+    $urlRouterProvider.otherwise('/home');
   }
 })();
