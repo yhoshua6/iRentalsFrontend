@@ -10,9 +10,7 @@
   function headerDirective() {
     return {
       restrict: 'E',
-      templateUrl: '../../views/directives/page_header.html',
-      controller: 'headerCtrl',
-      controllerAs: 'header'
+      templateUrl: '../../views/directives/home_header.html'
     }
   }
 })();

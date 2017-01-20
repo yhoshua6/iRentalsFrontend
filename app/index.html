@@ -18,6 +18,9 @@
   <body ng-app="iRentalsApp">
 
   <ui-view></ui-view>
+  <md-button ui-sref="dashboardRoot.home">
+    diu!
+  </md-button>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -40,18 +43,18 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/modules.js"></script>
     <script src="scripts/config/routes.js"></script>
-    <script src="scripts/config/contants.js"></script>
+    <script src="scripts/config/constants.js"></script>
     <!-- Controllers -->
     <script src="scripts/controllers/main.controller.js"></script>
-    <script src="scripts/controllers/aboutUs.controller.js"></script>
     <script src="scripts/controllers/contactUs.controller.js"></script>
-    <script src="scripts/controllers/header.controller.js"></script>
     <script src="scripts/controllers/login.controller.js"></script>
-    <script src="scripts/controllers/toast.controller.js"></script>
+    <script src="scripts/controllers/dashboard.controller.js"></script>
+    <script src="scripts/controllers/dashboardHeader.controller.js"></script>
     <!-- endControllers -->
     <!-- Directives -->
-    <script src="scripts/directives/header.directive.js"></script>
-    <script src="scripts/directives/footer.directive.js"></script>
+    <script src="scripts/directives/homeHeader.directive.js"></script>
+    <script src="scripts/directives/homeFooter.directive.js"></script>
+    <script src="scripts/directives/dashboardHeader.directive.js"></script>
     <!-- endDirectives -->
     <!-- Services -->
     <script src="scripts/services/request.service.js"></script>
