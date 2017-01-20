@@ -1,13 +1,17 @@
 /**
  * Created by jose- on 19/01/2017.
  */
-/*(function () {
+(function () {
   'use strict';
   angular.module('iRentalsApp')
-    .config(dashboardCtrl);
+    .config(themeConfig);
 
-  dashboardCtrl.$inject = [];
-  function dashboardCtrl() {
-
+  themeConfig.$inject = ['$mdThemingProvider'];
+  function themeConfig($mdThemingProvider) {
+    $mdThemingProvider
+      .theme('default')
+      .dark()
+      .primaryPalette('pink')
+      .accentPalette('orange');
   }
-})(); */
+})();
