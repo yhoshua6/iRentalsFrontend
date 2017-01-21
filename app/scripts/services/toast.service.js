@@ -18,13 +18,21 @@
       });
     };
 
+    toastScope.showFailureLoggedIn = function () {
+      $mdToast.show({
+        templateUrl: '../../views/toasts/login_failure.html',
+        hideDelay: 3500,
+        position: "top right"
+      });
+    };
+
     toastScope.showSuccessfulSentEmail = function () {
       $mdToast.show({
         templateUrl: '../../views/toasts/successful_sent_email.html',
         hideDelay: 3500,
         position: "top right"
       });
-    }
+    };
 
     toastScope.showFailureSentEmail = function () {
       $mdToast.show({
@@ -32,7 +40,8 @@
         hideDelay: 3500,
         position: "top right"
       });
-    }
+    };
+
   }
 })();
 
