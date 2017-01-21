@@ -1,34 +1,41 @@
-<div layout="row" layout-align="center center">
-  <div flex>
-    <img width="550" height="350" ng-src="https://coedmagazine.files.wordpress.com/2014/11/star-wars-force-awakens-gifs-6.gif?w=750" alt="Description" />
-  </div>
-  <div flex>
-    <h2>We would love to hear about you!</h2>
-    <form name="contactForm" layout="column">
-      <md-input-container flex flex-order="0">
-        <label>Your name:</label>
-        <input name="userName" ng-model="contactCtrl.userName" required>
-        <div ng-messages="contactForm.userName.$error">
-          <div ng-message="required">This is required!</div>
-        </div>
-      </md-input-container>
-      <md-input-container flex flex-order="1">
-        <label>Your email:</label>
-        <input name="userEmail" ng-model="contactCtrl.userEmail" required>
-        <div ng-messages="contactForm.userEmail.$error">
-          <div ng-message="required">This is required!</div>
-        </div>
-      </md-input-container>
-      <md-input-container flex flex-order="2">
-        <label>Comments:</label>
-        <input name="userComments" ng-model="contactCtrl.userComments" required>
-        <div ng-messages="contactForm.userComments.$error">
-          <div ng-message="required">This is required!</div>
-        </div>
-      </md-input-container>
-      <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised" flex-order="3">
-        Send my comments!
-      </md-button>
-    </form>
-  </div>
+<div layout layout-align="center center">
+  <img class="center"
+       width="500"
+       height="350"
+       ng-src="https://coedmagazine.files.wordpress.com/2014/11/star-wars-force-awakens-gifs-6.gif?w=750" alt="Description"
+       flex
+  />
+  <form name="contactForm" layout="column" flex flex-offset="5">
+    <h2>Queremos saber lo que piensas!</h2>
+    <md-input-container flex>
+      <label>Tu nombre:</label>
+      <input name="userName" ng-model="contactCtrl.userName" required>
+      <div ng-messages="contactForm.userName.$error">
+        <div ng-message="required">Necesitamos saber tu nombre!</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Tu email:</label>
+      <input name="userEmail" ng-model="contactCtrl.userEmail" type="email" required>
+      <div ng-messages="contactForm.userEmail.$error">
+        <div ng-message="required">¿Y cómo te vamos a contactar?</div>
+        <div ng-message="email">¿Estas seguro que es un correo válido?</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Comentarios:</label>
+      <input name="userComments" ng-model="contactCtrl.userComments" required>
+      <div ng-messages="contactForm.userComments.$error">
+        <div ng-message="required">¿Sin comentarios?</div>
+      </div>
+    </md-input-container>
+    <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised">
+      Enviar!
+    </md-button>
+  </form>
+  <br>
 </div>
+
+
+
+
