@@ -6,8 +6,8 @@
   angular.module('iRentalsApp')
     .service('userInfoService', userInfo);
 
-  userInfo.$inject = [""];
+  userInfo.$inject = [];
   function userInfo () {
-
+    var userScope = this;
   }
 })();

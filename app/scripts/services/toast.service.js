@@ -10,7 +10,7 @@
   function toastServices($mdToast) {
     var toastScope = this;
 
-    toastScope.showSimpleToast = function() {
+    toastScope.showSuccessfulLoggedIn = function() {
       $mdToast.show({
         templateUrl: '../../views/toasts/login_success.html',
         hideDelay: 3500,

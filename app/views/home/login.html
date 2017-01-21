@@ -1,28 +1,31 @@
-<div layout="column">
-  <div flex>
-    <h2>Sign in!</h2>
-  </div>
-  <div flex>
-    <div>
-      <form name="loginForm" layout="column">
-        <md-input-container flex flex-order="0">
-          <label>User:</label>
-          <input name="userEmail" ng-model="loginCtrl.user" required>
-          <div ng-messages="loginForm.userName.$error">
-            <div ng-message="required">This is required!</div>
-          </div>
-        </md-input-container>
-        <md-input-container flex flex-order="1">
-          <label>Password:</label>
-          <input name="userPwd" type="password" ng-model="loginCtrl.userPwd" required>
-          <div ng-messages="loginForm.userEmail.$error">
-            <div ng-message="required">This is required!</div>
-          </div>
-        </md-input-container>
-        <md-button ng-hide="loginForm.$invalid" ng-click="loginCtrl.loginRequest(loginCtrl.user, loginCtrl.userPwd)" class="md-accent md-raised" flex-order="3">
-          Login!
-        </md-button>
-      </form>
-    </div>
-  </div>
+<div layout>
+  <img class="center" width="500" height="350" ng-src="../../images/chroma_logo.png" flex flex-offset="5">
+  <form name="loginForm" layout="column" flex flex-offset="5">
+    <h2>Inicia Sesión!</h2>
+    <md-input-container flex>
+      <label>User:</label>
+      <md-icon class="material-icons">account_box</md-icon>
+      <input name="userEmail" ng-model="loginCtrl.user" type="email" required>
+      <div ng-messages="loginForm.userEmail.$error">
+        <div ng-message="required">Necesitamos tu usario!</div>
+        <div ng-message="email">¿Estas seguro que es un correo válido?</div>
+      </div>
+    </md-input-container>
+    <md-input-container flex>
+      <label>Password:</label>
+      <md-icon class="material-icons">lock</md-icon>
+      <input name="userPwd" type="password" ng-model="loginCtrl.userPwd" required>
+      <div ng-messages="loginForm.userEmail.$error">
+        <div ng-message="required">¡También ocupamos tu contraseña!</div>
+      </div>
+    </md-input-container>
+    <md-button
+      ng-hide="loginForm.$invalid"
+      ng-click="loginCtrl.authenticateUser(loginCtrl.user, loginCtrl.userPwd)"
+      class="md-accent md-raised"
+    >
+      <md-icon class="material-icons">lock_open</md-icon>
+      Iniciar Sesión!
+    </md-button>
+  </form>
 </div>

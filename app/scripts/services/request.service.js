@@ -11,22 +11,16 @@
   function requestService ($log, $http, LOGIN_URL, SEND_COMMENTS_TO_ADMIN) {
     var requestScope = this;
 
-    requestScope.makeLoginRequest = function (userToLogin) {
+    requestScope.getLoginPromise = function (userToLogin) {
       var userData = angular.toJson(userToLogin);
-      $http({
+      return $http({
         method: "POST",
         url: LOGIN_URL,
         data: userData,
         headers: {
           "Content-Type": "application/json"
         }
-      })
-        .then(function(response) {
-          $log.log(response.status, "----", response.statusText, "---", response.data.authToken);
-        })
-        .catch(function(err) {
-          $log.log("Request Service: err=", err);
-        });
+      });
     };
 
     requestScope.getCommentPromise = function (user) {
