@@ -22,7 +22,7 @@
           toastServices.showSuccessfulLoggedIn();
         },
         function (error) {
-
+          toastServices.showFailureLoggedIn();
       });
     };
   }
