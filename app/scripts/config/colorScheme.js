@@ -11,7 +11,11 @@
     $mdThemingProvider
       .theme('default')
       .dark()
-      .primaryPalette('pink')
-      .accentPalette('orange');
+      .primaryPalette('blue-grey', {
+        'default' : '500'
+      })
+      .accentPalette('teal', {
+        'default': '500'
+      });
   }
 })();

@@ -69,7 +69,9 @@
     var dashboardDocumentState = {
       name: 'dashboardRoot.documents',
       url: 'documents',
-      templateUrl: '/views/dashboard/documents.html'
+      templateUrl: '/views/dashboard/documents.html',
+      controller: 'docsCtrl',
+      controllerAs: 'docsCtrl'
     };
 
     var dashboardGatheringState = {
