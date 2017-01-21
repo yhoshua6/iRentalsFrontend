@@ -13,23 +13,23 @@
     contactScope.userName = '';
     contactScope.userEmail = '';
     contactScope.userComments = '';
+    contactScope.isSending = false;
 
-    contactScope.sendComments = function () {
+    contactScope.sendComments = function (userName, userEmail, userComments) {
       var userComment = {
-        "userName" : contactScope.userName,
-        "userEmail" : contactScope.userEmail,
-        "userComments" : contactScope.userComments
+        "userName" : userName,
+        "userEmail" : userEmail,
+        "userComments" : userComments
       };
       var commentPromise = requestService.getCommentPromise(userComment);
-      commentPromise.then(successResponse(response), failure(error));
+      commentPromise.then(function (response) {
+          $log.log(response);
+        },
+        function (error) {
+          $log.log(error);
+        }
+      );
     };
 
-    function successResponse(response){
-      $log.log(response);
-    }
-
-    function failure(error) {
-      $log.log(error);
-    }
   }
 })();

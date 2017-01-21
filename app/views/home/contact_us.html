@@ -29,13 +29,24 @@
         <div ng-message="required">¿Sin comentarios?</div>
       </div>
     </md-input-container>
-    <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised" ng-click="contactCtrl.sendComments()">
+    <md-button
+        ng-hide="contactForm.$invalid"
+        class="md-accent md-raised"
+        ng-click="contactCtrl.sendComments(
+          contactCtrl.userName,
+          contactCtrl.userEmail,
+          contactCtrl.userComments
+        )"
+      >
       Enviar!
     </md-button>
   </form>
   <br>
 </div>
 
+<!--
 
+    <md-progress-circular ng-show="contactCtrl.isSending"></md-progress-circular>
+-->
 
 

@@ -4,8 +4,8 @@
 (function () {
   'use strict';
   angular.module('iRentalsApp')
-    .constant('LOGIN_URL', "https://irentalsapi.herokuapp.com/login")
-    .constant('PROPERTIES_URL', "https://irentalsapi.herokuapp.com/properties")
-    .constant('SEND_COMMENTS_TO_ADMIN',"https://irentalsapi.herokuapp.com/send_comments");
+    .constant('LOGIN_URL', "http://localhost:3000/login")
+    .constant('PROPERTIES_URL', "http://localhost:3000/properties")
+    .constant('SEND_COMMENTS_TO_ADMIN',"http://localhost:3000/send_comments");
 
 })();
