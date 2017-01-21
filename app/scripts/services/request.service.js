@@ -7,15 +7,15 @@
   angular.module('iRentalsApp')
     .service('requestService', requestService);
 
-  requestService.$inject = ['$log', '$http', 'LOGIN_URL_DEV', 'PROPERTIES_URL_DEV'];
-  function requestService ($log, $http, LOGIN_URL_DEV, PROPERTIES_URL_DEV) {
+  requestService.$inject = ['$log', '$http', 'LOGIN_URL', 'SEND_COMMENTS_TO_ADMIN'];
+  function requestService ($log, $http, LOGIN_URL, SEND_COMMENTS_TO_ADMIN) {
     var requestScope = this;
 
     requestScope.makeLoginRequest = function (userToLogin) {
       var userData = angular.toJson(userToLogin);
       $http({
         method: "POST",
-        url: LOGIN_URL_DEV,
+        url: LOGIN_URL,
         data: userData,
         headers: {
           "Content-Type": "application/json"
@@ -28,5 +28,17 @@
           $log.log("Request Service: err=", err);
         });
     };
+
+    requestScope.getCommentPromise = function (user) {
+      var userData = angular.toJson(user);
+      return $http({
+        method: "POST",
+        url: SEND_COMMENTS_TO_ADMIN,
+        data: userData,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+    }
   }
 })();

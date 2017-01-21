@@ -29,7 +29,7 @@
         <div ng-message="required">¿Sin comentarios?</div>
       </div>
     </md-input-container>
-    <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised">
+    <md-button ng-hide="contactForm.$invalid" class="md-accent md-raised" ng-click="contactCtrl.sendComments()">
       Enviar!
     </md-button>
   </form>
