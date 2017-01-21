@@ -7,8 +7,8 @@
   angular.module("iRentalsApp")
     .controller("ContactUsCtrl", contactUsCtrl);
 
-  contactUsCtrl.$inject = ["$log", "requestService"];
-  function contactUsCtrl($log, requestService) {
+  contactUsCtrl.$inject = ["$log", "requestService", "toastServices"];
+  function contactUsCtrl($log, requestService, toastServices) {
     var contactScope = this;
     contactScope.userName = '';
     contactScope.userEmail = '';
@@ -23,10 +23,11 @@
       };
       var commentPromise = requestService.getCommentPromise(userComment);
       commentPromise.then(function (response) {
-          $log.log(response);
+          toastServices.showSuccessfulSentEmail();
         },
         function (error) {
-          $log.log(error);
+          //$log.log(error);
+          toastServices.showFailureSentEmail();
         }
       );
     };

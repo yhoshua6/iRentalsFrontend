@@ -14,9 +14,25 @@
       $mdToast.show({
         templateUrl: '../../views/toasts/login_success.html',
         hideDelay: 3500,
-        controller: 'toastCtrl as toast'
+        position: "top right"
       });
     };
+
+    toastScope.showSuccessfulSentEmail = function () {
+      $mdToast.show({
+        templateUrl: '../../views/toasts/successful_sent_email.html',
+        hideDelay: 3500,
+        position: "top right"
+      });
+    }
+
+    toastScope.showFailureSentEmail = function () {
+      $mdToast.show({
+        templateUrl: '../../views/toasts/failure_sent_email.html',
+        hideDelay: 3500,
+        position: "top right"
+      });
+    }
   }
 })();
 
