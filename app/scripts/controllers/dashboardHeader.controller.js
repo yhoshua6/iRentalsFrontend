@@ -6,8 +6,8 @@
   angular.module('iRentalsApp')
     .controller('dashboardHeaderCtrl', dashboardHeaderCtrl);
 
-  dashboardHeaderCtrl.$inject = ['$mdSidenav'];
-  function dashboardHeaderCtrl($mdSidenav) {
+  dashboardHeaderCtrl.$inject = ['$mdSidenav', "requestService", "userInfoService"];
+  function dashboardHeaderCtrl($mdSidenav, requestService, userInfoService) {
     var dashHeaderScope = this;
 
     dashHeaderScope.toggleLeft = buildToggler('userProfile');
@@ -16,6 +16,8 @@
     function buildToggler(componentId) {
       return function() { $mdSidenav(componentId).toggle(); }
     }
+
+    //requestService.getLastFiveNotifications(userInfoService.user.authToken);
 
   }
 })();

@@ -63,7 +63,9 @@
     var dashboardBillState = {
       name: "dashboardRoot.bills",
       url: "bills",
-      templateUrl: "/views/dashboard/bills.html"
+      templateUrl: "/views/dashboard/bills.html",
+      controller: "billsCtrl",
+      controllerAs: 'billsCtrl'
     };
 
     var dashboardDocumentState = {
@@ -77,7 +79,9 @@
     var dashboardGatheringState = {
       name: "dashboardRoot.gatherings",
       url: "gatherings",
-      templateUrl: "/views/dashboard/gatherings.html"
+      templateUrl: "/views/dashboard/gatherings.html",
+      controller: "gatheringsCtrl",
+      controllerAs: "gatheringCtrl"
     };
 
     var dashboardReportsState = {

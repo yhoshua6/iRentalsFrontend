@@ -7,19 +7,14 @@
     .controller('docsCtrl', docsCtrl);
 
 
-  docsCtrl.$inject = ['$mdDialog', 'requestService'];
-  function docsCtrl($mdDialog, requestService) {
+  docsCtrl.$inject = ['$mdDialog', 'requestService', "$mdBottomSheet"];
+  function docsCtrl($mdDialog, requestService, $mdBottomSheet) {
     var docsScope = this;
-    docsScope.openMenu = function($mdOpenMenu, ev) {
-      docsScope = ev;
-      $mdOpenMenu(ev);
-    };
-
-    docsScope.notificationsEnabled = true;
-    docsScope.toggleNotifications = function() {
-      docsScope.notificationsEnabled = !docsScope.notificationsEnabled;
-    };
-
+    docsScope.docs = [
+      { fileName: 'SomeFile.pdf', img: '../../images/pdf-icon.ico', uploaded: "21/01/2017" },
+      { fileName: 'someOtherFile.pdf', img: '../../images/pdf-icon.ico', uploaded: "21/01/2017" },
+      { fileName: 'duude.pdf', img: '../../images/pdf-icon.ico', uploaded: "21/01/2017" }
+    ];
 
   }
 })();

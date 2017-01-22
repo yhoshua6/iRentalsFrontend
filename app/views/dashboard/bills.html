@@ -1,1 +1,42 @@
-<h2>BILLS</h2>
+<div layout ng-cloak layout-align="center center">
+  <form name="billForm" flex layout="column">
+    <h2>Facturas</h2>
+    <span>Para: </span>
+    <md-content flex class="md-padding autocomplete" layout="column">
+      <md-contact-chips
+        ng-model="billsCtrl.contacts"
+        md-contacts="billsCtrl.querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="billsCtrl.filterSelected"
+        placeholder="Para:">
+      </md-contact-chips>
+    </md-content>
+    <span>Para la Propiedad: </span>
+    <md-content flex class="md-padding autocomplete" layout="column">
+      <md-contact-chips
+        ng-model="billsCtrl.contacts"
+        md-contacts="billsCtrl.querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="billsCtrl.filterSelected"
+        placeholder="Para:">
+      </md-contact-chips>
+    </md-content>
+    <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+      Checkbox 1: {{ data.cb1 }}
+    </md-checkbox>
+  </form>
+  <div>
+    <md-button>
+      Subir Archivo
+    </md-button>
+  </div>
+</div>
+

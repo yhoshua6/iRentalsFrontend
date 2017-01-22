@@ -12,9 +12,10 @@
     'LOGIN_URL',
     'SEND_COMMENTS_TO_ADMIN',
     "GET_USER_INFO",
-    "GET_USER_ROLE"
+    "GET_USER_ROLE",
+    "GET_FILES_DEPOT"
   ];
-  function requestService ($http, LOGIN_URL, SEND_COMMENTS_TO_ADMIN, GET_USER_INFO, GET_USER_ROLE) {
+  function requestService ($http, LOGIN_URL, SEND_COMMENTS_TO_ADMIN, GET_USER_INFO, GET_USER_ROLE, GET_FILES_DEPOT) {
     var requestScope = this;
 
     requestScope.getLoginPromise = function (userToLogin) {
@@ -53,18 +54,24 @@
     };
 
     requestScope.getUserRolePromise = function (userAuthToken, userRole) {
-      $http({
+      return $http({
         method: "GET",
         url: GET_USER_ROLE + "/" + userRole,
         headers: {
           "Content-Type": "application/json",
           "Authorization": userAuthToken
         }
-      }).then(function (response) {
-          return response.data;
-        },
-        function (error) {
-          return error;
+      });
+    };
+
+    requestScope.getLastFiveNotifications = function (userAuthToken) {
+      return $http({
+        method: "GET",
+        url: GET_FILES_DEPOT,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": userAuthToken
+        }
       });
     };
   }

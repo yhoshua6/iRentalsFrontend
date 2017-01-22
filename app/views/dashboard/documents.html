@@ -1,1 +1,14 @@
-<h3>docs</h3>
+<div layout="column">
+  <md-list flex>
+    <md-subheader >Tus documentos</md-subheader>
+    <md-list-item layout layout-align="spaces-between center" ng-repeat="document in docsCtrl.docs" class="noright">
+      <img flex alt="{{ document.fileName }}" ng-src="{{ document.img }}" class="md-avatar" />
+      <p flex>{{ document.fileName }}</p>
+      <md-checkbox flex class="md-secondary" ng-model="person.selected"></md-checkbox>
+    </md-list-item>
+  </md-list>
+  <md-button class="md-accent md-raised">
+    Descargar
+    <md-icon flex class="material-icons">file_download</md-icon>
+  </md-button>
+</div>

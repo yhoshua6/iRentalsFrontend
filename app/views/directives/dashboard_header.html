@@ -3,13 +3,13 @@
 <![endif]-->
 <!-- Add your site or application content here -->
 <md-nav-bar md-selected-nav-item="currentNavItem" layout layout-align="center center" aria-label="navBar">
-  <md-button ng-click="dashHeader.toggleLeft()">Mi cuenta</md-button>
+  <md-icon class="material-icons" ng-click="dashHeader.toggleLeft()">account_circle</md-icon>
   <md-nav-item md-nav-sref="dashboardRoot.home" name="home">Inicio</md-nav-item>
   <md-nav-item md-nav-sref="dashboardRoot.bills" name="bills">Facturas</md-nav-item>
   <md-nav-item md-nav-sref="dashboardRoot.reports" name="reports">Reportes</md-nav-item>
   <md-nav-item md-nav-sref="dashboardRoot.documents" name="documents">Documentos</md-nav-item>
   <md-nav-item md-nav-sref="dashboardRoot.gatherings" name="gatherings">Asambleas</md-nav-item>
-  <md-button ng-click="dashHeader.toggleRight()">Notificaciones</md-button>
+  <md-icon class="material-icons" ng-click="dashHeader.toggleRight()">notifications</md-icon>
 </md-nav-bar>
 
 <section layout="row" flex>
@@ -20,16 +20,16 @@
     </md-toolbar>
     <md-content layout="column" layout-margin>
       <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Perfiles
+        Mi Perfil
       </md-button>
       <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
         Opciones
       </md-button>
       <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Algo
+        Opciones
       </md-button>
       <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Close this Sidenav
+        Cerrar
       </md-button>
     </md-content>
   </md-sidenav>
@@ -39,11 +39,22 @@
   <md-sidenav class="md-sidenav-right" md-component-id="userNotifications"
               md-disable-backdrop md-whiteframe="4">
     <md-toolbar class="md-theme-indigo">
-      <h1 class="md-toolbar-tools">Notifications</h1>
+      <h1 class="md-toolbar-tools">Notificaciones</h1>
     </md-toolbar>
     <md-content layout="column" layout-margin>
+      <md-list>
+        <md-list-item class="md-3-line">
+          <img ng-src="https://49.media.tumblr.com/9f70ef30edcbf85eb9899ea7cbdc443d/tumblr_nlh7fww8OW1u7y7qno1_1280.gif" class="md-avatar" alt="Aliens">
+          <div class="md-list-item-text">
+            <h3>Abduction Day</h3>
+            <h4>Aliens</h4>
+            <p>Might be at 12:00 p.m</p>
+          </div>
+          <md-divider md-inset></md-divider>
+        </md-list-item>
+      </md-list>
       <md-button ng-click="dashHeader.toggleRight()" class="md-accent">
-        Close this Sidenav
+        Cerrar
       </md-button>
     </md-content>
   </md-sidenav>
