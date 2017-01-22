@@ -8,23 +8,29 @@
     .controller("loginCtrl", loginCtrl);
 
 
-  loginCtrl.$inject = ["$log", "requestService", "toastServices"];
-  function loginCtrl($log, requestService, toastServices) {
+  loginCtrl.$inject = ["$log", "$state", "requestService", "toastServices", "userInfoService"];
+  function loginCtrl($log, $state, requestService, toastServices, userInfoService) {
     var loginScope = this;
-
     loginScope.authenticateUser = function(user, pwd) {
+
       var userToLogin = {
         "user": user,
         "password": pwd
       };
+
       var loginPromise = requestService.getLoginPromise(userToLogin);
+
       loginPromise.then(function (response) {
           toastServices.showSuccessfulLoggedIn();
-        },
-        function (error) {
+          userToLogin.authToken = response.data.authToken;
+          userInfoService.setUserInfo(userToLogin);
+          $state.go('dashboardRoot.home');
+        }).catch(function (error) {
           toastServices.showFailureLoggedIn();
       });
+
     };
+
   }
 
 })();
