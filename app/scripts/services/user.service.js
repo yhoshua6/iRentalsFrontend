@@ -9,15 +9,24 @@
   userInfo.$inject = ["requestService", "$log"];
   function userInfo (requestService, $log) {
     var userScope = this;
+    userScope.userInfo = {};
 
 
     userScope.setUserInfo = function (loggedInUser) {
       var userInfo = requestService.getUserInfoPromise(loggedInUser.authToken);
       userInfo.then(function (response) {
-        userInfo = response;
-        $log.log(response);
+        data = response.data[0];
+        userScope.userInfo = {
+          id: data.userId,
+          userName: data.firstName + " " + data.lastName,
+          user: loggedInUser.user,
+          authToken: loggedInUser.authToken
+        };
+        $log.log(userScope.userInfo);
       }).catch(function (error) {
+
         $log.log(error);
+        userScope.userInfo = null;
       });
     };
   }
