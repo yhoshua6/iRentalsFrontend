@@ -4,11 +4,11 @@
 (function () {
   'use strict';
   angular.module('iRentalsApp')
-    .constant('LOGIN_URL', "http://localhost:3000/login")
-    .constant('PROPERTIES_URL', "http://localhost:3000/properties")
-    .constant('SEND_COMMENTS_TO_ADMIN',"http://localhost:3000/send_comments")
-    .constant('GET_USER_INFO', "http://localhost:3000/api/v1/users_infos")
-    .constant('GET_USER_ROLE', "http://localhost:3000/api/v1/user_roles")
-    .constant('GET_FILES_DEPOT', "http://localhost:3000/api/v1/files_depots");
+    .constant('LOGIN_URL', "https://irentalsapi.herokuapp.com/login")
+    .constant('PROPERTIES_URL', "https://irentalsapi.herokuapp.com/properties")
+    .constant('SEND_COMMENTS_TO_ADMIN',"https://irentalsapi.herokuapp.com/send_comments")
+    .constant('GET_USER_INFO', "https://irentalsapi.herokuapp.com/api/v1/users_infos")
+    .constant('GET_USER_ROLE', "https://irentalsapi.herokuapp.com/api/v1/user_roles")
+    .constant('GET_FILES_DEPOT', "https://irentalsapi.herokuapp.com/api/v1/files_depots");
 
 })();
