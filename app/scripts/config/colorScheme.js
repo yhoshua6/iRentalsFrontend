@@ -10,7 +10,6 @@
   function themeConfig($mdThemingProvider) {
     $mdThemingProvider
       .theme('default')
-      .dark()
       .primaryPalette('blue-grey', {
         'default' : '500'
       })

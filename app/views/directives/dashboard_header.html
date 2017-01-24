@@ -16,18 +16,16 @@
   <md-sidenav class="md-sidenav-left" md-component-id="userProfile"
               md-disable-backdrop md-whiteframe="4">
     <md-toolbar class="md-theme-indigo">
-      <h1 class="md-toolbar-tools">User Name</h1>
+      <h1 class="md-toolbar-tools">Mi Perfil</h1>
     </md-toolbar>
     <md-content layout="column" layout-margin>
-      <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Mi Perfil
-      </md-button>
-      <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Opciones
-      </md-button>
-      <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
-        Opciones
-      </md-button>
+      <md-list layout ng-repeat="info in dashHeader.userInfo">
+        <md-input-container flex>
+          <label>{{info.title}}</label>
+          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
+        </md-input-container>
+        <md-switch flex ng-model="info.enabled" aria-label="enable"> Cambiar</md-switch>
+      </md-list>
       <md-button ng-click="dashHeader.toggleLeft()" class="md-accent">
         Cerrar
       </md-button>

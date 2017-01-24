@@ -8,8 +8,8 @@
     .controller("reportsCtrl", reportsCtrl);
 
 
-  reportsCtrl.$inject = ["$state", "isUserAlive"];
-  function reportsCtrl($state, isUserAlive) {
-    if (!isUserAlive) { $state.go("root.login"); }
+  reportsCtrl.$inject = ["$state", "userInfoService"];
+  function reportsCtrl($state, userInfoService) {
+    //if (!userInfoService.user.length > 0) { $state.go("root.login"); }
   }
 })();

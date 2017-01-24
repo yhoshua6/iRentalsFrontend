@@ -6,9 +6,9 @@
   angular.module('iRentalsApp')
     .controller('dashboardCtrl', dashboardCtrl);
 
-  dashboardCtrl.$inject = ["$log", "$state", "gotUserInfo"];
-  function dashboardCtrl($log, $state, gotUserInfo) {
-    if (!gotUserInfo) { $state.go("root.login"); }
+  dashboardCtrl.$inject = ["$log", "$state", "gotUserInfo", "userInfoService"];
+  function dashboardCtrl($log, $state, gotUserInfo, userInfoService) {
+    //if (!gotUserInfo && !userInfoService.user.length > 0) { $state.go("root.login"); }
     var dashScope = this;
   }
 })();
