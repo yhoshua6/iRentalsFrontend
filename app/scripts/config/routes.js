@@ -46,6 +46,13 @@
       controller: "loginCtrl as loginCtrl"
     };
 
+    var rootForbiddenUser = {
+      name: "root.forbidden",
+      url: "home",
+      templateUrl: "/views/404.html",
+      controller: "MainCtrl as mainCtrl"
+    };
+
     var dashboardRootstate = {
       name: "dashboardRoot",
       abstract: true,
@@ -57,6 +64,28 @@
       name: "dashboardRoot.home",
       url: "dashboard",
       templateUrl: "/views/dashboard/dashboard.html",
+      resolve: {
+        gotUserInfo: ["requestService", "userInfoService", function (requestService, userInfoService) {
+          if (!userInfoService.user) { return false; }
+          var userPromise = requestService.getUserInfoPromise(userInfoService.user.authToken);
+          return userPromise.then(function (response) {
+            var userInfo = response.data[0];
+            userInfoService.user.id = userInfo.id;
+            userInfoService.user.name = userInfo.firstName + userInfo.lastName;
+            userInfoService.user.bankAccount = userInfo.bankAccount;
+            userInfoService.user.bankClabe = userInfo.bankClabe;
+            userInfoService.user.bankName = userInfo.bankName;
+            userInfoService.user.cedula = userInfo.cedula;
+            userInfoService.user.cellPhone = userInfo.cellPhone;
+            userInfoService.user.isPartOfPool = userInfo.isPartOfPool;
+            userInfoService.user.paymentMethod = userInfo.paymentMethod;
+            return true;
+          }).catch(function (error) {
+            return false;
+          });
+
+        }]
+      },
       controller: "dashboardCtrl as dashCtrl"
     };
 
@@ -95,6 +124,7 @@
     $stateProvider.state(rootHomeState);
     $stateProvider.state(rootContactUsState);
     $stateProvider.state(rootLoginState);
+    $stateProvider.state(rootForbiddenUser);
     //logged
     $stateProvider.state(dashboardRootstate);
     $stateProvider.state(dashboardHomestate);
