@@ -6,9 +6,9 @@
   angular.module('iRentalsApp')
     .controller('dashboardCtrl', dashboardCtrl);
 
-  dashboardCtrl.$inject = [];
-  function dashboardCtrl() {
+  dashboardCtrl.$inject = ["$log", "gotUserInfo"];
+  function dashboardCtrl($log, gotUserInfo) {
     var dashScope = this;
-
+    $log.log("--------------", gotUserInfo);
   }
 })();

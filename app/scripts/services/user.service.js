@@ -13,21 +13,8 @@
 
 
     userScope.setUserInfo = function (loggedInUser) {
-      var userInfo = requestService.getUserInfoPromise(loggedInUser.authToken);
-      userInfo.then(function (response) {
-        data = response.data[0];
-        userScope.userInfo = {
-          id: data.userId,
-          userName: data.firstName + " " + data.lastName,
-          user: loggedInUser.user,
-          authToken: loggedInUser.authToken
-        };
-        $log.log(userScope.userInfo);
-      }).catch(function (error) {
 
-        $log.log(error);
-        userScope.userInfo = null;
-      });
+      $log.log(loggedInUser);
     };
   }
 })();
