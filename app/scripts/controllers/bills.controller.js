@@ -7,8 +7,9 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$scope", "$q", "$timeout"];
-  function billsCtrl($scope, $q, $timeout) {
+  billsCtrl.$inject = ["$log", "$q", "$state", "isUserAlive"];
+  function billsCtrl($log, $q, $state, isUserAlive) {
+    if (!isUserAlive) { $state.go("root.login"); }
     var billScope = this;
   }
 })();

@@ -7,8 +7,9 @@
     .controller('docsCtrl', docsCtrl);
 
 
-  docsCtrl.$inject = ['$mdDialog', 'requestService', "$mdBottomSheet"];
-  function docsCtrl($mdDialog, requestService, $mdBottomSheet) {
+  docsCtrl.$inject = ["$state", "isUserAlive"];
+  function docsCtrl($state, isUserAlive) {
+    if (!isUserAlive) { $state.go("root.login"); }
     var docsScope = this;
     docsScope.docs = [
       { fileName: 'SomeFile.pdf', img: '../../images/pdf-icon.ico', uploaded: "21/01/2017" },

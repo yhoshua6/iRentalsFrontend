@@ -9,7 +9,7 @@
   userInfo.$inject = ["requestService", "$log"];
   function userInfo (requestService, $log) {
     var userScope = this;
-    userScope.userInfo = {};
+    userScope.user = {};
 
 
     userScope.setUserInfo = function (loggedInUser) {

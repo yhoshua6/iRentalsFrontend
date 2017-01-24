@@ -7,8 +7,9 @@
     .controller('gatheringsCtrl', gatheringsCtrl);
 
 
-  gatheringsCtrl.$inject = ['$mdDialog', 'requestService', "$mdBottomSheet"];
-  function gatheringsCtrl($mdDialog, requestService, $mdBottomSheet) {
+  gatheringsCtrl.$inject = ["isUserAlive", "$state"];
+  function gatheringsCtrl(isUserAlive, $state) {
+    if (!isUserAlive) { $state.go("root.login"); }
     var gatheringsCtrl = this;
     gatheringsCtrl.docs = [
       { fileName: 'SomeFile.pdf', img: '../../images/pdf-icon.ico', uploaded: "21/01/2017" },

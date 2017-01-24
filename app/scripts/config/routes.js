@@ -48,25 +48,25 @@
 
     var rootForbiddenUser = {
       name: "root.forbidden",
-      url: "home",
-      templateUrl: "/views/404.html",
+      url: "forbidden",
+      templateUrl: "views/404.html",
       controller: "MainCtrl as mainCtrl"
     };
 
     var dashboardRootstate = {
       name: "dashboardRoot",
       abstract: true,
-      url: "/",
+      url: "/dashboard",
       templateUrl: "/views/templates/dashboard_template.html"
     };
 
     var dashboardHomestate = {
       name: "dashboardRoot.home",
-      url: "dashboard",
+      url: "/home",
       templateUrl: "/views/dashboard/dashboard.html",
       resolve: {
-        gotUserInfo: ["requestService", "userInfoService", function (requestService, userInfoService) {
-          if (!userInfoService.user) { return false; }
+        gotUserInfo: ["$state", "requestService", "userInfoService", function ($state, requestService, userInfoService) {
+          if (!userInfoService.user.authToken) { return false; }
           var userPromise = requestService.getUserInfoPromise(userInfoService.user.authToken);
           return userPromise.then(function (response) {
             var userInfo = response.data[0];
@@ -91,32 +91,54 @@
 
     var dashboardBillState = {
       name: "dashboardRoot.bills",
-      url: "bills",
+      url: "/bills",
       templateUrl: "/views/dashboard/bills.html",
+      resolve: {
+        isUserAlive: ["userInfoService", function (userInfoService) {
+          return userInfoService.user.length > 0;
+        }]
+      },
       controller: "billsCtrl",
       controllerAs: 'billsCtrl'
     };
 
     var dashboardDocumentState = {
       name: "dashboardRoot.documents",
-      url: "documents",
+      url: "/documents",
       templateUrl: "/views/dashboard/documents.html",
+      resolve: {
+        isUserAlive: ["userInfoService", function (userInfoService) {
+          return userInfoService.user.length > 0;
+        }]
+      },
       controller: "docsCtrl",
       controllerAs: "docsCtrl"
     };
 
     var dashboardGatheringState = {
       name: "dashboardRoot.gatherings",
-      url: "gatherings",
+      url: "/gatherings",
       templateUrl: "/views/dashboard/gatherings.html",
+      resolve: {
+        isUserAlive: ["userInfoService", function (userInfoService) {
+          return userInfoService.user.length > 0;
+        }]
+      },
       controller: "gatheringsCtrl",
       controllerAs: "gatheringCtrl"
     };
 
     var dashboardReportsState = {
       name: "dashboardRoot.reports",
-      url: "reports",
-      templateUrl: "/views/dashboard/reports.html"
+      url: "/reports",
+      templateUrl: "/views/dashboard/reports.html",
+      resolve: {
+        isUserAlive: ["userInfoService", function (userInfoService) {
+          return userInfoService.user.length > 0;
+        }]
+      },
+      controller: "reportsCtrl",
+      controllerAs: "reportsCtrl"
     };
 
     //Not logged
