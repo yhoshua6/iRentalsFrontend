@@ -25,19 +25,12 @@
       templateUrl: "/views/templates/home_template.html"
     };
 
-    var rootHomeState = {
-      name: "root.home",
-      url: "home",
-      templateUrl: "/views/home/main.html",
-      controller: "MainCtrl as mainCtrl"
-    };
-
-    var rootContactUsState = {
+    /*var rootContactUsState = {
       name: "root.contactUs",
       url: "contact",
       templateUrl: "/views/home/contact_us.html",
       controller: "ContactUsCtrl as contactCtrl"
-    };
+    };*/
 
     var rootLoginState = {
       name: "root.login",
@@ -49,43 +42,57 @@
     var rootForbiddenUser = {
       name: "root.forbidden",
       url: "forbidden",
-      templateUrl: "views/404.html",
-      controller: "MainCtrl as mainCtrl"
+      templateUrl: "views/404.html"
     };
 
     var dashboardRootstate = {
       name: "dashboardRoot",
       abstract: true,
       url: "/dashboard",
-      templateUrl: "/views/templates/dashboard_template.html"
+      templateUrl: "/views/templates/dashboard_template.html",
+      resolve: {
+        gotUserInfo: [
+          "$log",
+          "INFO_USER_ENDPOINT",
+          "requestService",
+          "userInfoService",
+          "USER_ROLE_ENDPOINT",
+          function ($log, INFO_USER_ENDPOINT, requestService, userInfoService, USER_ROLE_ENDPOINT) {
+            if (!userInfoService.user.authToken) { return false; }
+            var INFO_USER = INFO_USER_ENDPOINT + "/" + userInfoService.user.infoId;
+            var userPromise = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
+            return userPromise.then(function (response) {
+              var userInfo = response.data;
+              userInfoService.user.id = userInfo.user_id;
+              userInfoService.user.name = userInfo.first_name + " " + userInfo.last_name;
+              userInfoService.user.bankAccount = userInfo.bank_account;
+              userInfoService.user.bankClabe = userInfo.bank_clabe;
+              userInfoService.user.bankName = userInfo.bank_name;
+              userInfoService.user.cedula = userInfo.cedula;
+              userInfoService.user.cellPhone = userInfo.cell_phone;
+              userInfoService.user.isPartOfPool = userInfo.is_part_of_pool;
+              userInfoService.user.paymentMethod = userInfo.payment_method;
+              var ROLE_ENDPOINT = USER_ROLE_ENDPOINT + "/" + userInfoService.user.roleId;
+              var rolePromise = requestService.getPromise("GET", ROLE_ENDPOINT, null, userInfoService.user.authToken);
+              rolePromise.then(function (response) {
+                userInfoService.user.role = response.data.role;
+                return true;
+              }).catch(function (error) {
+                return false;
+              });
+              return true;
+            }).catch(function (error) {
+              return false;
+            });
+          }
+        ]
+      }
     };
 
     var dashboardHomestate = {
       name: "dashboardRoot.home",
       url: "/home",
       templateUrl: "/views/dashboard/dashboard.html",
-      resolve: {
-        gotUserInfo: ["$state", "requestService", "userInfoService", function ($state, requestService, userInfoService) {
-          if (!userInfoService.user.authToken) { return false; }
-          var userPromise = requestService.getUserInfoPromise(userInfoService.user.authToken);
-          return userPromise.then(function (response) {
-            var userInfo = response.data[0];
-            userInfoService.user.id = userInfo.id;
-            userInfoService.user.name = userInfo.firstName + userInfo.lastName;
-            userInfoService.user.bankAccount = userInfo.bankAccount;
-            userInfoService.user.bankClabe = userInfo.bankClabe;
-            userInfoService.user.bankName = userInfo.bankName;
-            userInfoService.user.cedula = userInfo.cedula;
-            userInfoService.user.cellPhone = userInfo.cellPhone;
-            userInfoService.user.isPartOfPool = userInfo.isPartOfPool;
-            userInfoService.user.paymentMethod = userInfo.paymentMethod;
-            return true;
-          }).catch(function (error) {
-            return false;
-          });
-
-        }]
-      },
       controller: "dashboardCtrl as dashCtrl"
     };
 
@@ -143,8 +150,6 @@
 
     //Not logged
     $stateProvider.state(rootState);
-    $stateProvider.state(rootHomeState);
-    $stateProvider.state(rootContactUsState);
     $stateProvider.state(rootLoginState);
     $stateProvider.state(rootForbiddenUser);
     //logged
@@ -154,6 +159,6 @@
     $stateProvider.state(dashboardDocumentState);
     $stateProvider.state(dashboardGatheringState);
     $stateProvider.state(dashboardReportsState);
-    $urlRouterProvider.otherwise("/home");
+    $urlRouterProvider.otherwise("/login");
   }
 })();

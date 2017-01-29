@@ -7,83 +7,33 @@
   angular.module('iRentalsApp')
     .service('requestService', requestService);
 
-  requestService.$inject = [
-    '$q',
-    '$http',
-    'LOGIN_URL',
-    'SEND_COMMENTS_TO_ADMIN',
-    "GET_USER_INFO",
-    "GET_USER_ROLE",
-    "GET_FILES_DEPOT"
-  ];
-  function requestService ($q, $http, LOGIN_URL, SEND_COMMENTS_TO_ADMIN, GET_USER_INFO, GET_USER_ROLE, GET_FILES_DEPOT) {
+  requestService.$inject = ['$q', '$http'];
+  function requestService ($q, $http) {
     var requestScope = this;
 
-    requestScope.getLoginPromise = function (userToLogin) {
-      var userData = angular.toJson(userToLogin);
-      var httpPromise = $http({
-        method: "POST",
-        url: LOGIN_URL,
-        data: userData,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+    requestScope.getPromise = function (requestType, endpoint, formattedData, userAuthToken) {
 
-      return promiseCreator(httpPromise);
-    };
+      var requestInfo = {
+        method: requestType,
+        url: endpoint
+      };
 
-    requestScope.getCommentPromise = function (user) {
-      var userData = angular.toJson(user);
-      var httpPromise = $http({
-        method: "POST",
-        url: SEND_COMMENTS_TO_ADMIN,
-        data: userData,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      if (formattedData) {
+        requestInfo.data = formattedData;
+      }
 
-      return promiseCreator(httpPromise);
-    };
-
-    requestScope.getUserInfoPromise = function (userAuthToken) {
-      var httpPromise = $http({
-        method: "GET",
-        url: GET_USER_INFO,
-        headers: {
+      if (userAuthToken) {
+        requestInfo.headers = {
           "Content-Type": "application/json",
           "Authorization": userAuthToken
         }
-      });
+      }
 
-      return promiseCreator(httpPromise);
+      return promiseCreator(getRequest(requestInfo));
     };
 
-    requestScope.getUserRolePromise = function (userAuthToken, userRole) {
-      var httpPromise = $http({
-        method: "GET",
-        url: GET_USER_ROLE + "/" + userRole,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": userAuthToken
-        }
-      });
-
-      return promiseCreator(httpPromise);
-    };
-
-    requestScope.getLastFiveNotifications = function (userAuthToken) {
-      var httpPromise = $http({
-        method: "GET",
-        url: GET_FILES_DEPOT,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": userAuthToken
-        }
-      });
-
-      return promiseCreator(httpPromise);
+    requestScope.formatData = function (rawData) {
+      return angular.toJson(rawData);
     };
 
     function promiseCreator (httpPromise) {
@@ -96,5 +46,10 @@
 
       return defer.promise;
     }
+
+    function getRequest(httpInfo) {
+      return $http(httpInfo);
+    }
+
   }
 })();

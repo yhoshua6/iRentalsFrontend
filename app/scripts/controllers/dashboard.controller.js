@@ -10,5 +10,6 @@
   function dashboardCtrl($log, $state, gotUserInfo, userInfoService) {
     //if (!gotUserInfo && !userInfoService.user.length > 0) { $state.go("root.login"); }
     var dashScope = this;
+    dashScope.userName = userInfoService.user.name;
   }
 })();

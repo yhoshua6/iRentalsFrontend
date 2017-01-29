@@ -1,6 +1,6 @@
 <div layout>
-  <img class="center" width="500" height="350" ng-src="../../images/chroma_logo.png" flex flex-offset="5">
-  <form name="loginForm" layout="column" flex flex-offset="5">
+  <img class="center" width="500" height="550" ng-src="../../images/chroma_logo.png" flex flex-offset="5">
+  <form name="loginForm" layout="column" layout-align="space-around" flex flex-offset="5">
     <h2>Inicia Sesión!</h2>
     <md-input-container flex>
       <label>User:</label>
@@ -19,8 +19,9 @@
         <div ng-message="required">¡También ocupamos tu contraseña!</div>
       </div>
     </md-input-container>
+    <md-progress-circular flex ng-show="loginCtrl.sending" md-mode="indeterminate"></md-progress-circular>
     <md-button
-      ng-hide="loginForm.$invalid"
+      ng-hide="loginForm.$invalid || loginCtrl.sending"
       ng-click="loginCtrl.authenticateUser(loginCtrl.user, loginCtrl.userPwd)"
       class="md-accent md-raised"
     >

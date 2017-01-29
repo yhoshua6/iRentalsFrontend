@@ -2,17 +2,17 @@
  * Created by jose- on 16/01/2017.
  */
 (function () {
-  'use strict';
-  angular.module('iRentalsApp')
-    .service('toastServices', toastServices);
+  "use strict";
+  angular.module("iRentalsApp")
+    .service("toastServices", toastServices);
 
-  toastServices.$inject = ['$mdToast'];
+  toastServices.$inject = ["$mdToast"];
   function toastServices($mdToast) {
     var toastScope = this;
 
     toastScope.showSuccessfulLoggedIn = function() {
       $mdToast.show({
-        templateUrl: '../../views/toasts/login_success.html',
+        templateUrl: "../../views/toasts/login_success.html",
         hideDelay: 3500,
         position: "top right"
       });
@@ -20,7 +20,7 @@
 
     toastScope.showFailureLoggedIn = function () {
       $mdToast.show({
-        templateUrl: '../../views/toasts/login_failure.html',
+        templateUrl: "../../views/toasts/login_failure.html",
         hideDelay: 3500,
         position: "top right"
       });
@@ -28,7 +28,7 @@
 
     toastScope.showSuccessfulSentEmail = function () {
       $mdToast.show({
-        templateUrl: '../../views/toasts/successful_sent_email.html',
+        templateUrl: "../../views/toasts/successful_sent_email.html",
         hideDelay: 3500,
         position: "top right"
       });
@@ -36,7 +36,7 @@
 
     toastScope.showFailureSentEmail = function () {
       $mdToast.show({
-        templateUrl: '../../views/toasts/failure_sent_email.html',
+        templateUrl: "../../views/toasts/failure_sent_email.html",
         hideDelay: 3500,
         position: "top right"
       });
@@ -62,7 +62,7 @@
  function(pos) {
  return toastScope.toastPosition[pos];
  }
- ).join(' ');
+ ).join(" ");
  };
 
  function sanitizePosition() {
