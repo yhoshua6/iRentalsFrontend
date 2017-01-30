@@ -10,7 +10,7 @@
   function headerDirective() {
     return {
       restrict: 'E',
-      templateUrl: '../../views/directives/home_header.html'
+      templateUrl: '../../views/directives/login_header.html'
     }
   }
 })();

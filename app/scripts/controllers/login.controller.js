@@ -28,7 +28,7 @@
               roleId: response.data.role_id
             };
             toastServices.showSuccessfulLoggedIn();
-            $state.go('dashboardRoot.home');
+            $state.go('adminRoot.home');
           } else {
             toastServices.showFailureLoggedIn();
           }

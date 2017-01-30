@@ -10,7 +10,7 @@
   function headerDirective() {
     return {
       restrict: 'E',
-      templateUrl: '../../views/directives/home_footer.html'//,
+      templateUrl: '../../views/directives/login_footer.html'//,
       //controller: '',
       //controllerAs: ''
     }

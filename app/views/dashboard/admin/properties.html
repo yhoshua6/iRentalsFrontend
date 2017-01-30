@@ -1,0 +1,42 @@
+<div layout="column">
+  <div flex layout>
+    <h2 flex>Administra tus propiedades</h2>
+    <md-button class="md-accent md-raised">
+      Crear una nueva propiedad
+      <md-icon flex class="material-icons">add_circle</md-icon>
+    </md-button>
+  </div>
+  <md-list flex ng-repeat="property in propertiesCtrl.properties">
+    <md-list-item layout layout-align="spaces-between center" class="noright" ng-click="property.doNothing()">
+      <md-input-container flex aria-label="propertyType">
+        <label>Tipo:</label>
+        <input type="text" ng-model="property.type">
+      </md-input-container>
+      <md-input-container flex aria-label="propertyDescription">
+        <label>Descripción:</label>
+        <input type="text" ng-model="property.description">
+      </md-input-container>
+      <md-input-container flex aria-label="propertySurfaceTotal">
+        <label>Area total m2:</label>
+        <input type="number" ng-model="property.surfaceTotal">
+      </md-input-container>
+      <md-input-container flex aria-label="propertySurfaceIn">
+        <label>Area interna m2:</label>
+        <input type="number" ng-model="property.surfaceIn">
+      </md-input-container>
+      <md-input-container flex aria-label="propertySurfaceOut">
+        <label>Area externa m2:</label>
+        <input type="number" ng-model="property.surfaceOut">
+      </md-input-container>
+      <!--<md-input-container flex aria-label="propertyStatus">
+        <label>Estado:</label>
+        <md-switch ng-model="property.active" aria-label="activeStatus"></md-switch>
+      </md-input-container>-->
+      <md-icon ng-click="propertiesCtrl.deleteGroup(property.id)" class="material-icons">delete_forever</md-icon>
+    </md-list-item>
+  </md-list>
+  <md-button class="md-accent md-raised">
+    Guardar Cambios
+    <md-icon flex class="material-icons">file_upload</md-icon>
+  </md-button>
+</div>

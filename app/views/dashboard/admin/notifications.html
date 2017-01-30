@@ -1,0 +1,31 @@
+<div layout="column">
+  <div flex layout>
+    <h2 flex>Administra tus notificaciones</h2>
+    <md-button class="md-accent md-raised">
+      Nueva notificación
+      <md-icon flex class="material-icons">file_upload</md-icon>
+    </md-button>
+  </div>
+  <md-list flex>
+    <md-subheader >Notificaciones:</md-subheader>
+    <md-list-item layout layout-align="spaces-between center" ng-repeat="notification in notificationsCtrl.notifications" class="noright">
+      <md-input-container flex aria-label="notificationTitle">
+        <label>Título:</label>
+        <input type="text" ng-model="notification.title">
+      </md-input-container>
+      <md-input-container flex aria-label="notificationsUser">
+        <label>Para el usuario:</label>
+        <input type="text" ng-model="notification.toUser">
+      </md-input-container>
+      <md-input-container flex aria-label="notificationsMessage">
+        <label>Mensaje:</label>
+        <input type="text" ng-model="notification.message">
+      </md-input-container>
+      <md-icon ng-click="notificationsCtrl.deleteNotifications(group.id)" class="material-icons">delete_forever</md-icon>
+    </md-list-item>
+  </md-list>
+  <md-button class="md-accent md-raised">
+    Guardar Cambios
+    <md-icon flex class="material-icons">file_upload</md-icon>
+  </md-button>
+</div>

@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" type="text/css" href="/bower_components/angular-jk-carousel/dist/jk-carousel.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="iRentalsApp">
 
-  <ui-view></ui-view>
+    <ui-view layout="column"></ui-view>
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -29,42 +29,32 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/angular-jk-carousel/dist/jk-carousel.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
-    <!-- endbuild --> <!-- custom libs -->
+    <!-- endbuild -->
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
-  <!-- endCustom -->
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/modules.js"></script>
     <script src="scripts/config/routes.js"></script>
     <script src="scripts/config/constants.js"></script>
     <script src="scripts/config/colorScheme.js"></script>
     <!-- Controllers -->
-    <script src="scripts/controllers/contactUs.controller.js"></script>
     <script src="scripts/controllers/login.controller.js"></script>
-    <script src="scripts/controllers/dashboard.controller.js"></script>
-    <script src="scripts/controllers/dashboardHeader.controller.js"></script>
-    <script src="scripts/controllers/documents.controller.js"></script>
-    <script src="scripts/controllers/bills.controller.js"></script>
-    <script src="scripts/controllers/gatherings.controller.js"></script>
-    <script src="scripts/controllers/reports.controller.js"></script>
+    <script src="scripts/controllers/dashboard/admin/groups.controller.js"></script>
+    <script src="scripts/controllers/dashboard/admin/properties.controller.js"></script>
+    <script src="scripts/controllers/dashboard/admin/notifications.controller.js"></script>
     <!-- endControllers -->
     <!-- Directives -->
-    <script src="scripts/directives/homeHeader.directive.js"></script>
-    <script src="scripts/directives/homeFooter.directive.js"></script>
-    <script src="scripts/directives/dashboardHeader.directive.js"></script>
+    <script src="scripts/directives/loginHeader.directive.js"></script>
+    <script src="scripts/directives/loginFooter.directive.js"></script>
+    <script src="scripts/directives/footer.directive.js"></script>
+    <script src="scripts/directives/adminHeader.directive.js"></script>
+    <script src="scripts/controllers/dashboard/admin/directives/adminHeader.controller.js"></script>
     <!-- endDirectives -->
     <!-- Services -->
     <script src="scripts/services/request.service.js"></script>
     <script src="scripts/services/toast.service.js"></script>
     <script src="scripts/services/user.service.js"></script>
     <!-- endServices -->
-    <!-- endbuild -->
-    <!-- Compiled and minified CSS -->
-
-    <!-- Compiled and minified JavaScript -->
-  </body>
+</body>
 </html>

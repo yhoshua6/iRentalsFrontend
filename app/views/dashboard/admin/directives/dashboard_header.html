@@ -1,0 +1,33 @@
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- Add your site or application content here -->
+<md-nav-bar md-selected-nav-item="currentNavItem" layout layout-align="center center" aria-label="navBar">
+  <md-icon class="material-icons" ng-click="adminCtrl.toggleLeft()">account_circle</md-icon>
+  <md-nav-item md-nav-sref="adminRoot.home" name="home">Inicio</md-nav-item>
+  <md-nav-item md-nav-sref="adminRoot.groups" name="adminGroups">Grupos</md-nav-item>
+  <md-nav-item md-nav-sref="adminRoot.properties" name="adminProperties">Propiedades</md-nav-item>
+  <md-nav-item md-nav-sref="adminRoot.users" name="adminUsers">Usuarios</md-nav-item>
+  <md-nav-item md-nav-sref="adminRoot.users" name="adminUsers">Ramas</md-nav-item>
+  <md-nav-item md-nav-sref="adminRoot.notifications" name="adminNotifications">Notificaciones</md-nav-item>
+</md-nav-bar>
+
+<section layout="row" flex>
+  <md-sidenav class="md-sidenav-left" md-component-id="userProfile"
+              md-disable-backdrop md-whiteframe="4">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Mi Perfil</h1>
+    </md-toolbar>
+    <md-content layout="column">
+      <md-list layout ng-repeat="info in adminCtrl.userInfo">
+        <md-input-container flex>
+          <label>{{info.title}}</label>
+          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
+        </md-input-container>
+      </md-list>
+      <md-button ng-click="adminCtrl.toggleLeft()" class="md-accent">
+        Cerrar
+      </md-button>
+    </md-content>
+  </md-sidenav>
+</section>

@@ -1,0 +1,27 @@
+<div layout="column">
+  <div flex layout>
+    <h2 flex>Administra tus grupos</h2>
+    <md-button class="md-accent md-raised">
+      Crear un nuevo grupo
+      <md-icon flex class="material-icons">file_upload</md-icon>
+    </md-button>
+  </div>
+  <md-list flex>
+    <md-subheader >Grupos:</md-subheader>
+    <md-list-item layout layout-align="spaces-between center" ng-repeat="group in groupsCtrl.groups" class="noright">
+      <md-input-container flex aria-label="groupName">
+        <label>Nombre del grupo:</label>
+        <input type="text" ng-model="group.name">
+      </md-input-container>
+      <md-input-container flex aria-label="groupUrl">
+        <label>Url del grupo:</label>
+        <input type="text" ng-model="group.url">
+      </md-input-container>
+      <md-icon ng-click="groupsCtrl.deleteGroup(group.id)" class="material-icons">delete_forever</md-icon>
+    </md-list-item>
+  </md-list>
+  <md-button class="md-accent md-raised">
+    Guardar Cambios
+    <md-icon flex class="material-icons">file_upload</md-icon>
+  </md-button>
+</div>
