@@ -14,11 +14,11 @@
   </div>
   <!-- exact table from live demo -->
   <md-table-container flex>
-    <table md-table md-row-select multiple ng-model="groupsCtrl.selected" md-progress="groupsCtrl.getDesserts">
-      <thead md-head md-order="groupsCtrl.query.order" md-on-reorder="groupsCtrl.getDesserts">
+    <table md-table md-row-select multiple ng-model="groupsCtrl.selected">
+      <thead md-head md-order="groupsCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="nameToLower"><span>ID del Grupo</span></th>
-        <th md-column md-numeric md-order-by="calories.value"><span>Nombre</span></th>
+        <th md-column md-numeric><span>Nombre</span></th>
         <th md-column md-numeric>URL del Grupo</th>
       </tr>
       </thead>

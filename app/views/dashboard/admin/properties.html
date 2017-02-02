@@ -1,42 +1,43 @@
 <div layout="column">
-  <div flex layout>
-    <h2 flex>Administra tus propiedades</h2>
+  <md-toolbar flex class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Administra las propiedades</span>
+    </div>
+  </md-toolbar>
+  <div flex layout-align="end center">
     <md-button class="md-accent md-raised">
-      Crear una nueva propiedad
-      <md-icon flex class="material-icons">add_circle</md-icon>
+      <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+    </md-button>
+    <md-button class="md-warn md-raised">
+      <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
     </md-button>
   </div>
-  <md-list flex ng-repeat="property in propertiesCtrl.properties">
-    <md-list-item layout layout-align="spaces-between center" class="noright" ng-click="property.doNothing()">
-      <md-input-container flex aria-label="propertyType">
-        <label>Tipo:</label>
-        <input type="text" ng-model="property.type">
-      </md-input-container>
-      <md-input-container flex aria-label="propertyDescription">
-        <label>Descripción:</label>
-        <input type="text" ng-model="property.description">
-      </md-input-container>
-      <md-input-container flex aria-label="propertySurfaceTotal">
-        <label>Area total m2:</label>
-        <input type="number" ng-model="property.surfaceTotal">
-      </md-input-container>
-      <md-input-container flex aria-label="propertySurfaceIn">
-        <label>Area interna m2:</label>
-        <input type="number" ng-model="property.surfaceIn">
-      </md-input-container>
-      <md-input-container flex aria-label="propertySurfaceOut">
-        <label>Area externa m2:</label>
-        <input type="number" ng-model="property.surfaceOut">
-      </md-input-container>
-      <!--<md-input-container flex aria-label="propertyStatus">
-        <label>Estado:</label>
-        <md-switch ng-model="property.active" aria-label="activeStatus"></md-switch>
-      </md-input-container>-->
-      <md-icon ng-click="propertiesCtrl.deleteGroup(property.id)" class="material-icons">delete_forever</md-icon>
-    </md-list-item>
-  </md-list>
-  <md-button class="md-accent md-raised">
-    Guardar Cambios
-    <md-icon flex class="material-icons">file_upload</md-icon>
-  </md-button>
+  <!-- exact table from live demo -->
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="propertiesCtrl.selected">
+      <thead md-head md-order="propertiesCtrl.query.order" md-on-reorder="propertiesCtrl.getDesserts">
+      <tr md-row>
+        <th md-column md-order-by="nameToLower"><span>ID</span></th>
+        <th md-column md-numeric md-order-by="groupsScope.query.order"><span>Tipo</span></th>
+        <th md-column md-numeric>Descripción</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="property" md-select-id="property.id" md-auto-select ng-repeat="property in propertiesCtrl.properties | orderBy: groupsScope.query.order | limitTo: propertiesCtrl.query.limit: (propertiesCtrl.query.page - 1) * propertiesCtrl.query.limit">
+        <td md-cell>{{property.id}}</td>
+        <td md-cell >{{property.type}}</td>
+        <td md-cell ng-click="propertiesCtrl.editDescription($event, property)">{{property.description}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="propertiesCtrl.query.limit"
+    md-page="propertiesCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{propertiesCtrl.properties.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
 </div>
