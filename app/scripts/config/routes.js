@@ -36,7 +36,44 @@
       name: "adminRoot",
       abstract: true,
       url: "/admin/dashboard/",
-      templateUrl: "/views/templates/dashboard_admin_template.html"
+      templateUrl: "/views/templates/dashboard_admin_template.html",
+      resolve: {
+        gotUserInfo: [
+          "$log",
+          "INFO_USER_ENDPOINT",
+          "requestService",
+          "userInfoService",
+          "USER_ROLE_ENDPOINT",
+          function ($log, INFO_USER_ENDPOINT, requestService, userInfoService, USER_ROLE_ENDPOINT) {
+            if (!userInfoService.user.authToken) { return false; }
+            var INFO_USER = INFO_USER_ENDPOINT + "/" + userInfoService.user.infoId;
+            var userPromise = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
+            return userPromise.then(function (response) {
+              var userInfo = response.data;
+              userInfoService.user.id = userInfo.user_id;
+              userInfoService.user.name = userInfo.first_name + " " + userInfo.last_name;
+              userInfoService.user.bankAccount = userInfo.bank_account;
+              userInfoService.user.bankClabe = userInfo.bank_clabe;
+              userInfoService.user.bankName = userInfo.bank_name;
+              userInfoService.user.cedula = userInfo.cedula;
+              userInfoService.user.cellPhone = userInfo.cell_phone;
+              userInfoService.user.isPartOfPool = userInfo.is_part_of_pool;
+              userInfoService.user.paymentMethod = userInfo.payment_method;
+              var ROLE_ENDPOINT = USER_ROLE_ENDPOINT + "/" + userInfoService.user.roleId;
+              var rolePromise = requestService.getPromise("GET", ROLE_ENDPOINT, null, userInfoService.user.authToken);
+              rolePromise.then(function (response) {
+                userInfoService.user.role = response.data.role;
+                return true;
+              }).catch(function (error) {
+                return false;
+              });
+              return true;
+            }).catch(function (error) {
+              return false;
+            });
+          }
+        ]
+      }
     };
 
     var adminHomeState = {

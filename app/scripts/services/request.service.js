@@ -2,12 +2,12 @@
  * Created by jose- on 16/01/2017.
  */
 (function () {
-  'use strict';
+  "use strict";
 
-  angular.module('iRentalsApp')
-    .service('requestService', requestService);
+  angular.module("iRentalsApp")
+    .service("requestService", requestService);
 
-  requestService.$inject = ['$q', '$http'];
+  requestService.$inject = ["$q", "$http"];
   function requestService ($q, $http) {
     var requestScope = this;
 

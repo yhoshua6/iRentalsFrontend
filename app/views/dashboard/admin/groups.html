@@ -1,27 +1,43 @@
 <div layout="column">
-  <div flex layout>
-    <h2 flex>Administra tus grupos</h2>
+  <md-toolbar flex class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Administra tus grupos</span>
+    </div>
+  </md-toolbar>
+  <div flex layout-align="end center">
     <md-button class="md-accent md-raised">
-      Crear un nuevo grupo
-      <md-icon flex class="material-icons">file_upload</md-icon>
+      <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+    </md-button>
+    <md-button class="md-warn md-raised" ng-click="groupsCtrl.deleteGroups()">
+      <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
     </md-button>
   </div>
-  <md-list flex>
-    <md-subheader >Grupos:</md-subheader>
-    <md-list-item layout layout-align="spaces-between center" ng-repeat="group in groupsCtrl.groups" class="noright">
-      <md-input-container flex aria-label="groupName">
-        <label>Nombre del grupo:</label>
-        <input type="text" ng-model="group.name">
-      </md-input-container>
-      <md-input-container flex aria-label="groupUrl">
-        <label>Url del grupo:</label>
-        <input type="text" ng-model="group.url">
-      </md-input-container>
-      <md-icon ng-click="groupsCtrl.deleteGroup(group.id)" class="material-icons">delete_forever</md-icon>
-    </md-list-item>
-  </md-list>
-  <md-button class="md-accent md-raised">
-    Guardar Cambios
-    <md-icon flex class="material-icons">file_upload</md-icon>
-  </md-button>
+  <!-- exact table from live demo -->
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="groupsCtrl.selected" md-progress="groupsCtrl.getDesserts">
+      <thead md-head md-order="groupsCtrl.query.order" md-on-reorder="groupsCtrl.getDesserts">
+      <tr md-row>
+        <th md-column md-order-by="nameToLower"><span>ID del Grupo</span></th>
+        <th md-column md-numeric md-order-by="calories.value"><span>Nombre</span></th>
+        <th md-column md-numeric>URL del Grupo</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="group" md-select-id="group.id" md-auto-select ng-repeat="group in groupsCtrl.groups | orderBy: groupsScope.query.order | limitTo: groupsCtrl.query.limit: (groupsCtrl.query.page - 1) * groupsCtrl.query.limit">
+        <td md-cell>{{group.id}}</td>
+        <td md-cell ng-click="groupsCtrl.editGroupName($event, group)">{{group.group_name}}</td>
+        <td md-cell ng-click="groupsCtrl.editGroupUrl($event, group)">{{group.group_url}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="groupsCtrl.query.limit"
+    md-page="groupsCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{groupsCtrl.groups.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
 </div>

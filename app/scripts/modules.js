@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+  "use strict";
 
   /**
    * @ngdoc overview
@@ -10,15 +10,16 @@
    * Main module of the application.
    */
   angular
-    .module('iRentalsApp', [
-      'ngAnimate',
-      'ngAria',
-      'ngCookies',
-      'ngMessages',
-      'ngResource',
-      'ngSanitize',
-      'ui.router',
-      'ngMaterial'
+    .module("iRentalsApp", [
+      "ngAnimate",
+      "ngAria",
+      "ngCookies",
+      "ngMessages",
+      "ngResource",
+      "ngSanitize",
+      "ui.router",
+      "ngMaterial",
+      "md.data.table"
     ]);
 
 })();
