@@ -22,11 +22,14 @@
       loginPromise.then(function (response) {
           loginScope.sending = !loginScope.sending;
           if (response.data) {
+            $log.log(response.data);
             userInfoService.user = {
               authToken: response.data.authToken,
               infoId: response.data.info_id,
-              roleId: response.data.role_id
+              roleId: response.data.role_id,
+              groupRoleId: response.data.group_role_id
             };
+            $log.log(userInfoService.user);
             toastServices.showSuccessfulLoggedIn();
             $state.go('adminRoot.home');
           } else {

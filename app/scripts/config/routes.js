@@ -79,13 +79,51 @@
     var adminHomeState = {
       name: "adminRoot.home",
       url: "home",
-      templateUrl: "/views/dashboard/home.html"
+      templateUrl: "/views/dashboard/home.html",
+      resolve: {
+        gotNotifications: [
+          "$log",
+          "USER_NOTIFICATIONS",
+          "requestService",
+          "userInfoService",
+          function ($log, USER_NOTIFICATIONS, requestService, userInfoService) {
+            var NOTIFICATION_ENDPOINT = USER_NOTIFICATIONS + "/" + userInfoService.user.id;
+            var notifications = requestService.getPromise("GET", NOTIFICATION_ENDPOINT, null, userInfoService.user.authToken);
+            notifications.then(function (response) {
+              $log.log(response, "notificatioooons");
+            }).catch(function (error) {
+
+              return false;
+            })
+          }
+        ]
+      }
     };
 
     var adminGroupState = {
       name: "adminRoot.groups",
       url: "groups",
       templateUrl: "/views/dashboard/admin/groups.html",
+      resolve: {
+        groups: [
+          "GROUPS",
+          "GROUP_ADMINS",
+          "requestService",
+          "userInfoService",
+          function (GROUPS, GROUP_ADMINS, requestService, userInfoService) {
+            var GROUP_ENDPOINT = GROUP_ADMINS + "/" + userInfoService.user.groupRoleId;
+            var groupId = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
+            return groupId.then(function (response) {
+              var id = response.data.group_id;
+              GROUP_ENDPOINT = GROUPS + "/" + id;
+              var groupInfo = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
+              return groupInfo.then(function (response) {
+                return response.data;
+              });
+            });
+          }
+        ]
+      },
       controller: "adminGroupsCtrl",
       controllerAs: "groupsCtrl"
     };

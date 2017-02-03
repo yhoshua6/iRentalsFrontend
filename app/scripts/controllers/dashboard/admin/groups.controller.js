@@ -7,28 +7,33 @@
     .controller("adminGroupsCtrl", adminGroupsCtrl);
 
 
-  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "requestService", "userInfoService"];
-  function adminGroupsCtrl($log, $mdEditDialog, requestService, userInfoService) {
+  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "groups", "requestService", "userInfoService", "GROUPS"];
+  function adminGroupsCtrl($log, $mdEditDialog, groups, requestService, userInfoService,  GROUPS) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var groupsScope = this;
-
+    groupsScope.groups = [];
     groupsScope.query = {
       order: 'group_name',
       limit: 5,
       page: 1
     };
+    if (groups) {
+      groupsScope.groups.push(groups);
+    } else {
+      groupsScope.groups = [
+        { id: 0, group_name: "testing", group_url: "www.google.com"},
+        { id: 1, group_name: "testing 2", group_url: "www.google.com"},
+        { id: 2, group_name: "testing 3", group_url: "www.google.com"},
+        { id: 3, group_name: "testing 4", group_url: "www.google.com"},
+        { id: 4, group_name: "testing 5", group_url: "www.google.com"},
+        { id: 5, group_name: "testing 6", group_url: "www.google.com"},
+        { id: 6, group_name: "testing 7", group_url: "www.google.com"}
+      ];
+    }
 
     groupsScope.selected = [];
 
-    groupsScope.groups = [
-      { id: 0, group_name: "testing", group_url: "www.google.com"},
-      { id: 1, group_name: "testing 2", group_url: "www.google.com"},
-      { id: 2, group_name: "testing 3", group_url: "www.google.com"},
-      { id: 3, group_name: "testing 4", group_url: "www.google.com"},
-      { id: 4, group_name: "testing 5", group_url: "www.google.com"},
-      { id: 5, group_name: "testing 6", group_url: "www.google.com"},
-      { id: 6, group_name: "testing 7", group_url: "www.google.com"}
-    ];
+
 
     groupsScope.editGroupName = function (event, group) {
       // if auto selection is enabled you will want to stop the event
@@ -81,8 +86,16 @@
 
     groupsScope.deleteGroups = function () {
       $log.log(groupsScope.selected, "////");
+      var DELETE_GROUP = GROUPS + "/";
+      for(var index=0; index<groupsScope.selected.length; index++) {
+        DELETE_GROUP += groupsScope.selected[index].id;
+        var deleteGroupPromise = requestService.getPromise("DELETE", DELETE_GROUP, null, userInfoService.user.authToken);
+        deleteGroupPromise.then(function (response) {
+          $log.log(response, "_---------------------DELETED");
+          groupsScope.selected.splice(index, 1);
+        });
+      }
     };
   }
 })();
-
 
