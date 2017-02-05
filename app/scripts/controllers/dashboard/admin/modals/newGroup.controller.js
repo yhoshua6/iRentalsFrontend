@@ -13,7 +13,6 @@
   angular.module("iRentalsApp")
     .controller("newGroupCtrl", newGroupCtrl);
 
-
   newGroupCtrl.$inject = ["$log", "$mdDialog"];
   function newGroupCtrl($log, $mdDialog) {
     var newGroupScope = this;
@@ -45,6 +44,11 @@
       return criteria ? newGroupScope.admins.filter(createFilterFor(criteria)) : [];
     };
 
+    newGroupScope.save = function () {
+      $log.log(newGroupScope.groupUsers);
+      $log.log(newGroupScope.groupAdmins);
+      $log.log(newGroupScope.groupName, "------------------", newGroupScope.groupUrl);
+    };
 
     newGroupScope.hide = function() {
       $mdDialog.hide();

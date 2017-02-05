@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df9c5557-158f-4b3b-a96a-34590ccc9fce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/config/routes.js" afterPath="$PROJECT_DIR$/app/scripts/config/routes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/admin/groups.html" afterPath="$PROJECT_DIR$/app/views/dashboard/admin/groups.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html" afterPath="$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/admin/users.html" afterPath="$PROJECT_DIR$/app/views/dashboard/admin/users.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,41 +26,55 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="groups.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/config/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="24" />
+            <state relative-caret-position="472">
+              <caret line="142" column="32" lean-forward="false" selection-start-line="142" selection-start-column="32" selection-end-line="142" selection-end-column="32" />
               <folding>
-                <element signature="e#562#626#0" expanded="false" />
-                <element signature="e#645#691#0" expanded="false" />
-                <element signature="e#726#1236#0" expanded="false" />
-                <element signature="e#1301#2098#0" expanded="false" />
-                <element signature="e#2156#2886#0" expanded="false" />
-                <element signature="e#2932#3457#0" expanded="false" />
-                <element signature="e#3504#4019#0" expanded="false" />
+                <element signature="e#580#716#0" expanded="false" />
+                <element signature="e#744#2766#0" expanded="false" />
+                <element signature="e#1172#2742#0" expanded="false" />
+                <element signature="e#2794#3572#0" expanded="false" />
+                <element signature="e#3601#4635#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="groups.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/groups.html">
+      <file leaf-file-name="users.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/users.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+            <state relative-caret-position="44">
+              <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newGroup.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js">
+      <file leaf-file-name="users.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="707">
-              <caret line="39" column="37" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="37" />
+            <state relative-caret-position="317">
+              <caret line="66" column="30" lean-forward="false" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="30" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
+                <element signature="e#458#522#0" expanded="false" />
+                <element signature="e#552#2270#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_user_modal.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/templates/new_user_modal.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="946">
+              <caret line="43" column="12" lean-forward="false" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#div#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+                <element signature="e#1364#1371#0" expanded="true" />
+                <element signature="e#1407#1414#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,8 +85,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -80,10 +97,13 @@
       <find>dess</find>
       <find>'</find>
       <find>www.google.com</find>
-      <find>groupsCtrl</find>
       <find>userInfoService</find>
       <find>adminGroupsCtrl</find>
       <find>log</find>
+      <find>groupsScope</find>
+      <find>newGroupScope</find>
+      <find>groupsCtrl</find>
+      <find>groups</find>
     </findStrings>
     <replaceStrings>
       <replace>adminCtrl</replace>
@@ -92,6 +112,9 @@
       <replace>true&quot;</replace>
       <replace>propertiesCtrl</replace>
       <replace>userScope</replace>
+      <replace>adminUserScope</replace>
+      <replace>newUserScope</replace>
+      <replace>adminUserCtrl</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -110,7 +133,6 @@
         <option value="$PROJECT_DIR$/app/scripts/directives/footer.directive.js" />
         <option value="$PROJECT_DIR$/app/scripts/directives/dashboardAdmin.directive.js" />
         <option value="$PROJECT_DIR$/app/views/templates/dashboard_admin_template.html" />
-        <option value="$PROJECT_DIR$/app/views/dashboard/admin/users.html" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/directives/adminHeader.controller.js" />
         <option value="$PROJECT_DIR$/app/scripts/directives/adminHeader.directive.js" />
         <option value="$PROJECT_DIR$/app/views/dashboard/home.html" />
@@ -122,21 +144,24 @@
         <option value="$PROJECT_DIR$/app/scripts/modules.js" />
         <option value="$PROJECT_DIR$/app/scripts/services/request.service.js" />
         <option value="$PROJECT_DIR$/app/scripts/services/editField.service.js" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/branches.controller.js" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/properties.controller.js" />
         <option value="$PROJECT_DIR$/app/views/dashboard/admin/properties.html" />
         <option value="$PROJECT_DIR$/app/scripts/services/user.service.js" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/home.controller.js" />
         <option value="$PROJECT_DIR$/app/scripts/config/constants.js" />
-        <option value="$PROJECT_DIR$/app/scripts/config/routes.js" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/login.controller.js" />
         <option value="$PROJECT_DIR$/app/scripts/controllers/modals.controller.js" />
-        <option value="$PROJECT_DIR$/app/index.html" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js" />
-        <option value="$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html" />
-        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js" />
         <option value="$PROJECT_DIR$/app/views/dashboard/admin/groups.html" />
+        <option value="$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newUser.controller.js" />
+        <option value="$PROJECT_DIR$/app/scripts/config/routes.js" />
+        <option value="$PROJECT_DIR$/app/index.html" />
+        <option value="$PROJECT_DIR$/app/views/dashboard/admin/templates/new_user_modal.html" />
+        <option value="$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js" />
+        <option value="$PROJECT_DIR$/app/views/dashboard/admin/users.html" />
       </list>
     </option>
   </component>
@@ -154,9 +179,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="406" />
-    <option name="width" value="1522" />
-    <option name="height" value="1038" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -267,6 +293,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iRentals" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iRentals" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -516,18 +572,18 @@
       <workItem from="1486003207932" duration="9286000" />
       <workItem from="1486088340235" duration="10408000" />
       <workItem from="1486178128618" duration="197000" />
-      <workItem from="1486237854576" duration="12158000" />
+      <workItem from="1486237854576" duration="19216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59760000" />
+    <option name="totallyTimeSpent" value="66818000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="406" y="0" width="1522" height="1038" extended-state="0" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23537233" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.184375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -575,25 +631,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/groups.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/config/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/groups.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
@@ -719,13 +761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/users.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/directives/footer.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -790,13 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/notifications.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -846,16 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/config/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="e#1172#2742#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/controllers/login.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="791">
@@ -898,56 +916,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="47" column="82" lean-forward="false" selection-start-line="47" selection-start-column="82" selection-end-line="47" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="74" column="30" lean-forward="false" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
-          <folding>
-            <element signature="n#md-tab#0;n#md-tabs#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="false" />
-            <element signature="n#md-tab#1;n#md-tabs#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="false" />
-            <element signature="n#md-tab#2;n#md-tabs#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="707">
-          <caret line="39" column="37" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/groups.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="24" />
+        <state relative-caret-position="66">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="114" selection-end-column="5" />
           <folding>
             <element signature="e#562#626#0" expanded="false" />
             <element signature="e#645#691#0" expanded="false" />
             <element signature="e#726#1236#0" expanded="false" />
             <element signature="e#1301#2098#0" expanded="false" />
             <element signature="e#2156#2886#0" expanded="false" />
-            <element signature="e#2932#3457#0" expanded="false" />
-            <element signature="e#3504#4019#0" expanded="false" />
+            <element signature="e#3639#4154#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/groups.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+        <state relative-caret-position="748">
+          <caret line="34" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newGroup.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="77" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/config/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="142" column="32" lean-forward="false" selection-start-line="142" selection-start-column="32" selection-end-line="142" selection-end-column="32" />
+          <folding>
+            <element signature="e#580#716#0" expanded="false" />
+            <element signature="e#744#2766#0" expanded="false" />
+            <element signature="e#1172#2742#0" expanded="false" />
+            <element signature="e#2794#3572#0" expanded="false" />
+            <element signature="e#3601#4635#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="49" column="72" lean-forward="false" selection-start-line="49" selection-start-column="72" selection-end-line="49" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/templates/new_group_modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="29" column="68" lean-forward="false" selection-start-line="29" selection-start-column="68" selection-end-line="29" selection-end-column="68" />
+          <folding>
+            <element signature="n#md-tab#1;n#md-tabs#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="false" />
+            <element signature="n#md-tab#2;n#md-tabs#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/modals/newUser.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/templates/new_user_modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="43" column="12" lean-forward="false" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+            <element signature="e#1364#1371#0" expanded="true" />
+            <element signature="e#1407#1414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/controllers/dashboard/admin/users.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="66" column="30" lean-forward="false" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+            <element signature="e#458#522#0" expanded="false" />
+            <element signature="e#552#2270#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dashboard/admin/users.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
           <folding />
         </state>
       </provider>

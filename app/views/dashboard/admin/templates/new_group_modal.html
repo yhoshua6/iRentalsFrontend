@@ -18,7 +18,7 @@
             <md-input-container flex>
               <label>Nombre del grupo:</label>
               <md-icon class="material-icons">account_box</md-icon>
-              <input name="groupName" type="text" required>
+              <input name="groupName"  ng-model="newGroupCtrl.groupName" type="text" required>
               <div ng-messages="groupForm.groupName.$error">
                 <div ng-message="required">Necesitamos el nombre del grupo!</div>
               </div>
@@ -27,7 +27,7 @@
             <md-input-container flex>
               <label>URL:</label>
               <md-icon class="material-icons">lock</md-icon>
-              <input name="groupUrl" type="text" required>
+              <input name="groupUrl" ng-model="newGroupCtrl.groupUrl" type="text" required>
               <div ng-messages="groupForm.groupUrl.$error">
                 <div ng-message="required">¿Sin url?</div>
               </div>
@@ -117,7 +117,7 @@
       <md-button ng-click="newGroupCtrl.answer('not useful')">
         Cancelar
       </md-button>
-      <md-button class="md-accent" ng-click="newGroupCtrl.answer('useful')">
+      <md-button class="md-accent" ng-click="newGroupCtrl.save()">
         Guardar
       </md-button>
     </md-dialog-actions>

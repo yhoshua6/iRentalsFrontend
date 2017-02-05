@@ -139,7 +139,9 @@
     var adminUsersState = {
       name: "adminRoot.users",
       url: "users",
-      templateUrl: "/views/dashboard/admin/users.html"
+      templateUrl: "/views/dashboard/admin/users.html",
+      controller: "adminUserCtrl",
+      controllerAs: "adminUserCtrl"
     };
 
 

@@ -89,8 +89,9 @@
         DELETE_GROUP += groupsScope.selected[index].id;
         var deleteGroupPromise = requestService.getPromise("DELETE", DELETE_GROUP, null, userInfoService.user.authToken);
         deleteGroupPromise.then(function (response) {
-          $log.log(response, "_---------------------DELETED");
-          groupsScope.selected.splice(index, 1);
+          $log.log(groupsScope.groups.indexOf(groupsScope.selected[index]), "_---------------------DELETED");
+          groupsScope.groups.splice(groupsScope.groups.indexOf(groupsScope.selected[index]), 1);
+          $log.log(groupsScope.groups);
         });
       }
     };
