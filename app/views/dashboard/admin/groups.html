@@ -4,14 +4,12 @@
       <span>Administra tus grupos</span>
     </div>
   </md-toolbar>
-  <div flex layout-align="end center">
-    <md-button class="md-accent md-raised">
-      <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
-    </md-button>
-    <md-button class="md-warn md-raised" ng-click="groupsCtrl.deleteGroups()">
-      <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
-    </md-button>
-  </div>
+  <md-button class="md-accent md-raised" ng-click="groupsCtrl.newGroup($event)">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+  </md-button>
+  <md-button ng-hide="groupsCtrl.selected.length === 0"class="md-warn md-raised" ng-click="groupsCtrl.deleteGroups()">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
+  </md-button>
   <!-- exact table from live demo -->
   <md-table-container flex>
     <table md-table md-row-select multiple ng-model="groupsCtrl.selected">

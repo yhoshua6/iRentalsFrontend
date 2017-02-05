@@ -7,16 +7,18 @@
     .controller("adminGroupsCtrl", adminGroupsCtrl);
 
 
-  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "groups", "requestService", "userInfoService", "GROUPS"];
-  function adminGroupsCtrl($log, $mdEditDialog, groups, requestService, userInfoService,  GROUPS) {
+  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "groups", "requestService", "userInfoService", "GROUPS"];
+  function adminGroupsCtrl($log, $mdEditDialog, $mdDialog, groups, requestService, userInfoService,  GROUPS) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var groupsScope = this;
     groupsScope.groups = [];
+    groupsScope.selected = [];
     groupsScope.query = {
       order: 'group_name',
       limit: 5,
       page: 1
     };
+
     if (groups) {
       groupsScope.groups.push(groups);
     } else {
@@ -30,10 +32,6 @@
         { id: 6, group_name: "testing 7", group_url: "www.google.com"}
       ];
     }
-
-    groupsScope.selected = [];
-
-
 
     groupsScope.editGroupName = function (event, group) {
       // if auto selection is enabled you will want to stop the event
@@ -95,6 +93,22 @@
           groupsScope.selected.splice(index, 1);
         });
       }
+    };
+
+    groupsScope.newGroup = function (event) {
+      $mdDialog.show({
+        controller: "newGroupCtrl",
+        controllerAs: "newGroupCtrl",
+        templateUrl: "../../../../views/dashboard/admin/templates/new_group_modal.html",
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true
+      })
+        .then(function(answer) {
+          //$scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          //$scope.status = 'You cancelled the dialog.';
+        });
     };
   }
 })();
