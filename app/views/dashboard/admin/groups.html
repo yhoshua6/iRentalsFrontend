@@ -5,19 +5,18 @@
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="groupsCtrl.newGroup($event)">
-    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un nuevo grupo</span>
   </md-button>
-  <md-button ng-hide="groupsCtrl.selected.length === 0"class="md-warn md-raised" ng-click="groupsCtrl.deleteGroups()">
-    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
+  <md-button ng-hide="groupsCtrl.selected.length === 0" class="md-warn md-raised" ng-click="groupsCtrl.deleteGroups()">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar grupos</span>
   </md-button>
-  <!-- exact table from live demo -->
   <md-table-container flex>
     <table md-table md-row-select multiple ng-model="groupsCtrl.selected">
       <thead md-head md-order="groupsCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>ID del Grupo</span></th>
-        <th md-column md-numeric><span>Nombre</span></th>
-        <th md-column md-numeric>URL del Grupo</th>
+        <th md-column md-order-by="id"><span>ID</span></th>
+        <th md-column md-order-by="title">Nombre</th>
+        <th md-column md-order-by="for">Url del grupo</th>
       </tr>
       </thead>
       <tbody md-body>

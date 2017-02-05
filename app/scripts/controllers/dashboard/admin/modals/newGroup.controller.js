@@ -47,7 +47,12 @@
     newGroupScope.save = function () {
       $log.log(newGroupScope.groupUsers);
       $log.log(newGroupScope.groupAdmins);
-      $log.log(newGroupScope.groupName, "------------------", newGroupScope.groupUrl);
+      var newGroup = {
+        id: 0,
+        group_name: newGroupScope.groupName,
+        group_url: newGroupScope.groupUrl
+      };
+      $mdDialog.hide(newGroup);
     };
 
     newGroupScope.hide = function() {

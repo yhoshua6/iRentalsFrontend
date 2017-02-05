@@ -17,7 +17,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.</p>
             <md-input-container flex>
               <label>Nombre del grupo:</label>
-              <md-icon class="material-icons">account_box</md-icon>
+              <md-icon class="material-icons">group_add</md-icon>
               <input name="groupName"  ng-model="newGroupCtrl.groupName" type="text" required>
               <div ng-messages="groupForm.groupName.$error">
                 <div ng-message="required">Necesitamos el nombre del grupo!</div>
@@ -26,7 +26,7 @@
             <br>
             <md-input-container flex>
               <label>URL:</label>
-              <md-icon class="material-icons">lock</md-icon>
+              <md-icon class="material-icons">http</md-icon>
               <input name="groupUrl" ng-model="newGroupCtrl.groupUrl" type="text" required>
               <div ng-messages="groupForm.groupUrl.$error">
                 <div ng-message="required">¿Sin url?</div>

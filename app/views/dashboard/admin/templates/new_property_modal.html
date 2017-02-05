@@ -32,14 +32,10 @@
             <div ng-message="required">Necesitamos el contenido de la notificación!</div>
           </div>
         </md-input-container>
-        <md-input-container flex>
+        <div flex>
           <label>Estatus de la propiedad:</label>
-          <md-icon class="material-icons">account_box</md-icon>
-          <input name="propertyStatus"  ng-model="newPropertyCtrl.active" type="text" required>
-          <div ng-messages="propertiesForm.propertyStatus.$error">
-            <div ng-message="required">Necesitamos el usuario al que se lo vas a mandar!</div>
-          </div>
-        </md-input-container>
+          <md-switch aria-label="propertyStatus"></md-switch>
+        </div>
         <md-input-container flex>
           <label>Area total:</label>
           <md-icon class="material-icons">notifications</md-icon>

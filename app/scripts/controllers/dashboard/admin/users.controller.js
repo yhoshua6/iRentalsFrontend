@@ -14,7 +14,7 @@
     adminUserScope.users = [];
     adminUserScope.selected = [];
     adminUserScope.query = {
-      order: 'group_name',
+      order: 'firstName',
       limit: 5,
       page: 1
     };

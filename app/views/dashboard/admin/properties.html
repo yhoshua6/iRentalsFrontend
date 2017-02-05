@@ -28,7 +28,7 @@
         <td md-cell>{{property.id}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 1, property)">{{property.name}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 2, property)">{{property.description}}</td>
-        <td md-cell>{{property.active}}</td>
+        <td md-cell ng-click="propertiesCtrl.changeStatus($event, property)"><md-switch aria-label="propertyStatus"></md-switch></td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 3, property)">{{property.surfaceTotal}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 4, property)">{{property.surfaceIn}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 5, property)">{{property.surfaceOut}}</td>
