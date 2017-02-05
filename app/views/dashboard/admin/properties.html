@@ -1,42 +1,49 @@
 <div layout="column">
   <md-toolbar flex class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <span>Administra las propiedades</span>
+      <span>Administra los usuarios</span>
     </div>
   </md-toolbar>
-  <div flex layout-align="end center">
-    <md-button class="md-accent md-raised">
-      <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
-    </md-button>
-    <md-button class="md-warn md-raised">
-      <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
-    </md-button>
-  </div>
-  <!-- exact table from live demo -->
+  <md-button class="md-accent md-raised" ng-click="adminUserCtrl.newUser($event)">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+  </md-button>
+  <md-button ng-hide="adminUserCtrl.selected.length === 0" class="md-warn md-raised" ng-click="adminUserCtrl.deleteUsers()">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
+  </md-button>
   <md-table-container flex>
-    <table md-table md-row-select multiple ng-model="propertiesCtrl.selected">
-      <thead md-head md-order="propertiesCtrl.query.order" md-on-reorder="propertiesCtrl.getDesserts">
+    <table md-table md-row-select multiple ng-model="adminUserCtrl.selected">
+      <thead md-head md-order="adminUserCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="nameToLower"><span>ID</span></th>
-        <th md-column md-numeric md-order-by="groupsScope.query.order"><span>Tipo</span></th>
-        <th md-column md-numeric>Descripción</th>
+        <th md-column><span>Nombre</span></th>
+        <th md-column>Apellidos</th>
+        <th md-column>Celular</th>
+        <th md-column>Nombre del banco</th>
+        <th md-column>Clabe del banco</th>
+        <th md-column>Número de cuenta</th>
+        <th md-column>Cedula</th>
       </tr>
       </thead>
       <tbody md-body>
-      <tr md-row md-select="property" md-select-id="property.id" md-auto-select ng-repeat="property in propertiesCtrl.properties | orderBy: groupsScope.query.order | limitTo: propertiesCtrl.query.limit: (propertiesCtrl.query.page - 1) * propertiesCtrl.query.limit">
-        <td md-cell>{{property.id}}</td>
-        <td md-cell >{{property.type}}</td>
-        <td md-cell ng-click="propertiesCtrl.editDescription($event, property)">{{property.description}}</td>
+      <tr md-row md-select="user" md-select-id="user.id" md-auto-select ng-repeat="user in adminUserCtrl.users | orderBy: adminUserCtrl.query.order | limitTo: adminUserCtrl.query.limit: (adminUserCtrl.query.page - 1) * adminUserCtrl.query.limit">
+        <td md-cell>{{user.id}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 1, user)">{{user.firstName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 2, user)">{{user.lastName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 3, user)">{{user.cellphone}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 4, user)">{{user.bankName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 5, user)">{{user.bankClabe}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 6, user)">{{user.bankAccount}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 7, user)">{{user.cedula}}</td>
       </tr>
       </tbody>
     </table>
   </md-table-container>
   <md-table-pagination
     flex
-    md-limit="propertiesCtrl.query.limit"
-    md-page="propertiesCtrl.query.page"
+    md-limit="adminUserCtrl.query.limit"
+    md-page="adminUserCtrl.query.page"
     md-limit-options="[5, 10, 15]"
-    md-total="{{propertiesCtrl.properties.length}}"
+    md-total="{{adminUserCtrl.users.length}}"
     md-page-select
   >
   </md-table-pagination>

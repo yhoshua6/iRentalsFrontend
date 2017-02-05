@@ -27,13 +27,13 @@
       <tbody md-body>
       <tr md-row md-select="user" md-select-id="user.id" md-auto-select ng-repeat="user in adminUserCtrl.users | orderBy: adminUserCtrl.query.order | limitTo: adminUserCtrl.query.limit: (adminUserCtrl.query.page - 1) * adminUserCtrl.query.limit">
         <td md-cell>{{user.id}}</td>
-        <td md-cell>{{user.firstName}}</td>
-        <td md-cell>{{user.lastName}}</td>
-        <td md-cell>{{user.cellphone}}</td>
-        <td md-cell>{{user.bankName}}</td>
-        <td md-cell>{{user.bankClabe}}</td>
-        <td md-cell>{{user.bankAccount}}</td>
-        <td md-cell>{{user.cedula}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 1, user)">{{user.firstName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 2, user)">{{user.lastName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 3, user)">{{user.cellphone}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 4, user)">{{user.bankName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 5, user)">{{user.bankClabe}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 6, user)">{{user.bankAccount}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 7, user)">{{user.cedula}}</td>
       </tr>
       </tbody>
     </table>
