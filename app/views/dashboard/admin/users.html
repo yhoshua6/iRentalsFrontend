@@ -5,10 +5,10 @@
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="adminUserCtrl.newUser($event)">
-    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un Grupo</span>
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un usuario</span>
   </md-button>
   <md-button ng-hide="adminUserCtrl.selected.length === 0" class="md-warn md-raised" ng-click="adminUserCtrl.deleteUsers()">
-    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar el grupo</span>
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar usuarios</span>
   </md-button>
   <md-table-container flex>
     <table md-table md-row-select multiple ng-model="adminUserCtrl.selected">

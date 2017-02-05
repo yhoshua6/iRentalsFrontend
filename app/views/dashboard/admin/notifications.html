@@ -1,31 +1,44 @@
 <div layout="column">
-  <div flex layout>
-    <h2 flex>Administra tus notificaciones</h2>
-    <md-button class="md-accent md-raised">
-      Nueva notificación
-      <md-icon flex class="material-icons">file_upload</md-icon>
-    </md-button>
-  </div>
-  <md-list flex>
-    <md-subheader >Notificaciones:</md-subheader>
-    <md-list-item layout layout-align="spaces-between center" ng-repeat="notification in notificationsCtrl.notifications" class="noright">
-      <md-input-container flex aria-label="notificationTitle">
-        <label>Título:</label>
-        <input type="text" ng-model="notification.title">
-      </md-input-container>
-      <md-input-container flex aria-label="notificationsUser">
-        <label>Para el usuario:</label>
-        <input type="text" ng-model="notification.toUser">
-      </md-input-container>
-      <md-input-container flex aria-label="notificationsMessage">
-        <label>Mensaje:</label>
-        <input type="text" ng-model="notification.message">
-      </md-input-container>
-      <md-icon ng-click="notificationsCtrl.deleteNotifications(group.id)" class="material-icons">delete_forever</md-icon>
-    </md-list-item>
-  </md-list>
-  <md-button class="md-accent md-raised">
-    Guardar Cambios
-    <md-icon flex class="material-icons">file_upload</md-icon>
+  <md-toolbar flex class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Administra las notificaciones</span>
+    </div>
+  </md-toolbar>
+  <md-button class="md-accent md-raised" ng-click="notificationsCtrl.newNotification($event)">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear una nueva notificación</span>
   </md-button>
+  <md-button ng-hide="notificationsCtrl.selected.length === 0" class="md-warn md-raised" ng-click="notificationsCtrl.deleteNotifications()">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar notificaciones</span>
+  </md-button>
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="notificationsCtrl.selected">
+      <thead md-head md-order="notificationsCtrl.query.order">
+      <tr md-row>
+        <th md-column md-order-by="id"><span>ID</span></th>
+        <th md-column md-order-by="imageName"><span>Nombre de la imagen</span></th>
+        <th md-column md-order-by="title">Título</th>
+        <th md-column md-order-by="content">Contenido</th>
+        <th md-column md-order-by="for">Para</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="notification" md-select-id="notification.id" md-auto-select ng-repeat="notification in notificationsCtrl.notifications | orderBy: notificationsCtrl.query.order | limitTo: notificationsCtrl.query.limit: (notificationsCtrl.query.page - 1) * notificationsCtrl.query.limit">
+        <td md-cell>{{notification.id}}</td>
+        <td md-cell>{{notification.imageName}}</td>
+        <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification)">{{notification.title}}</td>
+        <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification)">{{notification.content}}</td>
+        <td md-cell>{{notification.for}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="notificationsCtrl.query.limit"
+    md-page="notificationsCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{notificationsCtrl.properties.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
 </div>
