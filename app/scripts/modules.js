@@ -19,8 +19,7 @@
       "ngSanitize",
       "ui.router",
       "ngMaterial",
-      "md.data.table",
-      "lr.upload"
+      "md.data.table"
     ]);
 
 })();

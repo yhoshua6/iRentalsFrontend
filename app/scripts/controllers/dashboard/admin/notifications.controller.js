@@ -56,18 +56,16 @@
 
     notificationsScope.newNotification = function (event) {
       $mdDialog.show({
-        //controller: "newGroupCtrl",
-        //controllerAs: "newGroupCtrl",
+        controller: "newNotificationCtrl",
+        controllerAs: "newNotificationCtrl",
         templateUrl: "../../../../views/dashboard/admin/templates/new_notification_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true
-      })
-        .then(function(answer) {
-          //$scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          //$scope.status = 'You cancelled the dialog.';
-        });
+      }).then(function(newNotification) {
+        newNotification.id = notificationsScope.notifications.length;
+        notificationsScope.notifications.push(newNotification);
+      });
     };
 
     function getDialogOptions(option, notification) {
