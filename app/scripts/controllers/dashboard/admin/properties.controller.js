@@ -13,7 +13,7 @@
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];
     propertiesScope.query = {
-      order: 'group_name',
+      order: 'name',
       limit: 5,
       page: 1
     };
@@ -30,7 +30,11 @@
     ];
 
     propertiesScope.deleteProperties = function () {
-      $log.log(propertiesScope.selected, "////");
+      for(var i=0; i<propertiesScope.selected.length; i++)
+      {
+        propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
+      }
+      propertiesScope.selected = [];
 
     };
 
@@ -48,18 +52,17 @@
 
     propertiesScope.newProperty = function (event) {
       $mdDialog.show({
-        //controller: "newGroupCtrl",
-        //controllerAs: "newGroupCtrl",
+        controller: "newPropertyCtrl",
+        controllerAs: "newPropertyCtrl",
         templateUrl: "../../../../views/dashboard/admin/templates/new_property_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true
-      })
-        .then(function(answer) {
+      }).then(function(newProperty) {
           //$scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          //$scope.status = 'You cancelled the dialog.';
-        });
+        newProperty.id = propertiesScope.properties.length;
+        propertiesScope.properties.push(newProperty);
+      }, function() {});
     };
 
     function getDialogOptions(option, user) {

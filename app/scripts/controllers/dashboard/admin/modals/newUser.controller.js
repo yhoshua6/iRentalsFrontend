@@ -24,6 +24,29 @@
     newUserScope.bankClabe = "";
     newUserScope.bankAccount = "";
     newUserScope.cedula = "";
+
+    newUserScope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    newUserScope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    newUserScope.save = function() {
+      var newNotification = {
+        id: 0,
+        email: newUserScope.email,
+        firstName: newUserScope.firstName,
+        lastName: newUserScope.lastName,
+        cellphone: newUserScope.cellphone,
+        bankName: newUserScope.bankName,
+        bankClabe: newUserScope.bankClabe,
+        bankAccount: newUserScope.bankAccount,
+        cedula: newUserScope.cedula
+      };
+      $mdDialog.hide(newNotification);
+    };
   }
 
 })();

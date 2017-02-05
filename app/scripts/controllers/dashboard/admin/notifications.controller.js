@@ -40,6 +40,7 @@
       {
         notificationsScope.notifications.splice(notificationsScope.notifications.indexOf(notificationsScope.selected[i]), 1);
       }
+      notificationsScope.selected = [];
     };
 
     notificationsScope.modifyField = function (event,fieldNumber, notification) {
@@ -65,7 +66,7 @@
       }).then(function(newNotification) {
         newNotification.id = notificationsScope.notifications.length;
         notificationsScope.notifications.push(newNotification);
-      });
+      }, function () {});
     };
 
     function getDialogOptions(option, notification) {

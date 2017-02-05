@@ -11,7 +11,7 @@
   function adminGroupsCtrl($log, $mdEditDialog, $mdDialog, groups, requestService, userInfoService,  GROUPS) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var groupsScope = this;
-    groupsScope.groups = [];
+    //groupsScope.groups = [];
     groupsScope.selected = [];
     groupsScope.query = {
       order: 'group_name',
@@ -19,19 +19,20 @@
       page: 1
     };
 
-    if (groups) {
+    /*if (groups) {
       groupsScope.groups.push(groups);
     } else {
-      groupsScope.groups = [
-        { id: 0, group_name: "testing", group_url: "www.google.com"},
-        { id: 1, group_name: "testing 2", group_url: "www.google.com"},
-        { id: 2, group_name: "testing 3", group_url: "www.google.com"},
-        { id: 3, group_name: "testing 4", group_url: "www.google.com"},
-        { id: 4, group_name: "testing 5", group_url: "www.google.com"},
-        { id: 5, group_name: "testing 6", group_url: "www.google.com"},
-        { id: 6, group_name: "testing 7", group_url: "www.google.com"}
-      ];
-    }
+
+    }*/
+    groupsScope.groups = [
+      { id: 0, group_name: "testing", group_url: "www.google.com"},
+      { id: 1, group_name: "testing 2", group_url: "www.google.com"},
+      { id: 2, group_name: "testing 3", group_url: "www.google.com"},
+      { id: 3, group_name: "testing 4", group_url: "www.google.com"},
+      { id: 4, group_name: "testing 5", group_url: "www.google.com"},
+      { id: 5, group_name: "testing 6", group_url: "www.google.com"},
+      { id: 6, group_name: "testing 7", group_url: "www.google.com"}
+    ];
 
     groupsScope.editGroupName = function (event, group) {
       // if auto selection is enabled you will want to stop the event
@@ -83,7 +84,7 @@
     };
 
     groupsScope.deleteGroups = function () {
-      $log.log(groupsScope.selected, "////");
+     /* $log.log(groupsScope.selected, "////");
       var DELETE_GROUP = GROUPS + "/";
       for(var index=0; index<groupsScope.selected.length; index++) {
         DELETE_GROUP += groupsScope.selected[index].id;
@@ -93,7 +94,12 @@
           groupsScope.groups.splice(groupsScope.groups.indexOf(groupsScope.selected[index]), 1);
           $log.log(groupsScope.groups);
         });
+      }*/
+      for(var i=0; i<groupsScope.selected.length; i++)
+      {
+        groupsScope.groups.splice(groupsScope.groups.indexOf(groupsScope.selected[i]), 1);
       }
+      groupsScope.selected = [];
     };
 
     groupsScope.newGroup = function (event) {
@@ -104,12 +110,11 @@
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true
-      })
-        .then(function(answer) {
+      }).then(function(newGroup) {
           //$scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          //$scope.status = 'You cancelled the dialog.';
-        });
+        newGroup.id = groupsScope.groups.length;
+        groupsScope.groups.push(newGroup);
+      }, function () {});
     };
   }
 })();

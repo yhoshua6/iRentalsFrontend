@@ -38,8 +38,11 @@
     ];
 
     adminUserScope.deleteUsers = function () {
-      $log.log(adminUserScope.selected, "////");
-
+      for(var i=0; i<adminUserScope.selected.length; i++)
+      {
+        adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
+      }
+      adminUserScope.selected = [];
     };
 
     adminUserScope.modifyField = function (event,fieldNumber, user) {
@@ -56,18 +59,17 @@
 
     adminUserScope.newUser = function (event) {
       $mdDialog.show({
-        //controller: "newGroupCtrl",
-        //controllerAs: "newGroupCtrl",
+        controller: "newUserCtrl",
+        controllerAs: "newUserCtrl",
         templateUrl: "../../../../views/dashboard/admin/templates/new_user_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true
-      })
-        .then(function(answer) {
+      }).then(function(newUser) {
           //$scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          //$scope.status = 'You cancelled the dialog.';
-        });
+        newUser.id = adminUserScope.users.length;
+        adminUserScope.users.push(newUser);
+      }, function () {});
     };
 
     function getDialogOptions(option, user) {

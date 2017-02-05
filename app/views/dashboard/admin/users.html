@@ -14,14 +14,14 @@
     <table md-table md-row-select multiple ng-model="adminUserCtrl.selected">
       <thead md-head md-order="adminUserCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>ID</span></th>
-        <th md-column><span>Nombre</span></th>
-        <th md-column>Apellidos</th>
-        <th md-column>Celular</th>
-        <th md-column>Nombre del banco</th>
-        <th md-column>Clabe del banco</th>
-        <th md-column>Número de cuenta</th>
-        <th md-column>Cedula</th>
+        <th md-column md-order-by="id"><span>ID</span></th>
+        <th md-column md-order-by="firstName"><span>Nombre</span></th>
+        <th md-column md-order-by="lastName">Apellidos</th>
+        <th md-column md-order-by="cellphone">Celular</th>
+        <th md-column md-order-by="bankName">Nombre del banco</th>
+        <th md-column md-order-by="bankClabe">Clabe del banco</th>
+        <th md-column md-order-by="bankAccount">Número de cuenta</th>
+        <th md-column md-order-by="cedula">Cedula</th>
       </tr>
       </thead>
       <tbody md-body>
