@@ -154,6 +154,5 @@
       }
       return dialogOption;
     }
-
   }
 })();

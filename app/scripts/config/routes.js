@@ -104,26 +104,6 @@
       name: "adminRoot.groups",
       url: "groups",
       templateUrl: "/views/dashboard/admin/groups.html",
-      resolve: {
-        groups: [
-          "GROUPS",
-          "GROUP_ADMINS",
-          "requestService",
-          "userInfoService",
-          function (GROUPS, GROUP_ADMINS, requestService, userInfoService) {
-            var GROUP_ENDPOINT = GROUP_ADMINS + "/" + userInfoService.user.groupRoleId;
-            var groupId = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
-            return groupId.then(function (response) {
-              var id = response.data.group_id;
-              GROUP_ENDPOINT = GROUPS + "/" + id;
-              var groupInfo = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
-              return groupInfo.then(function (response) {
-                return response.data;
-              });
-            });
-          }
-        ]
-      },
       controller: "adminGroupsCtrl",
       controllerAs: "groupsCtrl"
     };
@@ -144,7 +124,6 @@
       controllerAs: "adminUserCtrl"
     };
 
-
     var adminNotificationsState = {
       name: "adminRoot.notifications",
       url: "notifications",
@@ -153,6 +132,13 @@
       controllerAs: "notificationsCtrl"
     };
 
+    var adminBranchesState = {
+      name: "adminRoot.branches",
+      url: "branches",
+      templateUrl: "/views/dashboard/admin/branches.html",
+      controller: "adminBranchesCtrl",
+      controllerAs: "branchesCtrl"
+    };
 
 
 
@@ -164,6 +150,7 @@
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);
+    $stateProvider.state(adminBranchesState);
     $urlRouterProvider.otherwise("/login");
   }
 })();

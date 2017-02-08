@@ -7,8 +7,8 @@
     .controller("adminGroupsCtrl", adminGroupsCtrl);
 
 
-  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "groups", "requestService", "userInfoService", "GROUPS"];
-  function adminGroupsCtrl($log, $mdEditDialog, $mdDialog, groups, requestService, userInfoService,  GROUPS) {
+  adminGroupsCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "GROUPS"];
+  function adminGroupsCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService,  GROUPS) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var groupsScope = this;
     //groupsScope.groups = [];
@@ -118,4 +118,23 @@
     };
   }
 })();
+
+/*
+*
+* function (GROUPS, GROUP_ADMINS, requestService, userInfoService) {
+ var GROUP_ENDPOINT = GROUP_ADMINS + "/" + userInfoService.user.groupRoleId;
+ var groupId = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
+ return groupId.then(function (response) {
+ var id = response.data.group_id;
+ GROUP_ENDPOINT = GROUPS + "/" + id;
+ var groupInfo = requestService.getPromise("GET", GROUP_ENDPOINT, null, userInfoService.user.authToken);
+ return groupInfo.then(function (response) {
+ return response.data;
+ });
+ });
+ }
+*
+*
+*
+* */
 
