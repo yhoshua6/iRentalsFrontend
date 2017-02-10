@@ -5,10 +5,9 @@
     <md-input-container flex>
       <label>User:</label>
       <md-icon class="material-icons">account_box</md-icon>
-      <input name="userEmail" ng-model="loginCtrl.user" type="email" required>
-      <div ng-messages="loginForm.userEmail.$error">
+      <input name="user" ng-model="loginCtrl.user" type="text" required>
+      <div ng-messages="loginForm.user.$error">
         <div ng-message="required">Necesitamos tu usario!</div>
-        <div ng-message="email">¿Estas seguro que es un correo válido?</div>
       </div>
     </md-input-container>
     <md-input-container flex>
@@ -27,6 +26,10 @@
     >
       <md-icon class="material-icons">lock_open</md-icon>
       Iniciar Sesión!
+    </md-button>
+    <md-button class="md-accent md-raised">
+      <md-icon class="material-icons">phone</md-icon>
+      Contactar a SOLVIT
     </md-button>
   </form>
 </div>

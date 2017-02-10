@@ -21,23 +21,22 @@
       var loginPromise = requestService.getPromise("POST", LOGIN_ENDPOINT, requestService.formatData(userToLogin));
       loginPromise.then(function (response) {
           loginScope.sending = !loginScope.sending;
-          if (response.data) {
-            $log.log(response.data);
+          if (!response.data.error) {
             userInfoService.user = {
               authToken: response.data.authToken,
               infoId: response.data.info_id,
               roleId: response.data.role_id,
-              groupRoleId: response.data.group_role_id
+              branchRoleId: response.data.branch_role_id
             };
             $log.log(userInfoService.user);
-            toastServices.showSuccessfulLoggedIn();
+            //toastServices.showSuccessfulLoggedIn();
             $state.go('adminRoot.home');
           } else {
-            toastServices.showFailureLoggedIn();
+            //toastServices.showFailureLoggedIn();
           }
         }).catch(function (error) {
           //server error
-          toastServices.showFailureLoggedIn();
+          //toastServices.showFailureLoggedIn();
       });
 
       loginScope.sending = !loginScope.sending;

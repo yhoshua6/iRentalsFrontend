@@ -1,7 +1,7 @@
 <div layout="column">
   <md-toolbar flex class="md-table-toolbar md-default">
     <div class="md-toolbar-tools">
-      <span>Administra tus grupos</span>
+      <span>Administra tus ramas</span>
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="branchesCtrl.newBranch($event)">
@@ -17,6 +17,7 @@
         <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title"><span>Title</span></th>
         <th md-column md-order-by="url">URL</th>
+        <th md-column>Tipo de propiedad</th>
         <th md-column md-order-by="propertyName">Nombre de la propiedad</th>
         <th md-column md-order-by="senderUsr">Usuario Emisor</th>
         <th md-column>Propiedad activa?</th>
