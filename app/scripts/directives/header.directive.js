@@ -5,14 +5,14 @@
   'use strict';
 
   angular.module("iRentalsApp")
-    .directive("pageFooter", headerDirective);
+    .directive("pageHeader", headerDirective);
 
   function headerDirective() {
     return {
       restrict: 'E',
-      templateUrl: '../../views/directives/login_footer.html'//,
-      //controller: '',
-      //controllerAs: ''
+      templateUrl: '../../views/directives/page_header.html',
+      controller: "headerCtrl",
+      controllerAs: "headerCtrl"
     }
   }
 })();

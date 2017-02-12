@@ -24,13 +24,13 @@
           if (!response.data.error) {
             userInfoService.user = {
               authToken: response.data.authToken,
-              infoId: response.data.info_id,
-              roleId: response.data.role_id,
-              branchRoleId: response.data.branch_role_id
+              infoId: response.data.infoId,
+              roleId: response.data.roleId,
+              branchRoleId: response.data.branchRoleId
             };
             $log.log(userInfoService.user);
             //toastServices.showSuccessfulLoggedIn();
-            $state.go('adminRoot.home');
+            $state.go('root.home');
           } else {
             //toastServices.showFailureLoggedIn();
           }

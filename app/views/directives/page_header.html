@@ -1,0 +1,39 @@
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- Add your site or application content here -->
+<md-nav-bar md-selected-nav-item="currentNavItem" layout layout-align="center center" aria-label="navBar">
+  <md-icon class="material-icons" ng-click="headerCtrl.toggleLeft()">account_circle</md-icon>
+  <md-nav-item md-nav-sref="root.home" name="home">Inicio</md-nav-item>
+  <md-nav-item md-nav-sref="root.home" name="adminGroups">Facturas</md-nav-item>
+  <md-nav-item md-nav-sref="root.home" name="adminProperties">Reportes</md-nav-item>
+  <md-nav-item md-nav-sref="root.home" name="adminUsers">Documentos</md-nav-item>
+  <md-nav-item md-nav-sref="root.home" name="adminBranches">Asambleas</md-nav-item>
+</md-nav-bar>
+
+<section layout="row" flex>
+  <md-sidenav class="md-sidenav-left" md-component-id="userProfile" md-disable-backdrop md-whiteframe="4">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Mi Perfil</h1>
+    </md-toolbar>
+    <md-content layout="column">
+      <md-list layout ng-repeat="info in headerCtrl.userInfo">
+        <md-input-container flex>
+          <label>{{info.title}}</label>
+          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
+        </md-input-container>
+      </md-list>
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Administra</h1>
+      </md-toolbar>
+      <md-list-item ng-repeat="link in headerCtrl.links">
+        <a class="md-accent md-raised" ui-sref="{{link.linkTo}}">{{link.label}}</a>
+
+        <md-divider></md-divider>
+      </md-list-item>
+      <md-button ng-click="headerCtrl.toggleLeft()" class="md-accent">
+        Cerrar
+      </md-button>
+    </md-content>
+  </md-sidenav>
+</section>

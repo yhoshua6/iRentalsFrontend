@@ -6,16 +6,33 @@
   angular.module("iRentalsApp")
     .service("userInfoService", userInfo);
 
-  userInfo.$inject = ["requestService", "$log"];
-  function userInfo (requestService, $log) {
+  userInfo.$inject = ["$log", "requestService", "INFO_USER_ENDPOINT"];
+  function userInfo ($log, requestService, INFO_USER_ENDPOINT) {
     var userScope = this;
     userScope.user = {};
 
+    userScope.setUserInfo = function () {
+      $log.log("hey");
+      var INFO_USER = INFO_USER_ENDPOINT + "/" + userScope.user.infoId;
+      var userPromise = requestService.getPromise("GET", INFO_USER, null, userScope.user.authToken);
 
-    userScope.setUserInfo = function (loggedInUser) {
-
-      $log.log(loggedInUser);
+      return userPromise.then(function (response) {
+        var userInfo = response.data;
+        userScope.user.id = userInfo.user_id;
+        userScope.user.name = userInfo.name;
+        userScope.user.bankAccount = userInfo.bank_account;
+        userScope.user.bankClabe = userInfo.bank_clabe;
+        userScope.user.bankName = userInfo.bank_name;
+        userScope.user.cedula = userInfo.cedula;
+        userScope.user.cellPhone = userInfo.cell_phone;
+        userScope.user.isPartOfPool = userInfo.is_part_of_pool;
+        userScope.user.paymentMethod = userInfo.payment_method;
+        return true;
+      }).catch(function (error) {
+        return false;
+      });
     };
+
   }
 })();
 

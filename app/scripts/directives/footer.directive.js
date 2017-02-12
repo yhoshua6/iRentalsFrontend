@@ -10,7 +10,7 @@
   function headerDirective() {
     return {
       restrict: "E",
-      templateUrl: "../../views/directives/footer.html"
+      templateUrl: "../../views/directives/page_footer.html"
     }
   }
 })();
