@@ -38,48 +38,41 @@
       templateUrl: "/views/dashboard/common/home.html"
     };
 
-    var adminRootState = {
-      name: "adminRoot",
-      abstract: true,
-      url: "/admin/dashboard/",
-      templateUrl: "/views/templates/dashboard_template.html"
-    };
-
     var adminGroupState = {
-      name: "adminRoot.groups",
-      url: "groups",
+      name: "root.groups",
+      url: "/admin/groups",
       templateUrl: "/views/dashboard/admin/groups.html",
       controller: "adminGroupsCtrl",
       controllerAs: "groupsCtrl"
     };
 
     var adminPropertiesState = {
-      name: "adminRoot.properties",
-      url: "properties",
+      name: "root.properties",
+      url: "/admin/properties",
       templateUrl: "/views/dashboard/admin/properties.html",
       controller: "adminPropertiesCtrl",
       controllerAs: "propertiesCtrl"
     };
 
     var adminUsersState = {
-      name: "adminRoot.users",
-      url: "users",
+      name: "root.users",
+      url: "/admin/users",
       templateUrl: "/views/dashboard/admin/users.html",
       controller: "adminUserCtrl",
       controllerAs: "adminUserCtrl"
     };
 
     var adminNotificationsState = {
-      name: "adminRoot.notifications",
-      url: "notifications",
+      name: "root.notifications",
+      url: "/admin/notifications",
       templateUrl: "/views/dashboard/admin/notifications.html",
       controller: "notificationsCtrl",
       controllerAs: "notificationsCtrl"
     };
 
     var adminBranchesState = {
-      name: "adminRoot.branches",
-      url: "branches",
+      name: "root.branches",
+      url: "/admin/branches",
       templateUrl: "/views/dashboard/admin/branches.html",
       controller: "adminBranchesCtrl",
       controllerAs: "branchesCtrl"
@@ -90,7 +83,6 @@
     $stateProvider.state(loginState);
     $stateProvider.state(rootState);
     $stateProvider.state(commonHomeState);
-    $stateProvider.state(adminRootState);
     $stateProvider.state(adminGroupState);
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);

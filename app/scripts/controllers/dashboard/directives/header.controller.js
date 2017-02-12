@@ -20,10 +20,10 @@
     ];
 
     headerScope.links = [
-      { linkTo: "adminRoot.properties", label: "Propiedades"},
-      { linkTo: "adminRoot.users", label: "Usuarios" },
-      { linkTo: "adminRoot.branches", label: "Ramas" },
-      { linkTo: "adminRoot.notifications", label: "Notificaciones" }
+      { linkTo: "root.properties", label: "Propiedades"},
+      { linkTo: "root.users", label: "Usuarios" },
+      { linkTo: "root.branches", label: "Ramas" },
+      { linkTo: "root.notifications", label: "Notificaciones" }
     ];
 
     headerScope.toggleLeft = buildToggler("userProfile");
