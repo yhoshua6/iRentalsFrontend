@@ -18,15 +18,15 @@
       page: 1
     };
     propertiesScope.properties = [
-      { id: 0, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 1, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 2, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 3, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 4, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 5, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 6, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 7, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 8, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 }
+      { id: 0, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 1, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 2, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 3, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 4, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 5, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 6, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 7, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 8, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"}
     ];
 
     propertiesScope.deleteProperties = function () {

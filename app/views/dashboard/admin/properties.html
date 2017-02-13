@@ -20,6 +20,7 @@
         <th md-column md-order-by="surfaceTotal">Area total</th>
         <th md-column md-order-by="surfaceIn">Area interna</th>
         <th md-column md-order-by="surfaceOut">Area externa</th>
+        <th md-column md-order-by="notes">Notas</th>
       </tr>
       </thead>
       <tbody md-body>
@@ -30,6 +31,7 @@
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 3, property)">{{property.surfaceTotal}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 4, property)">{{property.surfaceIn}}</td>
         <td md-cell ng-click="propertiesCtrl.modifyField($event, 5, property)">{{property.surfaceOut}}</td>
+        <td md-cell ng-click="propertiesCtrl.modifyField($event, 6, property)">{{property.notes}}</td>
       </tr>
       </tbody>
     </table>

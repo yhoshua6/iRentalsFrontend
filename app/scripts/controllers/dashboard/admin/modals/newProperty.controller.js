@@ -18,11 +18,10 @@
     var newPropertyScope = this;
     newPropertyScope.name = "";
     newPropertyScope.description = "";
-    newPropertyScope.active = false;
     newPropertyScope.surfaceTotal = "";
     newPropertyScope.surfaceIn = "";
     newPropertyScope.surfaceOut = "";
-    newPropertyScope.assignedTo = "";
+    newPropertyScope.notes = "";
 
     newPropertyScope.hide = function() {
       $mdDialog.hide();
@@ -37,10 +36,10 @@
         id: 0,
         name: newPropertyScope.name,
         description: newPropertyScope.description,
-        active: newPropertyScope.active,
         surfaceTotal: newPropertyScope.surfaceTotal,
         surfaceIn: newPropertyScope.surfaceIn,
-        surfaceOut: newPropertyScope.surfaceOut
+        surfaceOut: newPropertyScope.surfaceOut,
+        notes: newPropertyScope.notes
       };
       $mdDialog.hide(newProperty);
     };

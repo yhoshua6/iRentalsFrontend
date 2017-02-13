@@ -17,7 +17,7 @@
           <md-icon class="material-icons">notifications</md-icon>
           <input name="propertyName"  ng-model="newPropertyCtrl.name" type="text" required>
           <div ng-messages="propertiesForm.propertyName.$error">
-            <div ng-message="required">Necesitamos el titulo de la notificación!</div>
+            <div ng-message="required">¿Nombre?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
@@ -25,7 +25,7 @@
           <md-icon class="material-icons">create</md-icon>
           <input name="propertyDescription"  ng-model="newPropertyCtrl.description" type="text" required>
           <div ng-messages="propertiesForm.propertyDescription.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+            <div ng-message="required">¿Descripción?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
@@ -33,7 +33,7 @@
           <md-icon class="material-icons">notifications</md-icon>
           <input name="propertySurfaceTotal"  ng-model="newPropertyCtrl.surfaceTotal" type="text" required>
           <div ng-messages="propertiesForm.propertySurfaceTotal.$error">
-            <div ng-message="required">Necesitamos el titulo de la notificación!</div>
+            <div ng-message="required">¿Área total?</div>
           </div>
         </md-input-container>
       </div>
@@ -43,7 +43,7 @@
           <md-icon class="material-icons">create</md-icon>
           <input name="propertySurfaceIn"  ng-model="newPropertyCtrl.surfaceIn" type="text" required>
           <div ng-messages="propertiesForm.propertySurfaceIn.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+            <div ng-message="required">¿Area interna?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
@@ -51,7 +51,15 @@
           <md-icon class="material-icons">account_box</md-icon>
           <input name="propertySurfaceOut"  ng-model="newPropertyCtrl.surfaceOut" type="text" required>
           <div ng-messages="propertiesForm.propertySurfaceOut.$error">
-            <div ng-message="required">Necesitamos el usuario al que se lo vas a mandar!</div>
+            <div ng-message="required">¿Area externa?</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Notas:</label>
+          <md-icon class="material-icons">account_box</md-icon>
+          <input name="propertyNotes"  ng-model="newPropertyCtrl.notes" type="text" required>
+          <div ng-messages="propertiesForm.propertyNotes.$error">
+            <div ng-message="required">¿Notas?</div>
           </div>
         </md-input-container>
       </div>
