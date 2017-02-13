@@ -18,15 +18,15 @@
       page: 1
     };
     propertiesScope.properties = [
-      { id: 0, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 1, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 2, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 3, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 4, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 5, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 6, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 7, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
-      { id: 8, name: "someName", description: "alsjkdlaskd", active: false, surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 }
+      { id: 0, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 1, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 2, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 3, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 4, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 5, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 6, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 7, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 },
+      { id: 8, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320 }
     ];
 
     propertiesScope.deleteProperties = function () {
@@ -63,12 +63,6 @@
         propertiesScope.properties.push(newProperty);
       }, function() {});
     };
-
-    propertiesScope.changeStatus = function (event, property) {
-      event.stopPropagation();
-      property.active = !property.active;
-    };
-
 
     function getDialogOptions(option, user) {
       var dialogOption = null;
