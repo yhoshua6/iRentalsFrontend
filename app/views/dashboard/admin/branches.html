@@ -16,11 +16,10 @@
       <tr md-row>
         <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title"><span>Title</span></th>
-        <th md-column md-order-by="url">URL</th>
-        <th md-column>Tipo de propiedad</th>
+        <th md-column md-order-by="branchType">Tipo de Rama</th>
+        <th md-column md-order-by="propertyType">Tipo de propiedad</th>
         <th md-column md-order-by="propertyName">Nombre de la propiedad</th>
         <th md-column md-order-by="senderUsr">Usuario Emisor</th>
-        <th md-column>Propiedad activa?</th>
         <th md-column md-order-by="receiverUser">Usuario O Grupo receptor</th>
       </tr>
       </thead>
@@ -28,10 +27,10 @@
       <tr md-row md-select="branch" md-select-id="branch.id" md-auto-select ng-repeat="branch in branchesCtrl.branches | orderBy: branchesCtrl.query.order | limitTo: branchesCtrl.query.limit: (branchesCtrl.query.page - 1) * branchesCtrl.query.limit">
         <td md-cell>{{branch.id}}</td>
         <td md-cell ng-click="branchesCtrl.modifyField($event, 1, branch)">{{branch.title}}</td>
-        <td md-cell ng-click="branchesCtrl.modifyField($event, 2, branch)">{{branch.url}}</td>
+        <td md-cell>{{branch.branchType}}</td>
+        <td md-cell>{{branch.propertyType}}</td>
         <td md-cell>{{branch.propertyName}}</td>
         <td md-cell>{{branch.senderUsr}}</td>
-        <td md-cell ng-click="branchesCtrl.changeStatus($event, branch)"><md-switch aria-label="propertyStatus"></md-switch></td>
         <td md-cell>{{branch.receiverUser}}</td>
       </tr>
       </tbody>

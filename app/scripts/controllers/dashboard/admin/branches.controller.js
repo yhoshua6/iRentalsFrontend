@@ -18,13 +18,11 @@
     };
 
     branchesScope.branches = [
-      { id: 0, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 1, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 2, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 3, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 4, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 5, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"},
-      { id: 6, title: "testig", url: "www.google.com", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", propertyActive: true, receiverUser: "receiver test"}
+      { id: 0, title: "testig", branchType: "Facturas Pago", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
+      { id: 1, title: "testig", branchType: "Facturas Cobro", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
+      { id: 2, title: "testig", branchType: "Reportes", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
+      { id: 3, title: "testig", branchType: "Asambleas", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
+      { id: 4, title: "testig", branchType: "documentos", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"}
     ];
 
     branchesScope.modifyField = function (event, fieldNumber, branch) {

@@ -16,6 +16,13 @@
   newBranchCtrl.$inject = ["$log", "$mdDialog"];
   function newBranchCtrl($log, $mdDialog) {
     var newBranchScope = this;
+    newBranchScope.title = "";
+    newBranchScope.branchType = "";
+    newBranchScope.propertyType = "";
+    newBranchScope.propertyName = "";
+    newBranchScope.senderUser = "";
+    newBranchScope.receiverUser = "";
+
     newBranchScope.admins = [
       { id: 1, name: "Mariana", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
       { id: 2, name: "Jose", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
@@ -44,14 +51,13 @@
 
     newBranchScope.save = function () {
       var newBranch = {
-        id: 6,
-        title: "testig",
-        url: "www.google.com",
-        propertyType: "something",
-        propertyName: "ASD",
-        senderUsr: "sender tes",
-        propertyActive: true,
-        receiverUser: "receiver test"
+        id: 0,
+        title: newBranchScope.title,
+        branchType: newBranchScope.branchType,
+        propertyType: newBranchScope.propertyType,
+        propertyName: newBranchScope.propertyName,
+        senderUsr: newBranchScope.senderUser,
+        receiverUser: newBranchScope.receiverUser
       };
       $mdDialog.hide(newBranch);
     };
