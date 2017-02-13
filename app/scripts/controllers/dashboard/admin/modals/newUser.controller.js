@@ -16,14 +16,14 @@
   newUserCtrl.$inject = ["$log", "$mdDialog"];
   function newUserCtrl($log, $mdDialog) {
     var newUserScope = this;
-    newUserScope.email = "";
-    newUserScope.firstName = "";
-    newUserScope.lastName = "";
+    newUserScope.name = "";
     newUserScope.cellphone = "";
     newUserScope.bankName = "";
     newUserScope.bankClabe = "";
     newUserScope.bankAccount = "";
     newUserScope.cedula = "";
+    newUserScope.user = "";
+    newUserScope.pwd = "";
 
     newUserScope.hide = function() {
       $mdDialog.hide();
@@ -36,14 +36,14 @@
     newUserScope.save = function() {
       var newNotification = {
         id: 0,
-        email: newUserScope.email,
-        firstName: newUserScope.firstName,
-        lastName: newUserScope.lastName,
+        name: newUserScope.name,
         cellphone: newUserScope.cellphone,
         bankName: newUserScope.bankName,
         bankClabe: newUserScope.bankClabe,
         bankAccount: newUserScope.bankAccount,
-        cedula: newUserScope.cedula
+        cedula: newUserScope.cedula,
+        user: newUserScope.email,
+        pwd: newUserScope.pwd
       };
       $mdDialog.hide(newNotification);
     };

@@ -14,27 +14,26 @@
     adminUserScope.users = [];
     adminUserScope.selected = [];
     adminUserScope.query = {
-      order: 'firstName',
+      order: 'name',
       limit: 5,
       page: 1
     };
     adminUserScope.users = [
-      { id: 0, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 1, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 2, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 3, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 4, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 5, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 6, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"},
-      { id: 7, email: "testing@gmail.com", firstName: "test", lastName: "test", cellphone: "000-000-0000",
-        bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"}
+      { id: 0, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 1, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 2, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 3, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 4, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 5, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 6, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
+        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
+      { id: 7, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"}
     ];
 
     adminUserScope.deleteUsers = function () {
@@ -77,11 +76,11 @@
       switch (option) {
         case 1:
           dialogOption = {
-            modelValue: user.firstName,
+            modelValue: user.name,
             placeholder: 'Cambia el nombre del usuario.',
             save: function (input) {
               $log.log("Updating.....");
-              user.firstName = input.$modelValue;
+              user.name = input.$modelValue;
               $log.log("Done.");
             },
             targetEvent: event,
@@ -177,6 +176,23 @@
             save: function (input) {
               $log.log("Updating.....");
               user.cedula = input.$modelValue;
+              $log.log("Done.");
+            },
+            targetEvent: event,
+            validators: {
+              'md-maxlength': 40
+            }
+          };
+          break;
+
+        case 8:
+          dialogOption = {
+            modelValue: user.pwd,
+            placeholder: 'Cambia la contraseña.',
+            arialLabel: "editDialog",
+            save: function (input) {
+              $log.log("Updating.....");
+              user.pwd = input.$modelValue;
               $log.log("Done.");
             },
             targetEvent: event,

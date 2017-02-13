@@ -15,25 +15,27 @@
       <thead md-head md-order="adminUserCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="id"><span>ID</span></th>
-        <th md-column md-order-by="firstName"><span>Nombre</span></th>
-        <th md-column md-order-by="lastName">Apellidos</th>
+        <th md-column md-order-by="name"><span>Nombre</span></th>
         <th md-column md-order-by="cellphone">Celular</th>
         <th md-column md-order-by="bankName">Nombre del banco</th>
         <th md-column md-order-by="bankClabe">Clabe del banco</th>
         <th md-column md-order-by="bankAccount">Número de cuenta</th>
         <th md-column md-order-by="cedula">Cedula</th>
+        <th md-column md-order-by="user">Usuario</th>
+        <th md-column md-order-by="pwd">Contraseña</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="user" md-select-id="user.id" md-auto-select ng-repeat="user in adminUserCtrl.users | orderBy: adminUserCtrl.query.order | limitTo: adminUserCtrl.query.limit: (adminUserCtrl.query.page - 1) * adminUserCtrl.query.limit">
         <td md-cell>{{user.id}}</td>
-        <td md-cell ng-click="adminUserCtrl.modifyField($event, 1, user)">{{user.firstName}}</td>
-        <td md-cell ng-click="adminUserCtrl.modifyField($event, 2, user)">{{user.lastName}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 1, user)">{{user.name}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 3, user)">{{user.cellphone}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 4, user)">{{user.bankName}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 5, user)">{{user.bankClabe}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 6, user)">{{user.bankAccount}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 7, user)">{{user.cedula}}</td>
+        <td md-cell>{{user.user}}</td>
+        <td md-cell ng-click="adminUserCtrl.modifyField($event, 8, user)">{{user.pwd}}</td>
       </tr>
       </tbody>
     </table>

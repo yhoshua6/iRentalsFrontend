@@ -40,7 +40,7 @@
 
     var adminGroupState = {
       name: "root.groups",
-      url: "/admin/groups",
+      url: "admin/groups",
       templateUrl: "/views/dashboard/admin/groups.html",
       controller: "adminGroupsCtrl",
       controllerAs: "groupsCtrl"
@@ -48,7 +48,7 @@
 
     var adminPropertiesState = {
       name: "root.properties",
-      url: "/admin/properties",
+      url: "admin/properties",
       templateUrl: "/views/dashboard/admin/properties.html",
       controller: "adminPropertiesCtrl",
       controllerAs: "propertiesCtrl"
@@ -56,7 +56,7 @@
 
     var adminUsersState = {
       name: "root.users",
-      url: "/admin/users",
+      url: "admin/users",
       templateUrl: "/views/dashboard/admin/users.html",
       controller: "adminUserCtrl",
       controllerAs: "adminUserCtrl"
@@ -64,7 +64,7 @@
 
     var adminNotificationsState = {
       name: "root.notifications",
-      url: "/admin/notifications",
+      url: "admin/notifications",
       templateUrl: "/views/dashboard/admin/notifications.html",
       controller: "notificationsCtrl",
       controllerAs: "notificationsCtrl"
@@ -72,7 +72,7 @@
 
     var adminBranchesState = {
       name: "root.branches",
-      url: "/admin/branches",
+      url: "admin/branches",
       templateUrl: "/views/dashboard/admin/branches.html",
       controller: "adminBranchesCtrl",
       controllerAs: "branchesCtrl"

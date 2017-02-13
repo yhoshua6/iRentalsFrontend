@@ -9,75 +9,72 @@
         </md-button>
       </div>
     </md-toolbar>
-
     <md-dialog-content layout>
-      <div class="md-dialog-content">
-        <h2 flex>Crea nuevos usuarios...</h2>
-        <p flex>
-          Algun texto bien pensado explicando para qué sirven los usuarios.
-        </p>
+      <div flex layout="column" layout-align="spaces-between stretch">
         <md-input-container flex>
           <label>Nombre:</label>
           <md-icon class="material-icons">account_box</md-icon>
-          <input name="notificationFirstName"  ng-model="newUserCtrl.firstName" type="text" required>
-          <div ng-messages="userForm.notificationFirstName.$error">
+          <input name="userName"  ng-model="newUserCtrl.name" type="text" required>
+          <div ng-messages="userForm.userName.$error">
             <div ng-message="required">Necesitamos el nombre!</div>
-          </div>
-        </md-input-container>
-        <md-input-container flex>
-          <label>Apellidos:</label>
-          <md-icon class="material-icons">account_circle</md-icon>
-          <input name="notificationLastName"  ng-model="newUserCtrl.lastName" type="text" required>
-          <div ng-messages="userForm.notificationLastName.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>Celular:</label>
           <md-icon class="material-icons">phone</md-icon>
-          <input name="notificationCellphone"  ng-model="newUserCtrl.cellphone" type="text" required>
-          <div ng-messages="userForm.notificationCellphone.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userPhone"  ng-model="newUserCtrl.cellphone" type="text" required>
+          <div ng-messages="userForm.userPhone.$error">
+            <div ng-message="required">Necesitamos una forma de contacto!</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>Nombre del banco:</label>
           <md-icon class="material-icons">business</md-icon>
-          <input name="notificationBankName"  ng-model="newUserCtrl.bankName" type="text" required>
-          <div ng-messages="userForm.notificationBankName.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userBankName"  ng-model="newUserCtrl.bankName" type="text" required>
+          <div ng-messages="userForm.userBankName.$error">
+            <div ng-message="required">¿Nombre del Banco?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>Clabe del banco:</label>
           <md-icon class="material-icons">business</md-icon>
-          <input name="notificationBankClabe"  ng-model="newUserCtrl.bankClabe" type="text" required>
-          <div ng-messages="userForm.notificationBankClabe.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userBankClabe"  ng-model="newUserCtrl.bankClabe" type="text" required>
+          <div ng-messages="userForm.userBankClabe.$error">
+            <div ng-message="required">¿Clabe Banco?</div>
           </div>
         </md-input-container>
+      </div>
+      <div flex layout="column" layout-align="spaces-between stretch">
         <md-input-container flex>
           <label>Cuenta del banco:</label>
           <md-icon class="material-icons">business</md-icon>
-          <input name="notificationBankAccount"  ng-model="newUserCtrl.bankAccount" type="text" required>
-          <div ng-messages="userForm.notificationBankAccount.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userBankAccount"  ng-model="newUserCtrl.bankAccount" type="text" required>
+          <div ng-messages="userForm.userBankAccount.$error">
+            <div ng-message="required">¿Cuenta del banco?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>Cedula:</label>
           <md-icon class="material-icons">create</md-icon>
-          <input name="notificationCedula"  ng-model="newUserCtrl.cedula" type="text" required>
-          <div ng-messages="userForm.notificationCedula.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userCedula"  ng-model="newUserCtrl.cedula" type="text" required>
+          <div ng-messages="userForm.userCedula.$error">
+            <div ng-message="required">¿Cedula?</div>
           </div>
         </md-input-container>
         <md-input-container flex>
           <label>User:</label>
           <md-icon class="material-icons">contacts</md-icon>
-          <input name="notificationEmail"  ng-model="newUserCtrl.email" type="text" required>
-          <div ng-messages="userForm.notificationEmail.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          <input name="userUser"  ng-model="newUserCtrl.email" type="text" required>
+          <div ng-messages="userForm.userUser.$error">
+            <div ng-message="required">¿usuario?</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Contraseña:</label>
+          <md-icon class="material-icons">lock</md-icon>
+          <input name="userPwd"  ng-model="newUserCtrl.pwd" type="text" required>
+          <div ng-messages="userForm.userPwd.$error">
+            <div ng-message="required">¿Sin contraseña?</div>
           </div>
         </md-input-container>
       </div>
