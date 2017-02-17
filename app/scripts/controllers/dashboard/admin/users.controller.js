@@ -7,8 +7,8 @@
     .controller("adminUserCtrl", adminUserCtrl);
 
 
-  adminUserCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "USER"];
-  function adminUserCtrl($log, $mdEditDialog, $mdDialog, requestService, USER) {
+  adminUserCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "userInfoService", "requestService", "USER", "INFO_USER"];
+  function adminUserCtrl($log, $mdEditDialog, $mdDialog, userInfoService, requestService, USER, INFO_USER) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var adminUserScope = this;
     adminUserScope.users = [];
@@ -18,28 +18,31 @@
       limit: 5,
       page: 1
     };
-    adminUserScope.users = [
-      { id: 0, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 1, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 2, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 3, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 4, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 5, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 6, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123",
-        bankAccount: "123-das-123", cedula: "something", user: "someUser", pwd: "iRentals123"},
-      { id: 7, name: "test", cellphone: "000-000-0000", bankName: "Alligator Inc", bankClabe: "asd-123", bankAccount: "123-das-123", cedula: "something"}
-    ];
+    adminUserScope.users = [];
+
+    var users = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
+    users.then(function (response) {
+      if (response.status === 200) {
+        adminUserScope.users = response.data;
+      }
+    });
 
     adminUserScope.deleteUsers = function () {
       for(var i=0; i<adminUserScope.selected.length; i++)
       {
-        adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
+        var deleteInfo = requestService.getPromise("DELETE", INFO_USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteInfo.then(function (response) {
+          if (response.status === 200) {
+            //adminUserScope.users = response.data;
+            var deletedUser = requestService.getPromise("DELETE", USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
+            deletedUser.then(function (response) {
+              if (response.status === 200) {
+                //adminUserScope.users = response.data;
+                adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
+              }
+            });
+          }
+        });
       }
       adminUserScope.selected = [];
     };
@@ -67,11 +70,9 @@
       }).then(function(newUser) {
         var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser));
         createdUser.then(function (response) {
-          var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser));
-          createdUser.then(function (response) {
-            $log.log(response.data);
-            adminUserScope.users.push(response.data);
-          });
+          newUser.info_user.user = response.data.user;
+          newUser.info_user.pwd = response.data.password_digest;
+          adminUserScope.users.push(newUser.info_user);
         });
       }, function () {});
     };

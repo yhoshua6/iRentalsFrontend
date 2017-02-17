@@ -12,7 +12,6 @@
     var requestScope = this;
 
     requestScope.getPromise = function (requestType, endpoint, formattedData, userAuthToken) {
-      userAuthToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNzYwNTFhOTYtOTAwNS00Njc2LWExNzItYzc5YmQyMzY5NDEwIiwiZXhwIjoxNDg3NjUwMzAyLCJpc3MiOiJpc3N1ZXJfbmFtZSIsImF1ZCI6ImNsaWVudCJ9.-WcvN7UYPrxWvuVa50VRyRJ2upotFdqhwp-AcsBIXdA";
       var requestInfo = {
         method: requestType,
         url: endpoint

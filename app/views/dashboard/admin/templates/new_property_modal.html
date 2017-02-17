@@ -62,6 +62,19 @@
             <div ng-message="required">¿Notas?</div>
           </div>
         </md-input-container>
+        <md-input-container>
+          <label></label>
+          <md-content class="md-padding autocomplete" layout="column" flex>
+            <md-contact-chips
+              ng-model="newPropertyCtrl.selectedOwner"
+              md-contacts="newPropertyCtrl.querySearchForOwners($query)"
+              md-contact-name="user"
+              md-require-match="true"
+              md-highlight-flags="i"
+              filter-selected="newPropertyCtrl.filterSelected"
+              placeholder="Dueños">
+            </md-contact-chips>
+        </md-input-container>
       </div>
     </md-dialog-content>
 

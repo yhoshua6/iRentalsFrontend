@@ -86,7 +86,12 @@
           </div>
         </md-input-container>
         <md-input-container flex>
-          <user-roles></user-roles>
+          <label>Rol de usuario:</label>
+          <md-select ng-model="newUserCtrl.selectedRole">
+            <md-option ng-repeat="role in newUserCtrl.roles" ng-value="role.id">
+              {{role.role}}
+            </md-option>
+          </md-select>
         </md-input-container>
       </div>
     </md-dialog-content>

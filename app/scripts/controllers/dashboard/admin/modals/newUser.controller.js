@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newUserCtrl", newUserCtrl);
 
-  newUserCtrl.$inject = ["$log", "$mdDialog", "requestService", "INFO_USER"];
-  function newUserCtrl($log, $mdDialog, requestService, INFO_USER) {
+  newUserCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "requestService", "INFO_USER", "USER_ROLES"];
+  function newUserCtrl($log, $mdDialog, userInfoService, requestService, INFO_USER, USER_ROLES) {
     var newUserScope = this;
     newUserScope.name = "";
     newUserScope.cellphone = "";
@@ -24,6 +24,13 @@
     newUserScope.cedula = "";
     newUserScope.user = "";
     newUserScope.pwd = "";
+    newUserScope.roles = [];
+    newUserScope.selectedRole = "";
+
+    var rolesPomise = requestService.getPromise("GET", USER_ROLES, null, userInfoService.user.authToken)
+    rolesPomise.then(function (response) {
+      newUserScope.roles = response.data;
+    });
 
     newUserScope.hide = function() {
       $mdDialog.hide();
@@ -34,7 +41,6 @@
     };
 
     newUserScope.save = function() {
-      $log.log("/////////////////////",newUserScope.user);
       var newUser = {
         info_user: {
           name: newUserScope.name,
@@ -43,20 +49,17 @@
           bankClabe: newUserScope.bankClabe,
           bankAccount: newUserScope.bankAccount,
           cedula: newUserScope.cedula
+        },
+        user: {
+          user: newUserScope.user,
+          password: newUserScope.pwd,
+          password_confirmation: newUserScope.pwd,
+          role_id: newUserScope.selectedRole
         }
       };
-      var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser));
+      var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
-        newUser = {
-          user: {
-            user: newUserScope.user,
-            password: newUserScope.pwd,
-            password_confirmation: newUserScope.pwd,
-            info_id: response.data.id,
-            role_id: "9d819262-6437-4fef-9791-c8a7ff981cdb"
-          }
-        };
-        $log.log(newUser);
+        newUser.user.info_id = response.data.id;
         $mdDialog.hide(newUser)
       });
     };

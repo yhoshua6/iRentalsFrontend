@@ -7,8 +7,8 @@
     .controller("adminPropertiesCtrl", adminPropertiesCtrl);
 
 
-  adminPropertiesCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "INFO_PROPERTIES"];
-  function adminPropertiesCtrl($log, $mdDialog, $mdEditDialog, userInfoService, requestService, INFO_PROPERTIES) {
+  adminPropertiesCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "INFO_PROPERTIES", "PROPERTIES"];
+  function adminPropertiesCtrl($log, $mdDialog, $mdEditDialog, userInfoService, requestService, INFO_PROPERTIES, PROPERTIES) {
     var propertiesScope = this;
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];
@@ -17,25 +17,33 @@
       limit: 5,
       page: 1
     };
-    propertiesScope.properties = [
-      { id: 0, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 1, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 2, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 3, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 4, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 5, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 6, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 7, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 8, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"}
-    ];
+    propertiesScope.properties = [];
+
+    var propertiesPromise = requestService.getPromise("GET", INFO_PROPERTIES, null, userInfoService.user.authToken);
+    propertiesPromise.then(function (response) {
+      if (response.status === 200) {
+        propertiesScope.properties = response.data;
+      }
+    });
 
     propertiesScope.deleteProperties = function () {
       for(var i=0; i<propertiesScope.selected.length; i++)
       {
-        propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
+        var deleteInfo = requestService.getPromise("DELETE", INFO_PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteInfo.then(function (response) {
+          if (response.status === 200) {
+            //adminUserScope.users = response.data;
+            var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
+            deleteProperty.then(function (response) {
+              if (response.status === 200) {
+                //adminUserScope.users = response.data;
+                propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
+              }
+            });
+          }
+        });
       }
       propertiesScope.selected = [];
-
     };
 
     propertiesScope.modifyField = function (event,fieldNumber, user) {
@@ -58,15 +66,9 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newProperty) {
-        $log.log(requestService.formatData(newProperty));
-        var something = requestService.getPromise("POST", INFO_PROPERTIES, requestService.formatData(newProperty),
-          "");
-
-        something.then(function (response) {
-          $log.log("Success!", response);
-          propertiesScope.properties.push(newProperty);
-        }).catch(function (error) {
-          $log.log("Failure!", error);
+        var createdProperty = requestService.getPromise("POST", PROPERTIES, requestService.formatData(newProperty.property), userInfoService.user.authToken);
+        createdProperty.then(function (response) {
+          propertiesScope.properties.push(newProperty.info_property);
         });
       }, function() {});
     };
