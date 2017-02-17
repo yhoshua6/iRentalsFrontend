@@ -43,6 +43,14 @@
             <div ng-message="required">¿Clabe Banco?</div>
           </div>
         </md-input-container>
+        <md-input-container flex>
+          <label>Forma de pago:</label>
+          <md-icon class="material-icons">business</md-icon>
+          <input name="userPaymentMethod"  ng-model="newUserCtrl.payment_method" type="text" required>
+          <div ng-messages="userForm.userPaymentMethod.$error">
+            <div ng-message="required">¿Forma de pago?</div>
+          </div>
+        </md-input-container>
       </div>
       <div flex layout="column" layout-align="spaces-between stretch">
         <md-input-container flex>
@@ -64,7 +72,7 @@
         <md-input-container flex>
           <label>User:</label>
           <md-icon class="material-icons">contacts</md-icon>
-          <input name="userUser"  ng-model="newUserCtrl.email" type="text" required>
+          <input name="userUser"  ng-model="newUserCtrl.user" type="text" required>
           <div ng-messages="userForm.userUser.$error">
             <div ng-message="required">¿usuario?</div>
           </div>
@@ -76,6 +84,9 @@
           <div ng-messages="userForm.userPwd.$error">
             <div ng-message="required">¿Sin contraseña?</div>
           </div>
+        </md-input-container>
+        <md-input-container flex>
+          <user-roles></user-roles>
         </md-input-container>
       </div>
     </md-dialog-content>

@@ -7,8 +7,8 @@
     .controller("adminUserCtrl", adminUserCtrl);
 
 
-  adminUserCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog"];
-  function adminUserCtrl($log, $mdEditDialog, $mdDialog) {
+  adminUserCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "USER"];
+  function adminUserCtrl($log, $mdEditDialog, $mdDialog, requestService, USER) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var adminUserScope = this;
     adminUserScope.users = [];
@@ -65,9 +65,14 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newUser) {
-          //$scope.status = 'You said the information was "' + answer + '".';
-        newUser.id = adminUserScope.users.length;
-        adminUserScope.users.push(newUser);
+        var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser));
+        createdUser.then(function (response) {
+          var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser));
+          createdUser.then(function (response) {
+            $log.log(response.data);
+            adminUserScope.users.push(response.data);
+          });
+        });
       }, function () {});
     };
 

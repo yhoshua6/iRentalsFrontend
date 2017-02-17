@@ -1,0 +1,6 @@
+<label>Rol de usuario:</label>
+<md-select ng-model="rolesCtrl.selectedRole">
+  <md-option ng-repeat="role in rolesCtrl.roles" ng-value="role.role">
+    {{role.role}}
+  </md-option>
+</md-select>

@@ -33,7 +33,6 @@
 
     newPropertyScope.save = function() {
       var newProperty = {
-        id: 0,
         name: newPropertyScope.name,
         description: newPropertyScope.description,
         surfaceTotal: newPropertyScope.surfaceTotal,

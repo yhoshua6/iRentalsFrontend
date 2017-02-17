@@ -13,14 +13,14 @@
   angular.module("iRentalsApp")
     .controller("newUserCtrl", newUserCtrl);
 
-  newUserCtrl.$inject = ["$log", "$mdDialog"];
-  function newUserCtrl($log, $mdDialog) {
+  newUserCtrl.$inject = ["$log", "$mdDialog", "requestService", "INFO_USER"];
+  function newUserCtrl($log, $mdDialog, requestService, INFO_USER) {
     var newUserScope = this;
     newUserScope.name = "";
     newUserScope.cellphone = "";
     newUserScope.bankName = "";
-    newUserScope.bankClabe = "";
-    newUserScope.bankAccount = "";
+    newUserScope.bankClabe = 0;
+    newUserScope.bankAccount = 0;
     newUserScope.cedula = "";
     newUserScope.user = "";
     newUserScope.pwd = "";
@@ -34,18 +34,31 @@
     };
 
     newUserScope.save = function() {
-      var newNotification = {
-        id: 0,
-        name: newUserScope.name,
-        cellphone: newUserScope.cellphone,
-        bankName: newUserScope.bankName,
-        bankClabe: newUserScope.bankClabe,
-        bankAccount: newUserScope.bankAccount,
-        cedula: newUserScope.cedula,
-        user: newUserScope.email,
-        pwd: newUserScope.pwd
+      $log.log("/////////////////////",newUserScope.user);
+      var newUser = {
+        info_user: {
+          name: newUserScope.name,
+          cellphone: newUserScope.cellphone,
+          bankName: newUserScope.bankName,
+          bankClabe: newUserScope.bankClabe,
+          bankAccount: newUserScope.bankAccount,
+          cedula: newUserScope.cedula
+        }
       };
-      $mdDialog.hide(newNotification);
+      var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser));
+      userInfo.then(function (response) {
+        newUser = {
+          user: {
+            user: newUserScope.user,
+            password: newUserScope.pwd,
+            password_confirmation: newUserScope.pwd,
+            info_id: response.data.id,
+            role_id: "9d819262-6437-4fef-9791-c8a7ff981cdb"
+          }
+        };
+        $log.log(newUser);
+        $mdDialog.hide(newUser)
+      });
     };
   }
 

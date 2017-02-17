@@ -6,14 +6,14 @@
   angular.module("iRentalsApp")
     .service("userInfoService", userInfo);
 
-  userInfo.$inject = ["$log", "requestService", "INFO_USER_ENDPOINT"];
-  function userInfo ($log, requestService, INFO_USER_ENDPOINT) {
+  userInfo.$inject = ["$log", "requestService", "INFO_USER"];
+  function userInfo ($log, requestService, INFO_USER) {
     var userScope = this;
     userScope.user = {};
 
     userScope.setUserInfo = function () {
       $log.log("hey");
-      var INFO_USER = INFO_USER_ENDPOINT + "/" + userScope.user.infoId;
+      var INFO_USER = INFO_USER + "/" + userScope.user.infoId;
       var userPromise = requestService.getPromise("GET", INFO_USER, null, userScope.user.authToken);
 
       return userPromise.then(function (response) {
@@ -35,4 +35,3 @@
 
   }
 })();
-

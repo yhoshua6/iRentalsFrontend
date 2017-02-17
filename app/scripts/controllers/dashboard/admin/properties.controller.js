@@ -7,8 +7,8 @@
     .controller("adminPropertiesCtrl", adminPropertiesCtrl);
 
 
-  adminPropertiesCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog"];
-  function adminPropertiesCtrl($log, $mdDialog, $mdEditDialog) {
+  adminPropertiesCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "INFO_PROPERTIES"];
+  function adminPropertiesCtrl($log, $mdDialog, $mdEditDialog, userInfoService, requestService, INFO_PROPERTIES) {
     var propertiesScope = this;
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];
@@ -18,15 +18,15 @@
       page: 1
     };
     propertiesScope.properties = [
-      { id: 0, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 1, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 2, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 3, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 4, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 5, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 6, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 7, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
-      { id: 8, name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"}
+      { id: 0, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 1, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 2, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 3, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 4, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 5, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 6, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 7, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"},
+      { id: 8, type: "edificio", name: "someName", description: "alsjkdlaskd", surfaceTotal: 100, surfaceIn: 1.02, surfaceOut: 2.320, notes: "something"}
     ];
 
     propertiesScope.deleteProperties = function () {
@@ -58,9 +58,16 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newProperty) {
-          //$scope.status = 'You said the information was "' + answer + '".';
-        newProperty.id = propertiesScope.properties.length;
-        propertiesScope.properties.push(newProperty);
+        $log.log(requestService.formatData(newProperty));
+        var something = requestService.getPromise("POST", INFO_PROPERTIES, requestService.formatData(newProperty),
+          "");
+
+        something.then(function (response) {
+          $log.log("Success!", response);
+          propertiesScope.properties.push(newProperty);
+        }).catch(function (error) {
+          $log.log("Failure!", error);
+        });
       }, function() {});
     };
 
@@ -137,6 +144,38 @@
             save: function (input) {
               $log.log("Updating.....");
               user.surfaceOut = input.$modelValue;
+              $log.log("Done.");
+            },
+            targetEvent: event,
+            validators: {
+              'md-maxlength': 40
+            }
+          };
+          break;
+        case 6:
+          dialogOption = {
+            modelValue: user.notes,
+            placeholder: 'Cambia las notas de la propiedad.',
+            arialLabel: "editDialog",
+            save: function (input) {
+              $log.log("Updating.....");
+              user.notes = input.$modelValue;
+              $log.log("Done.");
+            },
+            targetEvent: event,
+            validators: {
+              'md-maxlength': 40
+            }
+          };
+          break;
+        case 7:
+          dialogOption = {
+            modelValue: user.type,
+            placeholder: 'Cambia el tipo de propiedad.',
+            arialLabel: "editDialog",
+            save: function (input) {
+              $log.log("Updating.....");
+              user.type = input.$modelValue;
               $log.log("Done.");
             },
             targetEvent: event,
