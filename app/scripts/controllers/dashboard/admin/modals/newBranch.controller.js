@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newBranchCtrl", newBranchCtrl);
 
-  newBranchCtrl.$inject = ["$log", "$mdDialog"];
-  function newBranchCtrl($log, $mdDialog) {
+  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER"];
+  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER) {
     var newBranchScope = this;
     newBranchScope.title = "";
     newBranchScope.branchType = "";
@@ -23,30 +23,20 @@
     newBranchScope.senderUser = "";
     newBranchScope.receiverUser = "";
 
-    newBranchScope.admins = [
-      { id: 1, name: "Mariana", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
-      { id: 2, name: "Jose", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
-      { id: 3, name: "Gabriel", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
-      { id: 4, name: "Rodo", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"},
-      { id: 5, name: "Edgar", image: "https://s-media-cache-ak0.pinimg.com/564x/26/77/f0/2677f034c4b14ccb92fd202bd5ca0142.jpg"}
-    ];
-    newBranchScope.users = [
-      { id: 1, name: "Andrea", image: "http://static.srcdn.com/wp-content/uploads/stormtrooper.jpg"},
-      { id: 2, name: "Alicia", image: "http://static.srcdn.com/wp-content/uploads/stormtrooper.jpg"},
-      { id: 3, name: "Melissa", image: "http://static.srcdn.com/wp-content/uploads/stormtrooper.jpg"},
-      { id: 4, name: "Jessica", image: "http://static.srcdn.com/wp-content/uploads/stormtrooper.jpg"},
-      { id: 5, name: "Ilse", image: "http://static.srcdn.com/wp-content/uploads/stormtrooper.jpg"}
-    ];
+    newBranchScope.users = [];
     newBranchScope.branchName = "";
     newBranchScope.branchUrl = "";
     newBranchScope.filterSelected = true;
 
+    var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
+    usersPromise.then(function (response) {
+      if (response.status === 200) {
+        newBranchScope.users = response.data;
+      }
+    });
+
     newBranchScope.querySearchForUsers = function (criteria) {
       return criteria ? newBranchScope.users.filter(createFilterFor(criteria)) : [];
-    };
-
-    newBranchScope.querySearchForAdmins = function (criteria) {
-      return criteria ? newBranchScope.admins.filter(createFilterFor(criteria)) : [];
     };
 
     newBranchScope.save = function () {
