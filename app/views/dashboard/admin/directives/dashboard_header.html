@@ -23,12 +23,16 @@
           <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
         </md-input-container>
       </md-list>
+      <md-divider></md-divider>
+      <md-toolbar class="md-theme-indigo">
+        <button class="md-toolbar-tools" ng-click="adminCtrl.toggleLeft()">Contactar a Solvit</h1>
+      </md-toolbar>
+      <md-divider></md-divider>
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Administra</h1>
       </md-toolbar>
       <md-list-item ng-repeat="link in adminCtrl.links">
-        <a class="md-accent md-raised" ui-sref="{{link.linkTo}}">{{link.label}}</a>
-
+        <a class="md-accent md-raised" ui-sref="{{link.linkTo}}" ng-click="adminCtrl.toggleLeft()">{{link.label}}</a>
         <md-divider></md-divider>
       </md-list-item>
       <md-button ng-click="adminCtrl.toggleLeft()" class="md-accent">
