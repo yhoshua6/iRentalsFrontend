@@ -38,14 +38,6 @@
       templateUrl: "/views/dashboard/common/home.html"
     };
 
-    var adminGroupState = {
-      name: "root.groups",
-      url: "admin/groups",
-      templateUrl: "/views/dashboard/admin/groups.html",
-      controller: "adminGroupsCtrl",
-      controllerAs: "groupsCtrl"
-    };
-
     var adminPropertiesState = {
       name: "root.properties",
       url: "admin/properties",
@@ -83,7 +75,6 @@
     $stateProvider.state(loginState);
     $stateProvider.state(rootState);
     $stateProvider.state(commonHomeState);
-    $stateProvider.state(adminGroupState);
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);

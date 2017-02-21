@@ -68,7 +68,7 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newUser) {
-        var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser));
+        var createdUser = requestService.getPromise("POST", USER, null, requestService.formatData(newUser));
         createdUser.then(function (response) {
           newUser.info_user.user = response.data.user;
           newUser.info_user.pwd = response.data.password_digest;
@@ -85,13 +85,21 @@
             modelValue: user.name,
             placeholder: 'Cambia el nombre del usuario.',
             save: function (input) {
-              $log.log("Updating.....");
               user.name = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "name": user.lastName
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
@@ -100,13 +108,21 @@
             modelValue: user.lastName,
             placeholder: 'Cambia el apellido del usuario.',
             save: function (input) {
-              $log.log("Updating.....");
               user.lastName = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "lastName": user.lastName
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
@@ -116,13 +132,21 @@
             placeholder: 'Cambia el celular del usuario.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.cellphone = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "cellphone": user.cellphone
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 10
             }
           };
           break;
@@ -132,13 +156,21 @@
             placeholder: 'Cambia el nombre del banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.bankName = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "bankName": user.bankName
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
@@ -148,13 +180,21 @@
             placeholder: 'Cambia la clabe del banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.bankClabe = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "bankClabe": user.bankClabe
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
@@ -164,13 +204,21 @@
             placeholder: 'Cambia la cuenta de banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.bankAccount = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "bankAccount": user.bankAccount
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
@@ -180,30 +228,46 @@
             placeholder: 'Cambia la cedula del usuario.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.cedula = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "info_user": {
+                  "cedula": user.cedula
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
-
         case 8:
           dialogOption = {
             modelValue: user.pwd,
             placeholder: 'Cambia la contraseña.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
               user.pwd = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "user": {
+                  "password": user.pwd,
+                  "password_confirmation": user.pwd
+                }
+              };
+
+              var updateUser = requestService.getPromise("PATCH", USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 10
             }
           };
           break;

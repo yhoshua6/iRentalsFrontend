@@ -32,11 +32,9 @@
         var deleteInfo = requestService.getPromise("DELETE", INFO_PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
           if (response.status === 200) {
-            //adminUserScope.users = response.data;
             var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
             deleteProperty.then(function (response) {
               if (response.status === 200) {
-                //adminUserScope.users = response.data;
                 propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
               }
             });
@@ -46,9 +44,9 @@
       propertiesScope.selected = [];
     };
 
-    propertiesScope.modifyField = function (event,fieldNumber, user) {
+    propertiesScope.modifyField = function (event, fieldNumber, property) {
       event.stopPropagation();
-      var promise = $mdEditDialog.small(getDialogOptions(fieldNumber, user));
+      var promise = $mdEditDialog.small(getDialogOptions(fieldNumber, property));
       promise.then(function (ctrl) {
         var input = ctrl.getInput();
         input.$viewChangeListeners.push(function () {
@@ -73,96 +71,144 @@
       }, function() {});
     };
 
-    function getDialogOptions(option, user) {
+    function getDialogOptions(option, property) {
       var dialogOption = null;
       switch (option) {
         case 1:
           dialogOption = {
-            modelValue: user.name,
+            modelValue: property.name,
             placeholder: 'Cambia el nombre de la propiedad.',
             save: function (input) {
-              $log.log("Updating.....");
-              user.name = input.$modelValue;
-              $log.log("Done.");
+              property.name = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "name": property.name
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 15
             }
           };
           break;
         case 2:
           dialogOption = {
-            modelValue: user.description,
+            modelValue: property.description,
             placeholder: 'Cambia la descripción de la propiedad.',
             save: function (input) {
-              $log.log("Updating.....");
-              user.description = input.$modelValue;
-              $log.log("Done.");
+              property.description = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "description": property.description
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 50
             }
           };
           break;
         case 3:
           dialogOption = {
-            modelValue: user.surfaceTotal,
+            modelValue: property.surfaceTotal,
             placeholder: 'Cambia el area total de la propiedad.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
-              user.surfaceTotal = input.$modelValue;
-              $log.log("Done.");
+              property.surfaceTotal = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "surfaceTotal": property.surfaceTotal
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 4
             }
           };
           break;
         case 4:
           dialogOption = {
-            modelValue: user.surfaceIn,
+            modelValue: property.surfaceIn,
             placeholder: 'Cambia el area interna de la propiedad.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
-              user.surfaceIn = input.$modelValue;
-              $log.log("Done.");
+              property.surfaceIn = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "surfaceIn": property.surfaceIn
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 4
             }
           };
           break;
         case 5:
           dialogOption = {
-            modelValue: user.surfaceOut,
+            modelValue: property.surfaceOut,
             placeholder: 'Cambia la area interna de la propiedad.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
-              user.surfaceOut = input.$modelValue;
-              $log.log("Done.");
+              property.surfaceOut = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "surfaceOut": property.surfaceOut
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 4
             }
           };
           break;
         case 6:
           dialogOption = {
-            modelValue: user.notes,
+            modelValue: property.notes,
             placeholder: 'Cambia las notas de la propiedad.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
-              user.notes = input.$modelValue;
-              $log.log("Done.");
+              property.notes = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "notes": property.notes
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
@@ -172,13 +218,21 @@
           break;
         case 7:
           dialogOption = {
-            modelValue: user.type,
+            modelValue: property.type,
             placeholder: 'Cambia el tipo de propiedad.',
             arialLabel: "editDialog",
             save: function (input) {
-              $log.log("Updating.....");
-              user.type = input.$modelValue;
-              $log.log("Done.");
+              property.type = input.$modelValue;
+              var updateData = {
+                "info_property": {
+                  "type": property.type.id
+                }
+              };
+
+              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateProperty.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {

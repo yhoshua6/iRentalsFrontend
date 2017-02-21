@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog"];
-  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog) {
+  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "BRANCHES"];
+  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, BRANCHES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -16,14 +16,14 @@
       limit: 5,
       page: 1
     };
+    branchesScope.branches = [];
 
-    branchesScope.branches = [
-      { id: 0, title: "testig", branchType: "Facturas Pago", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
-      { id: 1, title: "testig", branchType: "Facturas Cobro", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
-      { id: 2, title: "testig", branchType: "Reportes", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
-      { id: 3, title: "testig", branchType: "Asambleas", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"},
-      { id: 4, title: "testig", branchType: "documentos", propertyType: "something", propertyName: "ASD", senderUsr: "sender tes", receiverUser: "receiver test"}
-    ];
+    var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
+    branchesPromise.then(function (response) {
+      if (response.status === 200) {
+        branchesPromise.branches = response.data;
+      }
+    });
 
     branchesScope.modifyField = function (event, fieldNumber, branch) {
       event.stopPropagation();
@@ -36,15 +36,15 @@
       });
     };
 
-    branchesScope.changeStatus = function (event, branch) {
-      event.stopPropagation();
-      branch.propertyActive = !branch.propertyActive;
-    };
-
     branchesScope.deleteBranches = function () {
       for(var i=0; i<branchesScope.selected.length; i++)
       {
-        branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
+        var deleteBranch = requestService.getPromise("DELETE", BRANCHES + "/" + branchesScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteBranch.then(function (response) {
+          if (response.status === 200) {
+              branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
+          }
+        });
       }
       branchesScope.selected = [];
     };
@@ -58,8 +58,6 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newBranch) {
-        //$scope.status = 'You said the information was "' + answer + '".';
-        newBranch.id = branchesScope.branches.length;
         branchesScope.branches.push(newBranch);
       }, function () {});
     };
@@ -72,9 +70,17 @@
             modelValue: branch.title,
             placeholder: 'Cambia el título.',
             save: function (input) {
-              $log.log("Updating.....");
               branch.title = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "branch": {
+                  "title": branch.title
+                }
+              };
+
+              var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateBranch.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
@@ -87,9 +93,17 @@
             modelValue: branch.url,
             placeholder: 'Cambia la url.',
             save: function (input) {
-              $log.log("Updating.....");
               branch.url = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "branch": {
+                  "url": branch.title
+                }
+              };
+
+              var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateBranch.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {

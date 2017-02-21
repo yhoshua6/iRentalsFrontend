@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newNotificationCtrl", newNotificationCtrl);
 
-  newNotificationCtrl.$inject = ["$log", "$mdDialog"];
-  function newNotificationCtrl($log, $mdDialog) {
+  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS"];
+  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS) {
     var newNotificationScope = this;
     newNotificationScope.title = "";
     newNotificationScope.content = "";
@@ -30,13 +30,18 @@
 
     newNotificationScope.save = function() {
       var newNotification = {
-        id: 0,
         imageName: notificationImage.files[0].name,
         title: newNotificationScope.title,
         content: newNotificationScope.content,
         for: newNotificationScope.for
       };
-      $mdDialog.hide(newNotification);
+      var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(newNotification), userInfoService.user.authToken);
+      notificationsPromise.then(function (response) {
+        if (response.status === 200) {
+          $mdDialog.hide(response.data);
+        }
+      });
+
     };
   }
 

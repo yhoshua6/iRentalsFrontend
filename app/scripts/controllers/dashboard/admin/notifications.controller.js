@@ -7,8 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog"];
-  function notificationsCtrl($log, $mdDialog, $mdEditDialog) {
+  notificationsCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "NOTIFICATIONS"];
+  function notificationsCtrl($log, $mdDialog, $mdEditDialog, requestService, userInfoService, NOTIFICATIONS) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var notificationsScope = this;
     notificationsScope.selected = [];
@@ -17,28 +17,24 @@
       limit: 5,
       page: 1
     };
-    notificationsScope.notifications = [
-      { id: 0, imageName: "dogs.jpg", title: "alsjkdlaskd", content: "something", for: "a" },
-      { id: 1, imageName: "cats.png", title: "alsjkdlaskd", content: "something", for: "b" },
-      { id: 2, imageName: "birds.jpg", title: "alsjkdlaskd", content: "something", for: "c" },
-      { id: 3, imageName: "moredogs.jpg", title: "alsjkdlaskd", content: "something", for: "z" },
-      { id: 4, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "r" },
-      { id: 5, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "y" },
-      { id: 6, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "s" },
-      { id: 7, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "f" },
-      { id: 8, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "g" },
-      { id: 9, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "o" },
-      { id: 10, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "ce" },
-      { id: 11, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "e" },
-      { id: 12, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "v" },
-      { id: 13, imageName: "someName", title: "alsjkdlaskd", content: "something", for: "l" }
+    notificationsScope.notifications = [];
 
-    ];
+    var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
+    notificationsPromise.then(function (response) {
+      if (response.status === 200) {
+        notificationsScope.notifications = response.data;
+      }
+    });
 
     notificationsScope.deleteNotifications = function () {
       for(var i=0; i<notificationsScope.selected.length; i++)
       {
-        notificationsScope.notifications.splice(notificationsScope.notifications.indexOf(notificationsScope.selected[i]), 1);
+        var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + notificationsScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteNotifications.then(function (response) {
+          if (response.status === 200) {
+            notificationsScope.notifications.splice(notificationsScope.notifications.indexOf(notificationsScope.selected[i]), 1);
+          }
+        });
       }
       notificationsScope.selected = [];
     };
@@ -64,7 +60,6 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newNotification) {
-        newNotification.id = notificationsScope.notifications.length;
         notificationsScope.notifications.push(newNotification);
       }, function () {});
     };
@@ -77,9 +72,17 @@
             modelValue: notification.title,
             placeholder: 'Cambia el título de la notificación.',
             save: function (input) {
-              $log.log("Updating.....");
               notification.title = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "notification": {
+                  "title": notification.title
+                }
+              };
+
+              var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateNotification.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {
@@ -92,9 +95,17 @@
             modelValue: notification.content,
             placeholder: 'Cambia el contenido de la notificación.',
             save: function (input) {
-              $log.log("Updating.....");
               notification.content = input.$modelValue;
-              $log.log("Done.");
+              var updateData = {
+                "notification": {
+                  "content": notification.content
+                }
+              };
+
+              var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
+              updateNotification.then(function (response) {
+                $log.log(response);
+              });
             },
             targetEvent: event,
             validators: {

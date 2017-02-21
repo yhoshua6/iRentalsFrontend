@@ -51,7 +51,6 @@
 
     newBranchScope.save = function () {
       var newBranch = {
-        id: 0,
         title: newBranchScope.title,
         branchType: newBranchScope.branchType,
         propertyType: newBranchScope.propertyType,
@@ -59,7 +58,12 @@
         senderUsr: newBranchScope.senderUser,
         receiverUser: newBranchScope.receiverUser
       };
-      $mdDialog.hide(newBranch);
+      var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);
+      branchesPromise.then(function (response) {
+        if (response.status === 200) {
+          $mdDialog.hide(response.data);
+        }
+      });
     };
 
     newBranchScope.hide = function() {
