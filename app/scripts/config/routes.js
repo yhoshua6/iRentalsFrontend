@@ -44,7 +44,15 @@
       templateUrl: "/views/dashboard/common/reports.html",
       controller: "reportsCtrl",
       controllerAs: "reportsCtrl"
-    } ;
+    };
+
+    var commonBillState = {
+      name: "root.bills",
+      url: "common/bills",
+      templateUrl: "/views/dashboard/common/bills.html",
+      controller: "billsCtrl",
+      controllerAs: "billsCtrl"
+    };
 
     var adminPropertiesState = {
       name: "root.properties",
@@ -82,6 +90,7 @@
     $stateProvider.state(rootState);
     $stateProvider.state(commonHomeState);
     $stateProvider.state(commonReportState);
+    $stateProvider.state(commonBillState);
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);

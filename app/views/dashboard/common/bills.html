@@ -1,0 +1,51 @@
+<div layout="column">
+  <md-toolbar flex class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Facturas</span>
+    </div>
+  </md-toolbar>
+  <md-button class="md-accent md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Subir un Archivo</span>
+  </md-button>
+  <md-button class="md-accent md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar los archivos seleccionados</span>
+  </md-button>
+  <md-button class="md-warn md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
+  </md-button>
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="billsCtrl.selected">
+      <thead md-head md-order="billsCtrl.query.order">
+      <tr md-row>
+        <th md-column md-order-by="id">ID</th>
+        <th md-column md-order-by="title">Titulo de la rama</th>
+        <th md-column md-order-by="propertyName">Nombre de la propiedad</th>
+        <th md-column md-order-by="propertyType">Tipo de propiedad</th>
+        <th md-column md-order-by="name">Nombre y Apellido</th>
+        <th md-column md-order-by="fileName">Nombre del Archivo</th>
+        <th md-column md-order-by="fileDate">Fecha del archivo</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="bill" md-select-id="bill.id" md-auto-select ng-repeat="bill in billsCtrl.bills | orderBy: billsCtrl.query.order | limitTo: billsCtrl.query.limit: (billsCtrl.query.page - 1) * billsCtrl.query.limit">
+        <td md-cell>{{bill.id}}</td>
+        <td md-cell>{{bill.title}}</td>
+        <td md-cell>{{bill.propertyName}}</td>
+        <td md-cell>{{bill.propertyType}}</td>
+        <td md-cell>{{bill.name}}</td>
+        <td md-cell>{{bill.fileName}}</td>
+        <td md-cell>{{bill.fileDate}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="billsCtrl.query.limit"
+    md-page="billsCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{billsCtrl.reports.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
+</div>
