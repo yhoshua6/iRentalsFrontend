@@ -1,0 +1,45 @@
+<div layout="column">
+  <md-toolbar flex class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Reportes</span>
+    </div>
+  </md-toolbar>
+  <md-button class="md-accent md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear una nueva notificación</span>
+  </md-button>
+  <md-button class="md-accent md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar</span>
+  </md-button>
+  <md-button class="md-warn md-raised" ng-click="">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
+  </md-button>
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="reportsCtrl.selected">
+      <thead md-head md-order="reportsCtrl.query.order">
+      <tr md-row>
+        <th md-column md-order-by="id"><span>ID</span></th>
+        <th md-column md-order-by="title"><span>Titulo de la ramas</span></th>
+        <th md-column md-order-by="fileName"><span>Nombre del archivo</span></th>
+        <th md-column md-order-by="fileDate">Fecha del Archivo</th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.reports | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
+        <td md-cell>{{report.id}}</td>
+        <td md-cell>{{report.title}}</td>
+        <td md-cell>{{report.fileName}}</td>
+        <td md-cell ng-click="">{{report.fileDate}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="reportsCtrl.query.limit"
+    md-page="reportsCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{reportsCtrl.reports.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
+</div>

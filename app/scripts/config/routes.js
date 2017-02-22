@@ -31,12 +31,20 @@
       url: "/",
       templateUrl: "/views/templates/dashboard_template.html"
     };
-
+    //COMMON
     var commonHomeState = {
       name: "root.home",
       url: "common/home",
       templateUrl: "/views/dashboard/common/home.html"
     };
+
+    var commonReportState = {
+      name: "root.reports",
+      url: "common/reports",
+      templateUrl: "/views/dashboard/common/reports.html",
+      controller: "reportsCtrl",
+      controllerAs: "reportsCtrl"
+    } ;
 
     var adminPropertiesState = {
       name: "root.properties",
@@ -70,11 +78,10 @@
       controllerAs: "branchesCtrl"
     };
 
-
-
     $stateProvider.state(loginState);
     $stateProvider.state(rootState);
     $stateProvider.state(commonHomeState);
+    $stateProvider.state(commonReportState);
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);
