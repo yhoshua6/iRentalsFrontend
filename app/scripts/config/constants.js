@@ -5,7 +5,7 @@
   "use strict";
   angular.module("iRentalsApp")
     .constant("LOGIN_ENDPOINT", "http://localhost:3000/login")
-    .constant("PROPERTIES_ENDPOINT", "http://localhost:3000/properties")
+    .constant("PROPERTIES", "http://localhost:3000/properties")
     .constant("INFO_USER", "http://localhost:3000/api/v1/info_users")
     .constant("USER_ROLES", "http://localhost:3000/api/v1/users_roles")
     .constant("NOTIFICATIONS", "http://localhost:3000/api/v1/notifications")
