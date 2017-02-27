@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newPropertyCtrl", newPropertyCtrl);
 
-  newPropertyCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "requestService", "USER", "INFO_PROPERTIES"];
-  function newPropertyCtrl($log, $mdDialog, userInfoService, requestService, USER, INFO_PROPERTIES) {
+  newPropertyCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "requestService", "USER", "INFO_PROPERTIES", "PROPERTY_TYPES"];
+  function newPropertyCtrl($log, $mdDialog, userInfoService, requestService, USER, INFO_PROPERTIES, PROPERTY_TYPES) {
     var newPropertyScope = this;
     newPropertyScope.name = "";
     newPropertyScope.description = "";
@@ -25,11 +25,20 @@
     newPropertyScope.owners = [];
     newPropertyScope.filterSelected = true;
     newPropertyScope.selectedOwner = {};
+    newPropertyScope.propertyType = "";
 
     var ownersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
     ownersPromise.then(function (response) {
       if (response.status === 200) {
         newPropertyScope.owners = response.data;
+      }
+    });
+
+    var propertiesTypes = requestService.getPromise("GET", PROPERTY_TYPES, null, userInfoService.user.authToken);
+    propertiesTypes.then(function (response) {
+      if (response.status === 200) {
+        $log.log(response.data)
+        newPropertyScope.propertiesType = response.data;
       }
     });
 
@@ -47,23 +56,25 @@
 
     newPropertyScope.save = function() {
       var newProperty = {
-        info_property: {
-          name: newPropertyScope.name,
-          description: newPropertyScope.description,
-          surfaceTotal: newPropertyScope.surfaceTotal,
-          surfaceIn: newPropertyScope.surfaceIn,
-          surfaceOut: newPropertyScope.surfaceOut,
-          notes: newPropertyScope.notes
+        "info_property": {
+          "name": newPropertyScope.name,
+          "description": newPropertyScope.description,
+          "surface_total": newPropertyScope.surfaceTotal,
+          "surface_in": newPropertyScope.surfaceIn,
+          "surface_out": newPropertyScope.surfaceOut,
+          "notes": newPropertyScope.notes
         },
-        property:{
-          user_id: newPropertyScope.selectedOwner.id,
-          property_type_id: newPropertyScope.selectedOwner.id
+        "property":{
+          "user_id": newPropertyScope.selectedOwner.id,
+          "property_type_id": newPropertyScope.propertyType.id
         }
 
       };
       var propertyInfo = requestService.getPromise("POST", INFO_PROPERTIES, requestService.formatData(newProperty), userInfoService.user.authToken);
       propertyInfo.then(function (response) {
         newProperty.property.property_info_id = response.data.id;
+        newProperty.info_property.property_type = newPropertyScope.propertyType;
+        newProperty.info_property.id = response.data.id;
         $mdDialog.hide(newProperty)
       });
     };

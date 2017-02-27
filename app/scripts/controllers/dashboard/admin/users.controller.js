@@ -23,6 +23,7 @@
     var users = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
     users.then(function (response) {
       if (response.status === 200) {
+        $log.log(response.data);
         adminUserScope.users = response.data;
       }
     });
@@ -88,35 +89,12 @@
               user.name = input.$modelValue;
               var updateData = {
                 "info_user": {
-                  "name": user.lastName
+                  "name": user.name
                 }
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
-              'md-maxlength': 15
-            }
-          };
-          break;
-        case 2:
-          dialogOption = {
-            modelValue: user.lastName,
-            placeholder: 'Cambia el apellido del usuario.',
-            save: function (input) {
-              user.lastName = input.$modelValue;
-              var updateData = {
-                "info_user": {
-                  "lastName": user.lastName
-                }
-              };
-
-              var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -140,7 +118,7 @@
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -152,19 +130,19 @@
           break;
         case 4:
           dialogOption = {
-            modelValue: user.bankName,
+            modelValue: user.bank_name,
             placeholder: 'Cambia el nombre del banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              user.bankName = input.$modelValue;
+              user.bank_name = input.$modelValue;
               var updateData = {
                 "info_user": {
-                  "bankName": user.bankName
+                  "bank_name": user.bank_name
                 }
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -176,19 +154,19 @@
           break;
         case 5:
           dialogOption = {
-            modelValue: user.bankClabe,
+            modelValue: user.bank_clabe,
             placeholder: 'Cambia la clabe del banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              user.bankClabe = input.$modelValue;
+              user.bank_clabe = input.$modelValue;
               var updateData = {
                 "info_user": {
-                  "bankClabe": user.bankClabe
+                  "bank_clabe": user.bank_clabe
                 }
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -200,19 +178,19 @@
           break;
         case 6:
           dialogOption = {
-            modelValue: user.bankAccount,
+            modelValue: user.bank_account,
             placeholder: 'Cambia la cuenta de banco,',
             arialLabel: "editDialog",
             save: function (input) {
-              user.bankAccount = input.$modelValue;
+              user.bank_account = input.$modelValue;
               var updateData = {
                 "info_user": {
-                  "bankAccount": user.bankAccount
+                  "bank_account": user.bank_account
                 }
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -236,7 +214,7 @@
               };
 
               var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },
@@ -261,7 +239,7 @@
               };
 
               var updateUser = requestService.getPromise("PATCH", USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
+              updateUser.then(function (response) {
                 $log.log(response);
               });
             },

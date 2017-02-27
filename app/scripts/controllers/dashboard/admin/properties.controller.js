@@ -32,12 +32,14 @@
         var deleteInfo = requestService.getPromise("DELETE", INFO_PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
           if (response.status === 200) {
-            var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
-            deleteProperty.then(function (response) {
-              if (response.status === 200) {
-                propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
-              }
-            });
+
+          }
+        });
+
+        var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].property_id, null, userInfoService.user.authToken);
+        deleteProperty.then(function (response) {
+          if (response.status === 200) {
+            propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
           }
         });
       }
@@ -64,9 +66,18 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newProperty) {
-        var createdProperty = requestService.getPromise("POST", PROPERTIES, requestService.formatData(newProperty.property), userInfoService.user.authToken);
+        var createdProperty = requestService.getPromise("POST", PROPERTIES, requestService.formatData(newProperty), userInfoService.user.authToken);
         createdProperty.then(function (response) {
-          propertiesScope.properties.push(newProperty.info_property);
+          var propertyId = {
+            info_property: {
+              property_id: response.data.id
+            }
+          };
+          newProperty.info_property.property_id = response.data.id;
+          var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + newProperty.info_property.id, requestService.formatData(propertyId), userInfoService.user.authToken);
+          updateProperty.then(function (response) {
+            propertiesScope.properties.push(newProperty.info_property);
+          });
         });
       }, function() {});
     };
@@ -129,7 +140,7 @@
               property.surfaceTotal = input.$modelValue;
               var updateData = {
                 "info_property": {
-                  "surfaceTotal": property.surfaceTotal
+                  "surface_total": Number(property.surfaceTotal)
                 }
               };
 
@@ -153,7 +164,7 @@
               property.surfaceIn = input.$modelValue;
               var updateData = {
                 "info_property": {
-                  "surfaceIn": property.surfaceIn
+                  "surface_in": Number(property.surfaceIn)
                 }
               };
 
@@ -177,7 +188,7 @@
               property.surfaceOut = input.$modelValue;
               var updateData = {
                 "info_property": {
-                  "surfaceOut": property.surfaceOut
+                  "surface_out": Number(property.surfaceOut)
                 }
               };
 
@@ -202,30 +213,6 @@
               var updateData = {
                 "info_property": {
                   "notes": property.notes
-                }
-              };
-
-              var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateProperty.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
-              'md-maxlength': 40
-            }
-          };
-          break;
-        case 7:
-          dialogOption = {
-            modelValue: property.type,
-            placeholder: 'Cambia el tipo de propiedad.',
-            arialLabel: "editDialog",
-            save: function (input) {
-              property.type = input.$modelValue;
-              var updateData = {
-                "info_property": {
-                  "type": property.type.id
                 }
               };
 

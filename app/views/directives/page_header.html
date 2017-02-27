@@ -8,7 +8,7 @@
   <md-nav-item md-nav-sref="root.bills" name="bills">Facturas</md-nav-item>
   <md-nav-item md-nav-sref="root.reports" name="reports">Reportes</md-nav-item>
   <md-nav-item md-nav-sref="root.documents" name="documents">Documentos</md-nav-item>
-  <md-nav-item md-nav-sref="root.home" name="adminBranches">Asambleas</md-nav-item>
+  <md-nav-item md-nav-sref="root.gatherings" name="gatherings">Asambleas</md-nav-item>
 </md-nav-bar>
 
 <section layout="row" flex>
@@ -23,6 +23,10 @@
           <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
         </md-input-container>
       </md-list>
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Soporte</h1>
+      </md-toolbar>
+      <md-button class="md-accent">Contactar a Solvit</md-button>
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Administra</h1>
       </md-toolbar>

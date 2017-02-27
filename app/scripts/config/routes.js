@@ -62,6 +62,14 @@
       controllerAs: "docsCtrl"
     };
 
+    var commonGatheringState = {
+      name: "root.gatherings",
+      url: "common/gatherings",
+      templateUrl: "/views/dashboard/common/gatherings.html",
+      controller: "gatheringsCtrl",
+      controllerAs: "gatheringsCtrl"
+    };
+
     var adminPropertiesState = {
       name: "root.properties",
       url: "admin/properties",
@@ -100,6 +108,7 @@
     $stateProvider.state(commonReportState);
     $stateProvider.state(commonBillState);
     $stateProvider.state(commonDocumentState);
+    $stateProvider.state(commonGatheringState);
     $stateProvider.state(adminPropertiesState);
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);
