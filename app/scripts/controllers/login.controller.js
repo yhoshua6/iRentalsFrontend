@@ -26,7 +26,8 @@
               authToken: response.data.authToken,
               infoId: response.data.infoId,
               roleId: response.data.roleId,
-              branchRoleId: response.data.branchRoleId
+              branchRoleId: response.data.branchRoleId,
+              id: response.data.id
             };
             $log.log(userInfoService.user);
             //toastServices.showSuccessfulLoggedIn();

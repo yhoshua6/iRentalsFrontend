@@ -13,12 +13,25 @@
   angular.module("iRentalsApp")
     .controller("newNotificationCtrl", newNotificationCtrl);
 
-  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS"];
-  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS) {
+  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "USER"];
+  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, USER) {
     var newNotificationScope = this;
     newNotificationScope.title = "";
     newNotificationScope.content = "";
-    newNotificationScope.for = "";
+    newNotificationScope.users = [];
+    newNotificationScope.receiver = {};
+    newNotificationScope.filterSelected = true;
+
+    var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
+    usersPromise.then(function (response) {
+      if (response.status === 200) {
+        newNotificationScope.users = response.data;
+      }
+    });
+
+    newNotificationScope.querySearchForUsers = function (criteria) {
+      return criteria ? newNotificationScope.users.filter(createFilterFor(criteria)) : [];
+    };
 
     newNotificationScope.hide = function() {
       $mdDialog.hide();
@@ -30,19 +43,31 @@
 
     newNotificationScope.save = function() {
       var newNotification = {
-        imageName: notificationImage.files[0].name,
-        title: newNotificationScope.title,
-        content: newNotificationScope.content,
-        for: newNotificationScope.for
+        notification: {
+          user_id: userInfoService.user.id,
+          title: newNotificationScope.title,
+          content: newNotificationScope.content,
+          receiver_id: newNotificationScope.receiver.id
+        }
       };
       var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(newNotification), userInfoService.user.authToken);
       notificationsPromise.then(function (response) {
-        if (response.status === 200) {
-          $mdDialog.hide(response.data);
+        if (response.status === 201) {
+          $log.log(newNotification, "askdahskdhaksd");
+          $mdDialog.hide(newNotification);
         }
       });
 
     };
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+
+      return function filterFn(contact) {
+        return (contact.user.toLowerCase().indexOf(lowercaseQuery) != -1);
+      };
+
+    }
   }
 
 })();

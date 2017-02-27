@@ -9,9 +9,8 @@
         </md-button>
       </div>
     </md-toolbar>
-
     <md-dialog-content layout>
-      <div flex layout="column" layout-align="space-between">
+      <div flex layout="column" layout-align="space-between stretch">
         <md-input-container flex>
           <label>Título de la notificación:</label>
           <md-icon class="material-icons">notifications</md-icon>
@@ -29,22 +28,22 @@
           </div>
         </md-input-container>
       </div>
-      <div flex layout="column" layout-align="space-between">
+      <div flex layout="column" layout-align="space-between stretch">
         <md-input-container flex>
-          <label>User:</label>
-          <md-icon class="material-icons">account_box</md-icon>
-          <input name="notificationForUser"  ng-model="newNotificationCtrl.for" type="text" required>
-          <div ng-messages="notificationsForm.notificationForUser.$error">
-            <div ng-message="required">Necesitamos el usuario al que se lo vas a mandar!</div>
-          </div>
+          <label>Usuario receptor:</label>
+          <md-content class="md-padding autocomplete" layout="column">
+            <md-contact-chips
+              ng-model="newNotificationCtrl.receiver"
+              md-contacts="newNotificationCtrl.querySearchForUsers($query)"
+              md-contact-name="user"
+              md-require-match="true"
+              md-highlight-flags="i"
+              filter-selected="newNotificationCtrl.filterSelected"
+              placeholder="Usuario Receptor">
+            </md-contact-chips>
         </md-input-container>
-        <div flex>
-          <label>Imagen:</label>
-          <input class="md-icon-button" id="notificationImage"  ng-model="newNotificationCtrl.imageName" type="file" required>
-        </div>
       </div>
     </md-dialog-content>
-
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="newNotificationCtrl.cancel()">

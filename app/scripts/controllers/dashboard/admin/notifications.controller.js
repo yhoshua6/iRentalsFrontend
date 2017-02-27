@@ -21,6 +21,7 @@
 
     var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
     notificationsPromise.then(function (response) {
+      $log.log(response);
       if (response.status === 200) {
         notificationsScope.notifications = response.data;
       }
@@ -60,7 +61,8 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newNotification) {
-        notificationsScope.notifications.push(newNotification);
+        $log.log(newNotification, "hayyy");
+        notificationsScope.notifications.push(newNotification.notification);
       }, function () {});
     };
 
@@ -86,7 +88,7 @@
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 10
             }
           };
           break;
@@ -109,7 +111,7 @@
             },
             targetEvent: event,
             validators: {
-              'md-maxlength': 40
+              'md-maxlength': 25
             }
           };
           break;

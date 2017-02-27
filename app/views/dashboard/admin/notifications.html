@@ -15,19 +15,17 @@
       <thead md-head md-order="notificationsCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="id"><span>ID</span></th>
-        <th md-column md-order-by="imageName"><span>Nombre de la imagen</span></th>
         <th md-column md-order-by="title">Título</th>
         <th md-column md-order-by="content">Contenido</th>
-        <th md-column md-order-by="for">Para</th>
+        <!--<th md-column md-order-by="receiver">Para</th>-->
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="notification" md-select-id="notification.id" md-auto-select ng-repeat="notification in notificationsCtrl.notifications | orderBy: notificationsCtrl.query.order | limitTo: notificationsCtrl.query.limit: (notificationsCtrl.query.page - 1) * notificationsCtrl.query.limit">
         <td md-cell>{{notification.id}}</td>
-        <td md-cell>{{notification.imageName}}</td>
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification)">{{notification.title}}</td>
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification)">{{notification.content}}</td>
-        <td md-cell>{{notification.for}}</td>
+        <!--<td md-cell>{{notification.receiver}}</td>-->
       </tr>
       </tbody>
     </table>
