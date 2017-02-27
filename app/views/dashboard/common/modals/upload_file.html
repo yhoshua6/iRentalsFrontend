@@ -1,0 +1,36 @@
+<md-dialog aria-label="newFile">
+  <form name="fileForm" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nuevo Archivo</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="newBranchCtrl.cancel()" aria-label="closeButton">
+          <md-icon class="material-icons" aria-label="Close dialog">clear</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content layout>
+      <div flex layout="column" layout-align="space-between stretch">
+        <md-input-container flex>
+          <label>Título:</label>
+          <md-icon class="material-icons">notifications</md-icon>
+          <input name="branchTitle"  ng-model="newFileCtrl.title" type="text" required>
+          <div ng-messages="branchesForm.branchTitle.$error">
+            <div ng-message="required">¿Titulo de la rama?</div>
+          </div>
+        </md-input-container>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="newFileCtrl.cancel()">
+        Cancelar
+      </md-button>
+      <md-button ng-click="newFileCtrl.save()">
+        Guardar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
