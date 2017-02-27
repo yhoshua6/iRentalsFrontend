@@ -45,9 +45,9 @@
         info_user: {
           name: newUserScope.name,
           cellphone: newUserScope.cellphone,
-          bankName: newUserScope.bankName,
-          bankClabe: newUserScope.bankClabe,
-          bankAccount: newUserScope.bankAccount,
+          bank_name: newUserScope.bankName,
+          bank_clabe: newUserScope.bankClabe,
+          bank_account: newUserScope.bankAccount,
           cedula: newUserScope.cedula
         },
         user: {
@@ -60,6 +60,7 @@
       var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
         newUser.user.info_id = response.data.id;
+        newUser.info_user.id = response.data.id;
         $mdDialog.hide(newUser)
       });
     };

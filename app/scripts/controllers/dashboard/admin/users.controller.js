@@ -31,19 +31,20 @@
     adminUserScope.deleteUsers = function () {
       for(var i=0; i<adminUserScope.selected.length; i++)
       {
+        var user_id = adminUserScope.selected[i].user_id;
+        $log.log(user_id);
         var deleteInfo = requestService.getPromise("DELETE", INFO_USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
           if (response.status === 200) {
-            //adminUserScope.users = response.data;
-            var deletedUser = requestService.getPromise("DELETE", USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
+            var deletedUser = requestService.getPromise("DELETE", USER + "/" + user_id, null, userInfoService.user.authToken);
             deletedUser.then(function (response) {
               if (response.status === 200) {
-                //adminUserScope.users = response.data;
                 adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
               }
             });
           }
         });
+
       }
       adminUserScope.selected = [];
     };
@@ -59,6 +60,20 @@
       });
     };
 
+    adminUserScope.changeStatus = function (event, user) {
+      event.stopPropagation();
+      var info = {
+        info_user: {
+          is_part_of_pool: user.is_part_of_pool
+        }
+      };
+      var userInfo = requestService.getPromise("PATCH", INFO_USER + "/"  + user.id, requestService.formatData(info), userInfoService.user.authToken);
+      userInfo.then(function (response) {
+        $log.log(response);
+      });
+
+    };
+
 
     adminUserScope.newUser = function (event) {
       $mdDialog.show({
@@ -69,11 +84,17 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newUser) {
-        var createdUser = requestService.getPromise("POST", USER, null, requestService.formatData(newUser));
+        var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser), userInfoService.user.authToken);
         createdUser.then(function (response) {
-          newUser.info_user.user = response.data.user;
-          newUser.info_user.pwd = response.data.password_digest;
-          adminUserScope.users.push(newUser.info_user);
+          var info = {
+            info_user: {
+              user_id: response.data.id
+            }
+          };
+          var userInfo = requestService.getPromise("PATCH", INFO_USER + "/"  + newUser.info_user.id, requestService.formatData(info), userInfoService.user.authToken);
+          userInfo.then(function (response) {
+            adminUserScope.users.push(newUser.info_user);
+          });
         });
       }, function () {});
     };
