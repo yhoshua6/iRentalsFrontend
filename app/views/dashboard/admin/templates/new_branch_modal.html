@@ -87,7 +87,7 @@
       <md-button ng-click="newBranchCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newBranchCtrl.save()">
+      <md-button ng-click="newBranchCtrl.save()" ng-show="branchesForm.$valid">
         Guardar
       </md-button>
     </md-dialog-actions>

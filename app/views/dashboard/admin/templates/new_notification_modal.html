@@ -49,7 +49,7 @@
       <md-button ng-click="newNotificationCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newNotificationCtrl.save()">
+      <md-button ng-click="newNotificationCtrl.save()" ng-show="notificationsForm.$valid">
         Guardar
       </md-button>
     </md-dialog-actions>

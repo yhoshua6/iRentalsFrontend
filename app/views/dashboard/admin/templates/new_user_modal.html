@@ -109,7 +109,7 @@
       <md-button ng-click="newUserCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newUserCtrl.save()">
+      <md-button ng-click="newUserCtrl.save()" ng-show="userForm.$valid">
         Guardar
       </md-button>
     </md-dialog-actions>

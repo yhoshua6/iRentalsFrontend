@@ -97,7 +97,7 @@
       <md-button ng-click="newPropertyCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newPropertyCtrl.save()">
+      <md-button ng-click="newPropertyCtrl.save()" ng-show="propertiesForm.$valid">
         Guardar
       </md-button>
     </md-dialog-actions>
