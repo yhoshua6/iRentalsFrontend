@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = [];
-  function gatheringsCtrl() {
+  gatheringsCtrl.$inject = ["$mdDialog"];
+  function gatheringsCtrl($mdDialog) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
@@ -27,5 +27,18 @@
       { id: 2, userName: "someOne 2"},
       { id: 3, userName: "someOne 3"},
     ];
+
+    gatheringsScope.newFile = function (event) {
+      $mdDialog.show({
+        controller: "newFileCtrl",
+        controllerAs: "newFileCtrl",
+        templateUrl: "../../../../views/dashboard/common/modals/upload_file.html",
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true
+      }).then(function(newBranch) {
+        //branchesScope.branches.push(newBranch);
+      }, function () {});
+    };
   }
 })();

@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("reportsCtrl", reportsCtrl);
 
-  reportsCtrl.$inject = [];
-  function reportsCtrl() {
+  reportsCtrl.$inject = ["$mdDialog"];
+  function reportsCtrl($mdDialog) {
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
@@ -20,5 +20,18 @@
       { id: 3, title: "hey 2", fileName: "upload4.pdf", fileDate: "20-10-2017"}
     ];
     reportsScope.selected = [];
+
+    reportsScope.newFile = function (event) {
+      $mdDialog.show({
+        controller: "newFileCtrl",
+        controllerAs: "newFileCtrl",
+        templateUrl: "../../../../views/dashboard/common/modals/upload_file.html",
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose:true
+      }).then(function(newBranch) {
+        //branchesScope.branches.push(newBranch);
+      }, function () {});
+    };
   }
 })();
