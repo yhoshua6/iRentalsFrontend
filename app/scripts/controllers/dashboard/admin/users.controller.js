@@ -23,7 +23,6 @@
     var users = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
     users.then(function (response) {
       if (response.status === 200) {
-        $log.log(response.data);
         adminUserScope.users = response.data;
       }
     });
@@ -35,10 +34,10 @@
         $log.log(user_id);
         var deleteInfo = requestService.getPromise("DELETE", INFO_USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
-          if (response.status === 200) {
+          if (response.status === 204) {
             var deletedUser = requestService.getPromise("DELETE", USER + "/" + user_id, null, userInfoService.user.authToken);
             deletedUser.then(function (response) {
-              if (response.status === 200) {
+              if (response.status === 204) {
                 adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
               }
             });

@@ -42,6 +42,7 @@
     };
 
     newNotificationScope.save = function() {
+      $log.log(userInfoService.user);
       var newNotification = {
         notification: {
           user_id: userInfoService.user.id,
@@ -50,10 +51,11 @@
           receiver_id: newNotificationScope.receiver.id
         }
       };
+      $log.log(newNotification);
       var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(newNotification), userInfoService.user.authToken);
       notificationsPromise.then(function (response) {
         if (response.status === 201) {
-          $log.log(newNotification, "askdahskdhaksd");
+          newNotification.notification.id = response.data.id;
           $mdDialog.hide(newNotification);
         }
       });

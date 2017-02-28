@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "BRANCHES"];
-  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, BRANCHES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "BRANCHES", "BRANCHES_ROLES"];
+  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, BRANCHES, BRANCHES_ROLES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -41,7 +41,7 @@
       {
         var deleteBranch = requestService.getPromise("DELETE", BRANCHES + "/" + branchesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteBranch.then(function (response) {
-          if (response.status === 200) {
+          if (response.status === 204) {
               branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
           }
         });
@@ -58,7 +58,13 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newBranch) {
-        branchesScope.branches.push(newBranch);
+        var branchesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
+        branchesPromise.then(function (response) {
+          if (response.status === 200) {
+            branchesScope.branches.push(newBranch.branch);
+          }
+        });
+
       }, function () {});
     };
 

@@ -13,15 +13,15 @@
   angular.module("iRentalsApp")
     .controller("newBranchCtrl", newBranchCtrl);
 
-  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES"];
-  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER, PROPERTY_TYPES, INFO_PROPERTIES) {
+  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES"];
+  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES) {
     var newBranchScope = this;
     newBranchScope.title = "";
     newBranchScope.branchType = "";
     newBranchScope.propertyType = "";
     newBranchScope.properties = [];
-    newBranchScope.property = {};
-    newBranchScope.receiverUser = "";
+    newBranchScope.selectedProperty = "";
+    newBranchScope.selectedOwner = "";
     newBranchScope.users = [];
     newBranchScope.filterSelected = true;
     newBranchScope.branchOptions = [
@@ -33,7 +33,6 @@
 
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
     usersPromise.then(function (response) {
-      $log.log("users////////////////////", response);
       if (response.status === 200) {
         newBranchScope.users = response.data;
       }
@@ -41,7 +40,6 @@
 
     var propertiesPromise = requestService.getPromise("GET", INFO_PROPERTIES, null, userInfoService.user.authToken);
     usersPromise.then(function (response) {
-      $log.log("properties////////////////////", response);
       if (response.status === 200) {
         newBranchScope.properties = response.data;
       }
@@ -49,13 +47,12 @@
 
     var propertiesTypes = requestService.getPromise("GET", PROPERTY_TYPES, null, userInfoService.user.authToken);
     propertiesTypes.then(function (response) {
-      $log.log("types props////////////////////", response);
       if (response.status === 200) {
-        usersPromise.propertiesType = response.data;
+        newBranchScope.propertiesType = response.data;
       }
     });
 
-    newBranchScope.querySearchForUsers = function (criteria) {
+    newBranchScope.querySearchForOwners = function (criteria) {
       return criteria ? newBranchScope.users.filter(createFilterFor(criteria)) : [];
     };
 
@@ -68,20 +65,21 @@
         branch: {
           title: newBranchScope.title,
           branch_type: newBranchScope.branchType,
-          property_type_id: newBranchScope.propertyType,
-          property_id: newBranchScope.property.id,
+          property_type: newBranchScope.propertyType,
+          property_id: newBranchScope.selectedProperty.id,
+          sender_name: "test",
+          receiver_name: "receiver"
         },
         branch_role: {
           sender_id: userInfoService.user.id,
-          receiver_id: newBranchScope.receiverUser.id
+          receiver_id: newBranchScope.selectedOwner.id
         }
       };
-      $log.log(newBranch);
       var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);
       branchesPromise.then(function (response) {
-        if (response.status === 200) {
+        if (response.status === 201) {
           newBranch.branch_role.branch_id = response.data.id;
-          $mdDialog.hide(response.data);
+          $mdDialog.hide(newBranch);
         }
       });
     };
@@ -101,13 +99,14 @@
     /**
      * Create filter function for a query string
      */
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
+     function createFilterFor(query) {
+       var lowercaseQuery = angular.lowercase(query);
 
-      return function filterFn(contact) {
-        return (contact.name.toLowerCase().indexOf(lowercaseQuery) != -1);
-      };
-    }
+       return function filterFn(contact) {
+         return (contact.user.toLowerCase().indexOf(lowercaseQuery) != -1);
+       };
+
+     }
   }
 
 })();

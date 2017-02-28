@@ -56,26 +56,28 @@
 
     newPropertyScope.save = function() {
       var newProperty = {
-        "info_property": {
-          "name": newPropertyScope.name,
-          "description": newPropertyScope.description,
-          "surface_total": newPropertyScope.surfaceTotal,
-          "surface_in": newPropertyScope.surfaceIn,
-          "surface_out": newPropertyScope.surfaceOut,
-          "notes": newPropertyScope.notes
+        info_property: {
+          name: newPropertyScope.name,
+          description: newPropertyScope.description,
+          surface_total: newPropertyScope.surfaceTotal,
+          surface_in: newPropertyScope.surfaceIn,
+          surface_out: newPropertyScope.surfaceOut,
+          notes: newPropertyScope.notes
         },
-        "property":{
-          "user_id": newPropertyScope.selectedOwner.id,
-          "property_type_id": newPropertyScope.propertyType.id
+        property:{
+          user_id: newPropertyScope.selectedOwner.id,
+          property_type_id: newPropertyScope.propertyType.id
         }
 
       };
       var propertyInfo = requestService.getPromise("POST", INFO_PROPERTIES, requestService.formatData(newProperty), userInfoService.user.authToken);
       propertyInfo.then(function (response) {
-        newProperty.property.property_info_id = response.data.id;
-        newProperty.info_property.property_type = newPropertyScope.propertyType;
-        newProperty.info_property.id = response.data.id;
-        $mdDialog.hide(newProperty)
+        if (response.status === 201) {
+          newProperty.property.property_info_id = response.data.id;
+          newProperty.info_property.property_type = newPropertyScope.propertyType;
+          newProperty.info_property.id = response.data.id;
+          $mdDialog.hide(newProperty)
+        }
       });
     };
 

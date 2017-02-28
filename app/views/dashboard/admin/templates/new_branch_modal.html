@@ -33,43 +33,55 @@
         <md-input-container class="md-block" flex>
           <label>Tipo de Propiedad</label>
             <md-select ng-model="newBranchCtrl.propertyType">
-              <md-option ng-repeat="propertiesType in newBranchCtrl.propertiesType" value="{{propertiesType.typeProperty}}">
-                {{propertiesType.typeProperty}}
+              <md-option ng-repeat="propertiesType in newBranchCtrl.propertiesType" value="{{propertiesType.property_type}}">
+                {{propertiesType.property_type}}
               </md-option>
             </md-select>
         </md-input-container>
       </div>
       <div flex layout="column" layout-align="space-between stretch">
-        <md-input-container flex>
+        <!--<md-input-container flex>
           <label>Propiedad Asignada:</label>
           <md-content class="md-padding autocomplete" layout="column">
             <md-contact-chips
               ng-model="newBranchCtrl.property"
-              md-contacts="newBranchCtrl.querySearchForUsers($query)"
+              md-contacts="newBranchCtrl.querySearchForProperties($query)"
               md-contact-name="user"
               md-require-match="true"
               md-highlight-flags="i"
               filter-selected="newBranchCtrl.filterSelected"
               placeholder="Propiedad Asiganda">
             </md-contact-chips>
-        </md-input-container>
-        <br>
-        <md-input-container flex>
-          <label>Usuario receptor:</label>
-          <md-content class="md-padding autocomplete" layout="column">
+        </md-input-container>-->
+        <md-input-container>
+          <label>Propiedad</label>
+          <md-content class="md-padding autocomplete" layout="column" flex>
             <md-contact-chips
-              ng-model="newBranchCtrl.receiverUser"
-              md-contacts="newBranchCtrl.querySearchForUsers($query)"
+              ng-model="newBranchCtrl.selectedProperty"
+              md-contacts="newBranchCtrl.querySearchForOwners($query)"
               md-contact-name="user"
               md-require-match="true"
               md-highlight-flags="i"
               filter-selected="newBranchCtrl.filterSelected"
-              placeholder="Usuario Receptor">
+              placeholder="Propiedad">
+            </md-contact-chips>
+        </md-input-container>
+        <br>
+        <md-input-container>
+          <label>Usuario Receptor</label>
+          <md-content class="md-padding autocomplete" layout="column" flex>
+            <md-contact-chips
+              ng-model="newBranchCtrl.selectedOwner"
+              md-contacts="newBranchCtrl.querySearchForOwners($query)"
+              md-contact-name="user"
+              md-require-match="true"
+              md-highlight-flags="i"
+              filter-selected="newBranchCtrl.filterSelected"
+              placeholder="Receptor">
             </md-contact-chips>
         </md-input-container>
       </div>
     </md-dialog-content>
-
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="newBranchCtrl.cancel()">

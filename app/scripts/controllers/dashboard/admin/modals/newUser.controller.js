@@ -59,9 +59,11 @@
       };
       var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
-        newUser.user.info_id = response.data.id;
-        newUser.info_user.id = response.data.id;
-        $mdDialog.hide(newUser)
+        if (response.statuts === 201) {
+          newUser.user.info_id = response.data.id;
+          newUser.info_user.id = response.data.id;
+          $mdDialog.hide(newUser)
+        }
       });
     };
   }

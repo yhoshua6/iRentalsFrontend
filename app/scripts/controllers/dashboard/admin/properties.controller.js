@@ -31,15 +31,13 @@
       {
         var deleteInfo = requestService.getPromise("DELETE", INFO_PROPERTIES + "/" + propertiesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
-          if (response.status === 200) {
-
-          }
-        });
-
-        var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].property_id, null, userInfoService.user.authToken);
-        deleteProperty.then(function (response) {
-          if (response.status === 200) {
-            propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
+          if (response.status === 204) {
+            var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].property_id, null, userInfoService.user.authToken);
+            deleteProperty.then(function (response) {
+              if (response.status === 204) {
+                propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
+              }
+            });
           }
         });
       }
