@@ -40,32 +40,28 @@
         </md-input-container>
       </div>
       <div flex layout="column" layout-align="space-between stretch">
-        <!--<md-input-container flex>
-          <label>Propiedad Asignada:</label>
-          <md-content class="md-padding autocomplete" layout="column">
-            <md-contact-chips
-              ng-model="newBranchCtrl.property"
-              md-contacts="newBranchCtrl.querySearchForProperties($query)"
-              md-contact-name="user"
-              md-require-match="true"
-              md-highlight-flags="i"
-              filter-selected="newBranchCtrl.filterSelected"
-              placeholder="Propiedad Asiganda">
-            </md-contact-chips>
-        </md-input-container>-->
         <md-input-container>
           <label>Propiedad</label>
           <md-content class="md-padding autocomplete" layout="column" flex>
             <md-contact-chips
               ng-model="newBranchCtrl.selectedProperty"
-              md-contacts="newBranchCtrl.querySearchForOwners($query)"
-              md-contact-name="user"
+              md-contacts="newBranchCtrl.querySearchForProperties($query)"
+              md-contact-name="name"
               md-require-match="true"
               md-highlight-flags="i"
               filter-selected="newBranchCtrl.filterSelected"
               placeholder="Propiedad">
             </md-contact-chips>
         </md-input-container>
+        <md-autocomplete ng-click="newBranchCtrl.setSelectedItem()"
+          md-selected-item="newBranchCtrl.selectedProperty"
+          md-search-text="searchText"
+          md-items="property in newBranchCtrl.querySearchForProperties(searchText)"
+        >
+          <md-item-template>
+            <span md-highlight-text="searchText">{{property.name}}</span>
+          </md-item-template>
+        </md-autocomplete>
         <br>
         <md-input-container>
           <label>Usuario Receptor</label>

@@ -20,8 +20,8 @@
     newBranchScope.branchType = "";
     newBranchScope.propertyType = "";
     newBranchScope.properties = [];
-    newBranchScope.selectedProperty = "";
-    newBranchScope.selectedOwner = "";
+    newBranchScope.selectedProperty;
+    newBranchScope.selectedOwner;
     newBranchScope.users = [];
     newBranchScope.filterSelected = true;
     newBranchScope.branchOptions = [
@@ -39,7 +39,7 @@
     });
 
     var propertiesPromise = requestService.getPromise("GET", INFO_PROPERTIES, null, userInfoService.user.authToken);
-    usersPromise.then(function (response) {
+    propertiesPromise.then(function (response) {
       if (response.status === 200) {
         newBranchScope.properties = response.data;
       }
@@ -57,10 +57,13 @@
     };
 
     newBranchScope.querySearchForProperties = function (criteria) {
-      return criteria ? newBranchScope.properties.filter(createFilterFor(criteria)) : [];
+      return criteria ? newBranchScope.properties.filter(createFilterPropertyFor(criteria)) : [];
     };
 
     newBranchScope.save = function () {
+      $log.log(newBranchScope.selectedProperty, "////////////////////////////");
+      $log.log(newBranchScope.searchText);
+
       var newBranch = {
         branch: {
           title: newBranchScope.title,
@@ -79,6 +82,7 @@
       branchesPromise.then(function (response) {
         if (response.status === 201) {
           newBranch.branch_role.branch_id = response.data.id;
+          newBranch.branch.id = response.data.id;
           $mdDialog.hide(newBranch);
         }
       });
@@ -105,7 +109,14 @@
        return function filterFn(contact) {
          return (contact.user.toLowerCase().indexOf(lowercaseQuery) != -1);
        };
+     }
 
+     function createFilterPropertyFor(query) {
+       var lowercaseQuery = angular.lowercase(query);
+
+       return function filterFn(contact) {
+         return (contact.name.toLowerCase().indexOf(lowercaseQuery) != -1);
+       };
      }
   }
 

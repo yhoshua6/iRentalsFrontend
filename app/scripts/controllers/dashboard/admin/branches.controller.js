@@ -21,7 +21,8 @@
     var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
     branchesPromise.then(function (response) {
       if (response.status === 200) {
-        branchesPromise.branches = response.data;
+        $log.log(response);
+        branchesScope.branches = response.data;
       }
     });
 
@@ -60,7 +61,7 @@
       }).then(function(newBranch) {
         var branchesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
         branchesPromise.then(function (response) {
-          if (response.status === 200) {
+          if (response.status === 201) {
             branchesScope.branches.push(newBranch.branch);
           }
         });
