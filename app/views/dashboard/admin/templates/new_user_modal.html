@@ -47,13 +47,13 @@
           </div>
         </md-input-container>
         <br>
-        <md-input-container flex>
-          <label>Forma de pago:</label>
-          <md-icon class="material-icons">business</md-icon>
-          <input name="userPaymentMethod"  ng-model="newUserCtrl.payment_method" type="text" required>
-          <div ng-messages="userForm.userPaymentMethod.$error">
-            <div ng-message="required">¿Forma de pago?</div>
-          </div>
+        <md-input-container class="md-block" flex>
+          <label>Forma de Pago:</label>
+            <md-select ng-model="newUserCtrl.paymentMethod">
+              <md-option ng-repeat="payment in newUserCtrl.paymentOptions" ng-value="newUserCtrl.paymentMethod">
+                {{payment.method}}
+              </md-option>
+            </md-select>
         </md-input-container>
       </div>
       <div flex layout="column" layout-align="spaces-between stretch">

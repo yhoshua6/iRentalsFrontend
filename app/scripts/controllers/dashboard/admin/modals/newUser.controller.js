@@ -26,6 +26,11 @@
     newUserScope.user = "";
     newUserScope.roles = [];
     newUserScope.selectedRole = "";
+    newUserScope.paymentOptions = [
+      { id: 0, method: "debito" },
+      { id: 1, method: "credito" }
+    ];
+    newUserScope.paymentMethod;
 
     var rolesPomise = requestService.getPromise("GET", USER_ROLES, null, userInfoService.user.authToken)
     rolesPomise.then(function (response) {
@@ -45,6 +50,7 @@
         info_user: {
           name: newUserScope.name,
           email: newUserScope.email,
+          payment_method: newUserScope.payment_method,
           cellphone: newUserScope.cellphone,
           bank_name: newUserScope.bankName,
           bank_clabe: newUserScope.bankClabe,

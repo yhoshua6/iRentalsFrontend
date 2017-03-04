@@ -35,13 +35,13 @@
     var commonHomeState = {
       name: "root.home",
       url: "common/home",
-      templateUrl: "/views/dashboard/common/home.html"
+      templateUrl: "/views/common/home.html"
     };
 
     var commonReportState = {
       name: "root.reports",
       url: "common/reports",
-      templateUrl: "/views/dashboard/common/reports.html",
+      templateUrl: "/views/common/reports.html",
       controller: "reportsCtrl",
       controllerAs: "reportsCtrl"
     };
@@ -49,7 +49,7 @@
     var commonBillState = {
       name: "root.bills",
       url: "common/bills",
-      templateUrl: "/views/dashboard/common/bills.html",
+      templateUrl: "/views/common/bills.html",
       controller: "billsCtrl",
       controllerAs: "billsCtrl"
     };
@@ -57,7 +57,7 @@
     var commonDocumentState = {
       name: "root.documents",
       url: "common/documents",
-      templateUrl: "/views/dashboard/common/documents.html",
+      templateUrl: "/views/common/documents.html",
       controller: "docsCtrl",
       controllerAs: "docsCtrl"
     };
@@ -65,7 +65,7 @@
     var commonGatheringState = {
       name: "root.gatherings",
       url: "common/gatherings",
-      templateUrl: "/views/dashboard/common/gatherings.html",
+      templateUrl: "/views/common/gatherings.html",
       controller: "gatheringsCtrl",
       controllerAs: "gatheringsCtrl"
     };
