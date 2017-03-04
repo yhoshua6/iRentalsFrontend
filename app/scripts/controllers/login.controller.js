@@ -27,6 +27,7 @@
               infoId: response.data.infoId,
               roleId: response.data.roleId,
               branchRoleId: response.data.branchRoleId,
+              notificationRoleId: response.data.notificationRole,
               id: response.data.id
             };
             $log.log(userInfoService.user);

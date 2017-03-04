@@ -9,6 +9,7 @@
     .constant("INFO_USER", "https://chromabackend.herokuapp.com/api/v1/info_users")
     .constant("USER_ROLES", "https://chromabackend.herokuapp.com/api/v1/users_roles")
     .constant("NOTIFICATIONS", "https://chromabackend.herokuapp.com/api/v1/notifications")
+    .constant("NOTIFICATIONS_ROLES", "https://chromabackend.herokuapp.com/api/v1/notifications_roles")
     .constant("USER", "https://chromabackend.herokuapp.com/api/v1/users")
     .constant("INFO_PROPERTIES", "https://chromabackend.herokuapp.com/api/v1/info_properties")
     .constant("PROPERTY_TYPES", "https://chromabackend.herokuapp.com/api/v1/property_types")

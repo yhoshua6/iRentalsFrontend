@@ -7,8 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "NOTIFICATIONS"];
-  function notificationsCtrl($log, $mdDialog, $mdEditDialog, requestService, userInfoService, NOTIFICATIONS) {
+  notificationsCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function notificationsCtrl($log, $mdDialog, $mdEditDialog, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var notificationsScope = this;
     notificationsScope.selected = [];
@@ -60,7 +60,30 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newNotification) {
-        notificationsScope.notifications.push(newNotification.notification);
+        var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
+        notificationsRolesPromise.then(function (response) {
+          if (response.status === 201) {
+            var data = {
+              notification: {
+                notifications_roles_id: response.data.id
+              }
+            };
+            var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
+            notificationsRolesPromise.then(function (response) {
+              if (response.status === 200) {
+                data.user= {
+                  notifications_role: response.data.id
+                };
+                var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
+                userPromise.then(function (response) {
+                  if (response.status === 200) {
+                    notificationsScope.notifications.push(newNotification.notification);
+                  }
+                });
+              }
+            });
+          }
+        });
       }, function () {});
     };
 

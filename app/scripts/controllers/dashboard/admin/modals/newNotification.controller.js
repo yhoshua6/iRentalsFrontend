@@ -48,8 +48,10 @@
           user_id: userInfoService.user.id,
           title: newNotificationScope.title,
           content: newNotificationScope.content,
-          receiver_id: newNotificationScope.receiver.id,
           receiver_user: newNotificationScope.receiver.user
+        },
+        notifications_role: {
+          receiver_id: newNotificationScope.receiver.id
         }
       };
       $log.log(newNotification);
@@ -57,6 +59,7 @@
       notificationsPromise.then(function (response) {
         if (response.status === 201) {
           newNotification.notification.id = response.data.id;
+          newNotification.notifications_role.notification_id = response.data.id
           $mdDialog.hide(newNotification);
         }
       });
