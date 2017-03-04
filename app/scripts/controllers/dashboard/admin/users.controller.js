@@ -83,8 +83,9 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newUser) {
-        var createdUser = requestService.getPromise("POST", USER, requestService.formatData(newUser), userInfoService.user.authToken);
+        var createdUser = requestService.getPromise("POST", USER, newUser, userInfoService.user.authToken);
         createdUser.then(function (response) {
+          $log.log(response);
           var info = {
             info_user: {
               user_id: response.data.id
@@ -124,6 +125,29 @@
             }
           };
           break;
+        case 2:
+            dialogOption = {
+              modelValue: user.email,
+              placeholder: 'Cambia el correo del usuario.',
+              save: function (input) {
+                user.email = input.$modelValue;
+                var updateData = {
+                  "info_user": {
+                    "email": user.email
+                  }
+                };
+
+                var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+                updateUser.then(function (response) {
+                  $log.log(response);
+                });
+              },
+              targetEvent: event,
+              validators: {
+                'md-maxlength': 25
+              }
+            };
+            break;
         case 3:
           dialogOption = {
             modelValue: user.cellphone,

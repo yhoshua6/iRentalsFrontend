@@ -32,9 +32,7 @@
         var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + notificationsScope.selected[i].id, null, userInfoService.user.authToken);
         deleteNotifications.then(function (response) {
           if (response.status === 204) {
-            $log.log(notificationsScope.notifications);
-            $log.log(notificationsScope.notifications.indexOf(notificationsScope.selected[i]));
-            notificationsScope.notifications.splice(notificationsScope.notifications.indexOf(notificationsScope.selected[i]), 1);
+            notificationsScope.notifications.splice(notificationsScope.selected.indexOf(notificationsScope.selected[i]), 1);
           }
         });
       }

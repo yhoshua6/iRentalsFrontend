@@ -76,20 +76,20 @@
         </md-input-container>
         <br>
         <md-input-container flex>
+          <label>Correo:</label>
+          <md-icon class="material-icons">create</md-icon>
+          <input name="userEmail"  ng-model="newUserCtrl.email" type="email" required>
+          <div ng-messages="userForm.userEmail.$error">
+            <div ng-message="required">¿Sin Email?</div>
+          </div>
+        </md-input-container>
+        <br>
+        <md-input-container flex>
           <label>User:</label>
           <md-icon class="material-icons">contacts</md-icon>
           <input name="userUser"  ng-model="newUserCtrl.user" type="text" required>
           <div ng-messages="userForm.userUser.$error">
             <div ng-message="required">¿usuario?</div>
-          </div>
-        </md-input-container>
-        <br>
-        <md-input-container flex>
-          <label>Contraseña:</label>
-          <md-icon class="material-icons">lock</md-icon>
-          <input name="userPwd"  ng-model="newUserCtrl.pwd" type="text" required>
-          <div ng-messages="userForm.userPwd.$error">
-            <div ng-message="required">¿Sin contraseña?</div>
           </div>
         </md-input-container>
         <br>

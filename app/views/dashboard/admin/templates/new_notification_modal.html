@@ -31,16 +31,16 @@
       <div flex layout="column" layout-align="space-between stretch">
         <md-input-container flex>
           <label>Usuario receptor:</label>
-          <md-content class="md-padding autocomplete" layout="column">
-            <md-contact-chips
-              ng-model="newNotificationCtrl.receiver"
-              md-contacts="newNotificationCtrl.querySearchForUsers($query)"
-              md-contact-name="user"
-              md-require-match="true"
-              md-highlight-flags="i"
-              filter-selected="newNotificationCtrl.filterSelected"
-              placeholder="Usuario Receptor">
-            </md-contact-chips>
+            <md-autocomplete
+              md-selected-item="newNotificationCtrl.receiver"
+              md-search-text="receiverSearch"
+              md-items="receiver in newNotificationCtrl.querySearchForUsers(receiverSearch)"
+              md-item-text = "receiver.user"
+            >
+              <md-item-template>
+                <span md-highlight-text="senderSearch">{{receiver.user}}</span>
+              </md-item-template>
+            </md-autocomplete>
         </md-input-container>
       </div>
     </md-dialog-content>
@@ -49,7 +49,7 @@
       <md-button ng-click="newNotificationCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newNotificationCtrl.save()" ng-show="notificationsForm.$valid">
+      <md-button ng-click="newNotificationCtrl.save()" ng-show="notificationsForm.$valid && newNotificationCtrl.receiver">
         Guardar
       </md-button>
     </md-dialog-actions>

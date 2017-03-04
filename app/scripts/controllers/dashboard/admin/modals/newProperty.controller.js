@@ -24,7 +24,7 @@
     newPropertyScope.notes = "";
     newPropertyScope.owners = [];
     newPropertyScope.filterSelected = true;
-    newPropertyScope.selectedOwner = {};
+    newPropertyScope.selectedOwner;
     newPropertyScope.propertyType = "";
 
     var ownersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
@@ -57,6 +57,7 @@
     newPropertyScope.save = function() {
       var newProperty = {
         info_property: {
+          property_type: newPropertyScope.propertyType.type,
           name: newPropertyScope.name,
           description: newPropertyScope.description,
           surface_total: newPropertyScope.surfaceTotal,

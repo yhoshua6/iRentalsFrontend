@@ -40,41 +40,46 @@
         </md-input-container>
       </div>
       <div flex layout="column" layout-align="space-between stretch">
-        <md-input-container>
+        <md-input-container flex>
           <label>Propiedad</label>
-          <md-content class="md-padding autocomplete" layout="column" flex>
-            <md-contact-chips
-              ng-model="newBranchCtrl.selectedProperty"
-              md-contacts="newBranchCtrl.querySearchForProperties($query)"
-              md-contact-name="name"
-              md-require-match="true"
-              md-highlight-flags="i"
-              filter-selected="newBranchCtrl.filterSelected"
-              placeholder="Propiedad">
-            </md-contact-chips>
+            <md-autocomplete
+              md-selected-item="newBranchCtrl.selectedProperty"
+              md-search-text="propertySearch"
+              md-items="property in newBranchCtrl.querySearchForProperties(propertySearch)"
+              md-item-text = "property.name"
+            >
+              <md-item-template>
+                <span md-highlight-text="propertySearch">{{property.name}}</span>
+              </md-item-template>
+            </md-autocomplete>
         </md-input-container>
-        <md-autocomplete ng-click="newBranchCtrl.setSelectedItem()"
-          md-selected-item="newBranchCtrl.selectedProperty"
-          md-search-text="searchText"
-          md-items="property in newBranchCtrl.querySearchForProperties(searchText)"
-        >
-          <md-item-template>
-            <span md-highlight-text="searchText">{{property.name}}</span>
-          </md-item-template>
-        </md-autocomplete>
         <br>
-        <md-input-container>
-          <label>Usuario Receptor</label>
-          <md-content class="md-padding autocomplete" layout="column" flex>
-            <md-contact-chips
-              ng-model="newBranchCtrl.selectedOwner"
-              md-contacts="newBranchCtrl.querySearchForOwners($query)"
-              md-contact-name="user"
-              md-require-match="true"
-              md-highlight-flags="i"
-              filter-selected="newBranchCtrl.filterSelected"
-              placeholder="Receptor">
-            </md-contact-chips>
+        <md-input-container flex>
+          <label>Usuario Emisor</label>
+            <md-autocomplete
+              md-selected-item="newBranchCtrl.senderUser"
+              md-search-text="senderSearch"
+              md-items="sender in newBranchCtrl.querySearchForUsers(senderSearch)"
+              md-item-text = "sender.user"
+            >
+              <md-item-template>
+                <span md-highlight-text="senderSearch">{{sender.user}}</span>
+              </md-item-template>
+            </md-autocomplete>
+        </md-input-container>
+        <br>
+        <md-input-container flex>
+          <label>Usuario Emisor</label>
+            <md-autocomplete
+              md-selected-item="newBranchCtrl.receiverUser"
+              md-search-text="receiverSearch"
+              md-items="receiver in newBranchCtrl.querySearchForUsers(receiverSearch)"
+              md-item-text = "receiver.user"
+            >
+              <md-item-template>
+                <span md-highlight-text="receiverSearch">{{receiver.user}}</span>
+              </md-item-template>
+            </md-autocomplete>
         </md-input-container>
       </div>
     </md-dialog-content>

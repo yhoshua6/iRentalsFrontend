@@ -19,7 +19,7 @@
     newNotificationScope.title = "";
     newNotificationScope.content = "";
     newNotificationScope.users = [];
-    newNotificationScope.receiver = {};
+    newNotificationScope.receiver;
     newNotificationScope.filterSelected = true;
 
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
@@ -48,7 +48,8 @@
           user_id: userInfoService.user.id,
           title: newNotificationScope.title,
           content: newNotificationScope.content,
-          receiver_id: newNotificationScope.receiver.id
+          receiver_id: newNotificationScope.receiver.id,
+          receiver_user: newNotificationScope.receiver.user
         }
       };
       $log.log(newNotification);

@@ -76,18 +76,18 @@
           </div>
         </md-input-container>
         <br>
-        <md-input-container>
+        <md-input-container flex>
           <label>Dueño</label>
-          <md-content class="md-padding autocomplete" layout="column" flex>
-            <md-contact-chips
-              ng-model="newPropertyCtrl.selectedOwner"
-              md-contacts="newPropertyCtrl.querySearchForOwners($query)"
-              md-contact-name="user"
-              md-require-match="true"
-              md-highlight-flags="i"
-              filter-selected="newPropertyCtrl.filterSelected"
-              placeholder="Dueño">
-            </md-contact-chips>
+            <md-autocomplete
+              md-selected-item="newPropertyCtrl.selectedOwner"
+              md-search-text="senderSearch"
+              md-items="owner in newPropertyCtrl.querySearchForOwners(senderSearch)"
+              md-item-text = "owner.user"
+            >
+              <md-item-template>
+                <span md-highlight-text="senderSearch">{{owner.user}}</span>
+              </md-item-template>
+            </md-autocomplete>
         </md-input-container>
       </div>
     </md-dialog-content>

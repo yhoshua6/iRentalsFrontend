@@ -42,6 +42,7 @@
       {
         var deleteBranch = requestService.getPromise("DELETE", BRANCHES + "/" + branchesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteBranch.then(function (response) {
+          $log.log(response);
           if (response.status === 204) {
               branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
           }

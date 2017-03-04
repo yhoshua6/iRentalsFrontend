@@ -21,7 +21,8 @@
     newBranchScope.propertyType = "";
     newBranchScope.properties = [];
     newBranchScope.selectedProperty;
-    newBranchScope.selectedOwner;
+    newBranchScope.receiverUser;
+    newBranchScope.senderUser;
     newBranchScope.users = [];
     newBranchScope.filterSelected = true;
     newBranchScope.branchOptions = [
@@ -52,7 +53,7 @@
       }
     });
 
-    newBranchScope.querySearchForOwners = function (criteria) {
+    newBranchScope.querySearchForUsers = function (criteria) {
       return criteria ? newBranchScope.users.filter(createFilterFor(criteria)) : [];
     };
 
@@ -61,21 +62,19 @@
     };
 
     newBranchScope.save = function () {
-      $log.log(newBranchScope.selectedProperty, "////////////////////////////");
-      $log.log(newBranchScope.searchText);
 
       var newBranch = {
         branch: {
           title: newBranchScope.title,
           branch_type: newBranchScope.branchType,
           property_type: newBranchScope.propertyType,
-          property_id: newBranchScope.selectedProperty.id,
-          sender_name: "test",
-          receiver_name: "receiver"
+          property_id: newBranchScope.selectedProperty.property_id,
+          sender_name: newBranchScope.senderUser.user,
+          receiver_name: newBranchScope.receiverUser.user
         },
         branch_role: {
-          sender_id: userInfoService.user.id,
-          receiver_id: newBranchScope.selectedOwner.id
+          sender_id: newBranchScope.senderUser.id,
+          receiver_id: newBranchScope.receiverUser.id
         }
       };
       var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);

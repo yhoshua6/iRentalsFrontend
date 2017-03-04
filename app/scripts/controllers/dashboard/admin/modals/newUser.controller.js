@@ -22,8 +22,8 @@
     newUserScope.bankClabe = 0;
     newUserScope.bankAccount = 0;
     newUserScope.cedula = "";
+    newUserScope.email = "";
     newUserScope.user = "";
-    newUserScope.pwd = "";
     newUserScope.roles = [];
     newUserScope.selectedRole = "";
 
@@ -44,6 +44,7 @@
       var newUser = {
         info_user: {
           name: newUserScope.name,
+          email: newUserScope.email,
           cellphone: newUserScope.cellphone,
           bank_name: newUserScope.bankName,
           bank_clabe: newUserScope.bankClabe,
@@ -52,14 +53,12 @@
         },
         user: {
           user: newUserScope.user,
-          password: newUserScope.pwd,
-          password_confirmation: newUserScope.pwd,
           role_id: newUserScope.selectedRole
         }
       };
       var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
-        if (response.statuts === 201) {
+        if (response.status === 201) {
           newUser.user.info_id = response.data.id;
           newUser.info_user.id = response.data.id;
           $mdDialog.hide(newUser)
