@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdDialog", "$log", "userInfoService", "requestService", "BRANCHES"];
-  function billsCtrl($mdDialog, $log, userInfoService, requestService, BRANCHES) {
+  billsCtrl.$inject = ["$mdDialog", "$log", "userInfoService", "requestService", "BRANCHES", "BRANCHES_ROLES"];
+  function billsCtrl($mdDialog, $log, userInfoService, requestService, BRANCHES, BRANCHES_ROLES) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -16,7 +16,13 @@
     billsScope.bills = [];
     billsScope.selected = [];
 
-    var branchesRolesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
+    var branchesRolesPromise = requestService.getPromise(
+      "GET",
+      BRANCHES_ROLES + "/" + userInfoService.user.branchRoleId,
+      null,
+      userInfoService.user.authToken
+    );
+    
     branchesRolesPromise.then(function (response) {
       if (response.status === 200) {
         $log.log(response);

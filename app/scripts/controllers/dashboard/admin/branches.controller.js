@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "BRANCHES", "BRANCHES_ROLES"];
-  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, BRANCHES, BRANCHES_ROLES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "USER", "BRANCHES", "BRANCHES_ROLES"];
+  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, USER, BRANCHES, BRANCHES_ROLES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -64,9 +64,10 @@
         branchesPromise.then(function (response) {
           if (response.status === 201) {
             branchesScope.branches.push(newBranch.branch);
+            updateUserRoles(newBranch.branch_role.sender_id, response.data.id);
+            updateUserRoles(newBranch.branch_role.receiver_id, response.data.id);
           }
         });
-
       }, function () {});
     };
 
@@ -121,6 +122,24 @@
           break;
       }
       return dialogOption;
+    }
+
+    function updateUserRoles(userId, id) {
+      var data = {
+        user: {
+          branch_role: id
+        }
+      };
+      var userBranchRole = requestService.getPromise(
+        "PATCH",
+        USER + "/" + userId,
+        requestService.formatData(data),
+        userInfoService.user.authToken
+      );
+
+      userBranchRole.then(function (response) {
+        $log.log(response);
+      });
     }
   }
 })();
