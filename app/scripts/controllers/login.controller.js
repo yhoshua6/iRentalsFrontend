@@ -28,7 +28,13 @@
               roleId: response.data.roleId,
               branchRoleId: response.data.branchRoleId,
               notificationRoleId: response.data.notificationRole,
-              id: response.data.id
+              id: response.data.id,
+              userName: response.data.userName,
+              cellphone: response.data.cellphone,
+              bankName: response.data.bankName,
+              bankAccount: response.data.bankAccount,
+              bankClabe: response.data.bankClabe,
+              cedula: response.data.cedula
             };
             $log.log(userInfoService.user);
             //toastServices.showSuccessfulLoggedIn();

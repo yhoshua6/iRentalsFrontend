@@ -20,7 +20,7 @@
       <md-list layout ng-repeat="info in headerCtrl.userInfo">
         <md-input-container flex>
           <label>{{info.title}}</label>
-          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.enabled">
+          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.disabled">
         </md-input-container>
       </md-list>
       <md-toolbar class="md-theme-indigo">

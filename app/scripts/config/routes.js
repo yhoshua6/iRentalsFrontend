@@ -35,7 +35,9 @@
     var commonHomeState = {
       name: "root.home",
       url: "common/home",
-      templateUrl: "/views/common/home.html"
+      templateUrl: "/views/common/home.html",
+      controller: "homeCtrl",
+      controllerAs: "homeCtrl"
     };
 
     var commonReportState = {

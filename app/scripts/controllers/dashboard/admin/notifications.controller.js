@@ -72,7 +72,7 @@
             notificationsRolesPromise.then(function (response) {
               if (response.status === 200) {
                 data.user= {
-                  notifications_role: response.data.id
+                  notifications_role: data.notification.notifications_roles_id
                 };
                 var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
                 userPromise.then(function (response) {

@@ -11,12 +11,12 @@
   function headerCtrl($mdSidenav, userInfoService) {
     var headerScope = this;
     headerScope.userInfo = [
-      { title: "Nombre: ", value: userInfoService.user.name, enabled: true, type: "text"},
-      { title: "Teléfono: ", value: userInfoService.user.cellPhone, enabled: true, type: "numeric"},
-      { title: "Nombre del banco: ", value: userInfoService.user.bankName, enabled: true, type: "text"},
-      { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe, enabled: true, type: "numeric"},
-      { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount, enabled: true, type: "text"},
-      { title: "Cedula: ", value: userInfoService.user.cedula, enabled: true, type: "text"}
+      { title: "Nombre: ", value: userInfoService.user.userName, disabled: true, type: "text"},
+      { title: "Teléfono: ", value: userInfoService.user.cellphone, disabled: true, type: "text"},
+      { title: "Nombre del banco: ", value: userInfoService.user.bankName, disabled: true, type: "text"},
+      { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe, disabled: true, type: "numeric"},
+      { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount, disabled: true, type: "text"},
+      { title: "Cedula: ", value: userInfoService.user.cedula, disabled: true, type: "text"}
     ];
 
     headerScope.links = [

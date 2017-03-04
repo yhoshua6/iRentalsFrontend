@@ -7,24 +7,43 @@
   angular.module("iRentalsApp")
     .controller("homeCtrl", homeCtrl);
 
-  homeCtrl.$inject = ["$log", "userInfoService", "requestService", "NOTIFICATIONS"];
-  function homeCtrl($log, userInfoService, requestService, NOTIFICATIONS) {
+  homeCtrl.$inject = ["$log", "userInfoService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function homeCtrl($log, userInfoService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     var homeScope = this;
+    homeScope.notifications = [];
+    homeScope.userName = userInfoService.user.userName;
 
-    var userNotifications = requestService.getPromise(
+    var userRoleNotifications = requestService.getPromise(
       "GET",
-      NOTIFICATIONS + "/" + userInfoService.user.id,
+      NOTIFICATIONS_ROLES,
       null,
       userInfoService.user.authToken
     );
 
-    userNotifications.then(function (response) {
+    userRoleNotifications.then(function (response) {
       if (response.status === 200) {
-        $log.log(response);
-        //billsScope.branches = response.data;
+        setNotifications(response.data);
       }
     });
 
+    function setNotifications(notifications) {
+      var notification;
+      for (var i=0; i<notifications.length; i++) {
+        notification = notifications[i];
+        var userRoleNotifications = requestService.getPromise(
+          "GET",
+          NOTIFICATIONS + "/" + notification.notification_id,
+          null,
+          userInfoService.user.authToken
+        );
+
+        userRoleNotifications.then(function (response) {
+          if (response.status === 200) {
+            homeScope.notifications.push(response.data);
+          }
+        });
+      }
+    }
   }
 
 })();
