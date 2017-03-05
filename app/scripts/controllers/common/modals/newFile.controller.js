@@ -25,10 +25,13 @@
     };
 
     newFileScope.save = function() {
-      $log.log(newFileScope.fileName);
-      $log.log(newFileScope.file);
-      $log.log(newFileScope.fileTransaction);
-      //$mdDialog.hide(answer);
+      var newFile = {
+        depot_file: {
+          file_name: newFileScope.fileName,
+          file: newFileScope.file
+        }
+      };
+      $mdDialog.hide(newFile);
     };
   }
 })();

@@ -40,6 +40,14 @@
       controllerAs: "homeCtrl"
     };
 
+    var commonVoucherState = {
+      name: "root.voucher",
+      url: "common/vouchers",
+      templateUrl: "/views/common/vouchers.html",
+      controller: "vouchersCtrl",
+      controllerAs: "vouchersCtrl"
+    };
+
     var commonReportState = {
       name: "root.reports",
       url: "common/reports",
@@ -108,6 +116,7 @@
     $stateProvider.state(rootState);
     $stateProvider.state(commonHomeState);
     $stateProvider.state(commonReportState);
+    $stateProvider.state(commonVoucherState);
     $stateProvider.state(commonBillState);
     $stateProvider.state(commonDocumentState);
     $stateProvider.state(commonGatheringState);
