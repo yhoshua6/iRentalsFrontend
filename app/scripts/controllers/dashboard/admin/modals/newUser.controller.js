@@ -27,10 +27,9 @@
     newUserScope.roles = [];
     newUserScope.selectedRole = "";
     newUserScope.paymentOptions = [
-      { id: 0, method: "debito" },
-      { id: 1, method: "credito" }
+      { id: 0, method: "Cheque" },
+      { id: 1, method: "Transferencia" }
     ];
-    newUserScope.paymentMethod;
 
     var rolesPomise = requestService.getPromise("GET", USER_ROLES, null, userInfoService.user.authToken)
     rolesPomise.then(function (response) {

@@ -10,11 +10,14 @@
   function themeConfig($mdThemingProvider) {
     $mdThemingProvider
       .theme("default")
-      .primaryPalette("blue-grey", {
-        "default" : "500"
+      .primaryPalette("light-blue", {
+        "default" : "900"
       })
-      .accentPalette("teal", {
-        "default": "500"
+      .accentPalette("light-blue", {
+        "default": "900"
+      })
+      .warnPalette("grey", {
+        "default": "800"
       });
   }
 })();

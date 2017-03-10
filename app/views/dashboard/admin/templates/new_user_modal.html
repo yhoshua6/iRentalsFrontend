@@ -39,7 +39,7 @@
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Clabe del banco:</label>
+          <label>CLABE del banco:</label>
           <md-icon class="material-icons">business</md-icon>
           <input name="userBankClabe"  ng-model="newUserCtrl.bankClabe" type="text" required>
           <div ng-messages="userForm.userBankClabe.$error">
@@ -48,7 +48,7 @@
         </md-input-container>
         <br>
         <md-input-container class="md-block" flex>
-          <label>Forma de Pago:</label>
+          <label>Forma de pago:</label>
             <md-select ng-model="newUserCtrl.paymentMethod">
               <md-option ng-repeat="payment in newUserCtrl.paymentOptions" ng-value="newUserCtrl.paymentMethod">
                 {{payment.method}}
@@ -67,7 +67,7 @@
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Cedula:</label>
+          <label>RFC:</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="userCedula"  ng-model="newUserCtrl.cedula" type="text" required>
           <div ng-messages="userForm.userCedula.$error">
@@ -85,7 +85,7 @@
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>User:</label>
+          <label>Usuario:</label>
           <md-icon class="material-icons">contacts</md-icon>
           <input name="userUser"  ng-model="newUserCtrl.user" type="text" required>
           <div ng-messages="userForm.userUser.$error">

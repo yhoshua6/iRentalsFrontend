@@ -5,19 +5,19 @@
   <form name="loginForm" layout="column" layout-align="space-around" flex flex-offset="5">
     <h2>Inicia Sesión!</h2>
     <md-input-container flex>
-      <label>User:</label>
+      <label>Usuario:</label>
       <md-icon class="material-icons">account_box</md-icon>
       <input name="user" ng-model="loginCtrl.user" type="text" required>
       <div ng-messages="loginForm.user.$error">
-        <div ng-message="required">Necesitamos tu usario!</div>
+        <div ng-message="required">Se requiere tu usuario.</div>
       </div>
     </md-input-container>
     <md-input-container flex>
-      <label>Password:</label>
+      <label>Contraseña:</label>
       <md-icon class="material-icons">lock</md-icon>
       <input name="userPwd" type="password" ng-model="loginCtrl.userPwd" required>
       <div ng-messages="loginForm.userEmail.$error">
-        <div ng-message="required">¡También ocupamos tu contraseña!</div>
+        <div ng-message="required">Se requiere tu contraseña.</div>
       </div>
     </md-input-container>
     <md-progress-circular flex ng-show="loginCtrl.sending" md-mode="indeterminate"></md-progress-circular>

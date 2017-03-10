@@ -7,33 +7,31 @@
   <md-nav-item md-nav-sref="root.home" name="home">Inicio</md-nav-item>
   <md-nav-item md-nav-sref="root.bills" name="bills">Facturas</md-nav-item>
   <md-nav-item md-nav-sref="root.voucher" name="bills">Comprobantes</md-nav-item>
-  <md-nav-item md-nav-sref="root.reports" name="reports">Reportes</md-nav-item>
   <md-nav-item md-nav-sref="root.documents" name="documents">Documentos</md-nav-item>
+  <md-nav-item md-nav-sref="root.reports" name="reports">Reportes</md-nav-item>
   <md-nav-item md-nav-sref="root.gatherings" name="gatherings">Asambleas</md-nav-item>
 </md-nav-bar>
 
 <section layout="row" flex>
   <md-sidenav class="md-sidenav-left" md-component-id="userProfile" md-disable-backdrop md-whiteframe="4">
-    <md-toolbar class="md-theme-indigo">
+    <md-toolbar>
       <h1 class="md-toolbar-tools">Mi Perfil</h1>
     </md-toolbar>
     <md-content layout="column">
       <md-list layout ng-repeat="info in headerCtrl.userInfo">
-        <md-input-container flex>
-          <label>{{info.title}}</label>
-          <input type="{{info.type}}" ng-model="info.value" ng-disabled="info.disabled">
-        </md-input-container>
+        <div flex>
+          <div>{{info.title}} : {{info.value}}</div>
+        </div>
       </md-list>
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Soporte</h1>
       </md-toolbar>
-      <md-button class="md-accent">Contactar a Solvit</md-button>
+      <md-button class="md-accent">Contactar a Chroma</md-button>
       <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Administra</h1>
+        <h1 class="md-toolbar-tools">Administración</h1>
       </md-toolbar>
       <md-list-item ng-repeat="link in headerCtrl.links">
         <a class="md-accent md-raised" ui-sref="{{link.linkTo}}">{{link.label}}</a>
-
         <md-divider></md-divider>
       </md-list-item>
       <md-button ng-click="headerCtrl.toggleLeft()" class="md-accent">

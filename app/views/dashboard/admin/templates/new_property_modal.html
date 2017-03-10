@@ -25,9 +25,6 @@
           <label>Descripción:</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="propertyDescription"  ng-model="newPropertyCtrl.description" type="text" required>
-          <div ng-messages="propertiesForm.propertyDescription.$error">
-            <div ng-message="required">¿Descripción?</div>
-          </div>
         </md-input-container>
         <br>
         <md-input-container flex>
@@ -71,13 +68,10 @@
           <label>Notas:</label>
           <md-icon class="material-icons">account_box</md-icon>
           <input name="propertyNotes"  ng-model="newPropertyCtrl.notes" type="text" required>
-          <div ng-messages="propertiesForm.propertyNotes.$error">
-            <div ng-message="required">¿Notas?</div>
-          </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Dueño</label>
+          <label>Condómino</label>
             <md-autocomplete
               md-selected-item="newPropertyCtrl.selectedOwner"
               md-search-text="senderSearch"

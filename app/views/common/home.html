@@ -1,13 +1,14 @@
 <div layout="column">
   <div flex flex-offset="5" class="text-center">
-    <h2 flex>¡Bienvenido, {{homeCtrl.userName}}!</h2>
+    <h1><strong>BIENVENIDO A CHROMA SAN PEDRO</strong></h1>
+    <h2>¡Bienvenido, {{homeCtrl.userName}}!</h2>
   </div>
   <div flex layout>
     <div flex flex-offset="5">
       <img width="500" height="350" ng-src="../../images/chroma_plaza.jpg">
     </div>
     <md-content flex>
-      <header>Notificaciones</header>
+      <header><strong>Notificaciones</strong></header>
       <md-list ng-repeat="notification in homeCtrl.notifications">
         <md-list-item class="md-3-line">
           <img ng-src="../../images/notification.png" class="md-avatar">

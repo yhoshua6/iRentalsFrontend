@@ -5,8 +5,15 @@
   padding: 0.2em 0;
 }
 
+@font-face {
+  font-family: futura;
+  src: url("fonts/FuturaStd-Medium.otf");
+}
+
 body {
   padding: 0;
+  font-family: futura;
+  background-image: url("../images/background.jpg");
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -15,12 +22,22 @@ body {
 .footer {
   padding-left: 15px;
   padding-right: 15px;
+  background: transparent;
 }
 
+md-content,
+md-toolbar {
+  background: transparent;
+}
+
+.clearContainer{
+  background: transparent !important;
+}
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
+  background: transparent;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
