@@ -14,21 +14,19 @@
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>
-    <table md-table md-row-select multiple ng-model="reportsCtrl.selected">
-      <thead md-head md-order="reportsCtrl.query.order">
+    <table md-table md-row-select multiple ng-model="vouchersCtrl.selected">
+      <thead md-head md-order="vouchersCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id"><span>ID</span></th>
-        <th md-column md-order-by="title"><span>Titulo de la ramas</span></th>
-        <th md-column md-order-by="fileName"><span>Nombre del archivo</span></th>
-        <th md-column md-order-by="fileDate">Fecha del Archivo</th>
+        <th md-column md-order-by="id">ID</th>
+        <th md-column md-order-by="fileName">Nombre del Archivo</th>
+        <th md-column md-order-by="fileDate">Fecha del archivo</th>
       </tr>
       </thead>
       <tbody md-body>
-      <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.reports | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
-        <td md-cell>{{report.id}}</td>
-        <td md-cell>{{report.title}}</td>
-        <td md-cell>{{report.fileName}}</td>
-        <td md-cell ng-click="">{{report.fileDate}}</td>
+      <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in vouchersCtrl.documents | orderBy: vouchersCtrl.query.order | limitTo: vouchersCtrl.query.limit: (vouchersCtrl.query.page - 1) * vouchersCtrl.query.limit">
+        <td md-cell>{{document.id}}</td>
+        <td md-cell>{{document.fileName}}</td>
+        <td md-cell>{{document.fileDate}}</td>
       </tr>
       </tbody>
     </table>

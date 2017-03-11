@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdDialog", "$mdSidenav", "$log", "userInfoService", "requestService", "BRANCHES", "BRANCHES_ROLES", "FILES_DEPOT"];
-  function billsCtrl($mdDialog, $mdSidenav, $log, userInfoService, requestService, BRANCHES, BRANCHES_ROLES, FILES_DEPOT) {
+  billsCtrl.$inject = ["$mdDialog", "$mdSidenav", "$log", "userInfoService", "requestService", "BRANCHES", "FILES_DEPOT"];
+  function billsCtrl($mdDialog, $mdSidenav, $log, userInfoService, requestService, BRANCHES, FILES_DEPOT) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -21,6 +21,25 @@
       $mdSidenav("userProfile").close()
     }
 
+    var branch = {
+      branch: {
+        filter: "Facturas"
+      }
+    };
+
+    var branchPromise = requestService.getPromise(
+      "GET",
+      BRANCHES + "/" + userInfoService.user.branchId,
+      requestService.formatData(branch),
+      userInfoService.user.authToken
+    );
+
+    branchPromise.then(function (response) {
+      if (response.status === 200) {
+        billsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+      }
+    });
+
     var filesDepotPromise = requestService.getPromise(
       "GET",
       FILES_DEPOT,
@@ -33,23 +52,6 @@
         billsScope.files = response.data;
       }
     });
-
-    var branchesRolesPromise = requestService.getPromise(
-      "GET",
-      BRANCHES_ROLES + "/" + userInfoService.user.branchRoleId,
-      null,
-      userInfoService.user.authToken
-    );
-
-    branchesRolesPromise.then(function (response) {
-      if (response.status === 200) {
-        $log.log(response);
-        //billsScope.branches = response.data;
-        billsScope.branchId = response.data.branch_id;
-        billsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-      }
-    });
-
 
     billsScope.newFile = function (event) {
       $mdDialog.show({

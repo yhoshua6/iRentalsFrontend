@@ -63,6 +63,7 @@
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newBranch) {
+        $log.log(newBranch);
         branchesScope.branches.push(newBranch.branch);
         updateUserRoles(newBranch.branch.sender_id, newBranch.branch.id);
         updateUserRoles(newBranch.branch.receiver_id, newBranch.branch.id);
@@ -125,7 +126,7 @@
     function updateUserRoles(userId, id) {
       var data = {
         user: {
-          branch_role: id
+          branch_id: id
         }
       };
       var userBranchRole = requestService.getPromise(
