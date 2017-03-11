@@ -7,8 +7,8 @@
     .controller("adminPropertiesCtrl", adminPropertiesCtrl);
 
 
-  adminPropertiesCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "INFO_PROPERTIES", "PROPERTIES"];
-  function adminPropertiesCtrl($log, $mdDialog, $mdEditDialog, userInfoService, requestService, INFO_PROPERTIES, PROPERTIES) {
+  adminPropertiesCtrl.$inject = ["$log", "$mdSidenav", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "INFO_PROPERTIES", "PROPERTIES"];
+  function adminPropertiesCtrl($log, $mdSidenav, $mdDialog, $mdEditDialog, userInfoService, requestService, INFO_PROPERTIES, PROPERTIES) {
     var propertiesScope = this;
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];
@@ -18,6 +18,10 @@
       page: 1
     };
     propertiesScope.properties = [];
+
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
 
     var propertiesPromise = requestService.getPromise("GET", INFO_PROPERTIES, null, userInfoService.user.authToken);
     propertiesPromise.then(function (response) {
@@ -59,7 +63,7 @@
       $mdDialog.show({
         controller: "newPropertyCtrl",
         controllerAs: "newPropertyCtrl",
-        templateUrl: "../../../../views/dashboard/admin/templates/new_property_modal.html",
+        templateUrl: "../../../views/dashboard/templates/new_property_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true

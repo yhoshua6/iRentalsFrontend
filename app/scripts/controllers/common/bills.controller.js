@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdDialog", "$log", "userInfoService", "requestService", "BRANCHES", "BRANCHES_ROLES", "FILES_DEPOT"];
-  function billsCtrl($mdDialog, $log, userInfoService, requestService, BRANCHES, BRANCHES_ROLES, FILES_DEPOT) {
+  billsCtrl.$inject = ["$mdDialog", "$mdSidenav", "$log", "userInfoService", "requestService", "BRANCHES", "BRANCHES_ROLES", "FILES_DEPOT"];
+  function billsCtrl($mdDialog, $mdSidenav, $log, userInfoService, requestService, BRANCHES, BRANCHES_ROLES, FILES_DEPOT) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -16,6 +16,10 @@
     billsScope.files = [];
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
+
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
 
     var filesDepotPromise = requestService.getPromise(
       "GET",

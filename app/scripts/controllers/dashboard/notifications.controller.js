@@ -7,8 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function notificationsCtrl($log, $mdDialog, $mdEditDialog, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
+  notificationsCtrl.$inject = ["$log", "$mdSidenav", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function notificationsCtrl($log, $mdSidenav, $mdDialog, $mdEditDialog, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var notificationsScope = this;
     notificationsScope.selected = [];
@@ -18,6 +18,10 @@
       page: 1
     };
     notificationsScope.notifications = [];
+
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
 
     var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
     notificationsPromise.then(function (response) {
@@ -55,7 +59,7 @@
       $mdDialog.show({
         controller: "newNotificationCtrl",
         controllerAs: "newNotificationCtrl",
-        templateUrl: "../../../../views/dashboard/admin/templates/new_notification_modal.html",
+        templateUrl: "../../../views/dashboard/templates/new_notification_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true

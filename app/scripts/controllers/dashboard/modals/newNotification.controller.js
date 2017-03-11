@@ -54,7 +54,6 @@
           receiver_id: newNotificationScope.receiver.id
         }
       };
-      $log.log(newNotification);
       var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(newNotification), userInfoService.user.authToken);
       notificationsPromise.then(function (response) {
         if (response.status === 201) {

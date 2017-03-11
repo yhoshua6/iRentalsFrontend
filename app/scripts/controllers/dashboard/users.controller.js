@@ -7,8 +7,8 @@
     .controller("adminUserCtrl", adminUserCtrl);
 
 
-  adminUserCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "userInfoService", "requestService", "USER", "INFO_USER"];
-  function adminUserCtrl($log, $mdEditDialog, $mdDialog, userInfoService, requestService, USER, INFO_USER) {
+  adminUserCtrl.$inject = ["$log", "$mdSidenav", "$mdEditDialog", "$mdDialog", "userInfoService", "requestService", "USER", "INFO_USER"];
+  function adminUserCtrl($log, $mdSidenav, $mdEditDialog, $mdDialog, userInfoService, requestService, USER, INFO_USER) {
     //if (!isUserAlive) { $state.go("root.login"); }
     var adminUserScope = this;
     adminUserScope.users = [];
@@ -19,6 +19,10 @@
       page: 1
     };
     adminUserScope.users = [];
+
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
 
     var users = requestService.getPromise("GET", INFO_USER, null, userInfoService.user.authToken);
     users.then(function (response) {
@@ -78,7 +82,7 @@
       $mdDialog.show({
         controller: "newUserCtrl",
         controllerAs: "newUserCtrl",
-        templateUrl: "../../../../views/dashboard/admin/templates/new_user_modal.html",
+        templateUrl: "../../../views/dashboard/templates/new_user_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true

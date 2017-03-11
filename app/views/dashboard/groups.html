@@ -1,0 +1,38 @@
+<div layout="column">
+  <md-toolbar flex class="md-table-toolbar md-default clearContainer">
+    <div class="md-toolbar-tools">
+      <span>Administra tus grupos</span>
+    </div>
+  </md-toolbar>
+  <md-button class="md-accent md-raised" ng-click="groupsCtrl.newBranch($event)">
+    <span><md-icon flex class="material-icons">add_circle</md-icon>  Crear un nuevo grupo</span>
+  </md-button>
+  <md-button ng-hide="groupsCtrl.selected.length === 0" class="md-warn md-raised" ng-click="groupsCtrl.deleteBranches()">
+    <span><md-icon flex class="material-icons">delete</md-icon>  Borrar grupos</span>
+  </md-button>
+  <md-table-container flex>
+    <table md-table md-row-select multiple ng-model="groupsCtrl.selected">
+      <thead md-head md-order="groupsCtrl.query.order">
+      <tr md-row>
+        <th md-column md-order-by="id"><span>ID</span></th>
+        <th md-column md-order-by="name"><span>Name</span></th>
+      </tr>
+      </thead>
+      <tbody md-body>
+      <tr md-row md-select="branch" md-select-id="branch.id" md-auto-select ng-repeat="branch in groupsCtrl.branches | orderBy: groupsCtrl.query.order | limitTo: groupsCtrl.query.limit: (groupsCtrl.query.page - 1) * groupsCtrl.query.limit">
+        <td md-cell>{{branch.id}}</td>
+        <td md-cell ng-click="groupsCtrl.modifyField($event, 1, branch)">{{branch.title}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-table-pagination
+    flex
+    md-limit="groupsCtrl.query.limit"
+    md-page="groupsCtrl.query.page"
+    md-limit-options="[5, 10, 15]"
+    md-total="{{groupsCtrl.groups.length}}"
+    md-page-select
+  >
+  </md-table-pagination>
+</div>

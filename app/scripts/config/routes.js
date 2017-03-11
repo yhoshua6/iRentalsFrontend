@@ -83,7 +83,7 @@
     var adminPropertiesState = {
       name: "root.properties",
       url: "admin/properties",
-      templateUrl: "/views/dashboard/admin/properties.html",
+      templateUrl: "/views/dashboard/properties.html",
       controller: "adminPropertiesCtrl",
       controllerAs: "propertiesCtrl"
     };
@@ -91,15 +91,23 @@
     var adminUsersState = {
       name: "root.users",
       url: "admin/users",
-      templateUrl: "/views/dashboard/admin/users.html",
+      templateUrl: "/views/dashboard/users.html",
       controller: "adminUserCtrl",
       controllerAs: "adminUserCtrl"
+    };
+
+    var adminGroupsState = {
+      name: "root.groups",
+      url: "admin/groups",
+      templateUrl: "/views/dashboard/groups.html",
+      controller: "adminGroupsCtrl",
+      controllerAs: "groupsCtrl"
     };
 
     var adminNotificationsState = {
       name: "root.notifications",
       url: "admin/notifications",
-      templateUrl: "/views/dashboard/admin/notifications.html",
+      templateUrl: "/views/dashboard/notifications.html",
       controller: "notificationsCtrl",
       controllerAs: "notificationsCtrl"
     };
@@ -107,7 +115,7 @@
     var adminBranchesState = {
       name: "root.branches",
       url: "admin/branches",
-      templateUrl: "/views/dashboard/admin/branches.html",
+      templateUrl: "/views/dashboard/branches.html",
       controller: "adminBranchesCtrl",
       controllerAs: "branchesCtrl"
     };
@@ -124,6 +132,7 @@
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);
     $stateProvider.state(adminBranchesState);
+    $stateProvider.state(adminGroupsState);
     $urlRouterProvider.otherwise("/login");
   }
 })();

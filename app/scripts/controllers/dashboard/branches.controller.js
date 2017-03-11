@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "USER", "BRANCHES", "BRANCHES_ROLES"];
-  function adminBranchesCtrl($log, $mdEditDialog, $mdDialog, requestService, userInfoService, USER, BRANCHES, BRANCHES_ROLES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "USER", "BRANCHES"];
+  function adminBranchesCtrl($log,$mdSidenav, $mdEditDialog, $mdDialog, requestService, userInfoService, USER, BRANCHES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -18,10 +18,13 @@
     };
     branchesScope.branches = [];
 
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
+
     var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
     branchesPromise.then(function (response) {
       if (response.status === 200) {
-        $log.log(response);
         branchesScope.branches = response.data;
       }
     });
@@ -55,19 +58,14 @@
       $mdDialog.show({
         controller: "newBranchCtrl",
         controllerAs: "newBranchCtrl",
-        templateUrl: "../../../../views/dashboard/admin/templates/new_branch_modal.html",
+        templateUrl: "../../../views/dashboard/templates/new_branch_modal.html",
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose:true
       }).then(function(newBranch) {
-        var branchesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
-        branchesPromise.then(function (response) {
-          if (response.status === 201) {
-            branchesScope.branches.push(newBranch.branch);
-            updateUserRoles(newBranch.branch_role.sender_id, response.data.id);
-            updateUserRoles(newBranch.branch_role.receiver_id, response.data.id);
-          }
-        });
+        branchesScope.branches.push(newBranch.branch);
+        updateUserRoles(newBranch.branch.sender_id, newBranch.branch.id);
+        updateUserRoles(newBranch.branch.receiver_id, newBranch.branch.id);
       }, function () {});
     };
 

@@ -26,7 +26,7 @@
               authToken: response.data.authToken,
               infoId: response.data.infoId,
               roleId: response.data.roleId,
-              branchRoleId: response.data.branchRoleId,
+              branchId: response.data.branchId,
               notificationRoleId: response.data.notificationRole,
               id: response.data.id,
               userName: response.data.userName,
@@ -34,7 +34,8 @@
               bankName: response.data.bankName,
               bankAccount: response.data.bankAccount,
               bankClabe: response.data.bankClabe,
-              cedula: response.data.cedula
+              paymentMethod: response.data.paymentMethod,
+              rfc: response.data.rfc
             };
             $log.log(userInfoService.user);
             //toastServices.showSuccessfulLoggedIn();

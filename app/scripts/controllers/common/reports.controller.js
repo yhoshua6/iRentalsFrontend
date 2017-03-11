@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("reportsCtrl", reportsCtrl);
 
-  reportsCtrl.$inject = ["$mdDialog"];
-  function reportsCtrl($mdDialog) {
+  reportsCtrl.$inject = ["$mdDialog", "$mdSidenav"];
+  function reportsCtrl($mdDialog, $mdSidenav) {
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
@@ -20,6 +20,10 @@
       { id: 3, title: "hey 2", fileName: "upload4.pdf", fileDate: "20-10-2017"}
     ];
     reportsScope.selected = [];
+
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
 
     reportsScope.newFile = function (event) {
       $mdDialog.show({

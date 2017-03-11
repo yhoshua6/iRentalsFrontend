@@ -11,17 +11,19 @@
   function headerCtrl($mdSidenav, userInfoService) {
     var headerScope = this;
     headerScope.userInfo = [
-      { title: "Nombre: ", value: userInfoService.user.userName, disabled: true, type: "text"},
-      { title: "Teléfono: ", value: userInfoService.user.cellphone, disabled: true, type: "text"},
-      { title: "Nombre del banco: ", value: userInfoService.user.bankName, disabled: true, type: "text"},
-      { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe, disabled: true, type: "numeric"},
-      { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount, disabled: true, type: "text"},
-      { title: "Cedula: ", value: userInfoService.user.cedula, disabled: true, type: "text"}
+      { title: "Nombre: ", value: userInfoService.user.userName},
+      { title: "Teléfono: ", value: userInfoService.user.cellphone},
+      { title: "Nombre del banco: ", value: userInfoService.user.bankName},
+      { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe},
+      { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount},
+      { title: "Forma de Pago: ", value: userInfoService.user.paymentMethod},
+      { title: "RFC: ", value: userInfoService.user.rfc}
     ];
 
     headerScope.links = [
-      { linkTo: "root.properties", label: "Propiedades"},
       { linkTo: "root.users", label: "Usuarios" },
+      { linkTo: "root.groups", label: "Grupos" },
+      { linkTo: "root.properties", label: "Propiedades"},
       { linkTo: "root.branches", label: "Ramas" },
       { linkTo: "root.notifications", label: "Notificaciones" }
     ];
@@ -29,6 +31,10 @@
     headerScope.toggleLeft = buildToggler("userProfile");
     //dashHeaderScope.toggleRight = buildToggler("userNotifications");
 
+
+    headerScope.close = function () {
+      $mdSidenav("userProfile").close()
+    };
     function buildToggler(componentId) {
       return function() { $mdSidenav(componentId).toggle(); }
     }

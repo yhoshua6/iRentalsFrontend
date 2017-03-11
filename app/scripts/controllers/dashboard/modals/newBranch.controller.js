@@ -70,9 +70,7 @@
           property_type: newBranchScope.propertyType,
           property_id: newBranchScope.selectedProperty.property_id,
           sender_name: newBranchScope.senderUser.user,
-          receiver_name: newBranchScope.receiverUser.user
-        },
-        branch_role: {
+          receiver_name: newBranchScope.receiverUser.user,
           sender_id: newBranchScope.senderUser.id,
           receiver_id: newBranchScope.receiverUser.id
         }
@@ -80,7 +78,6 @@
       var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);
       branchesPromise.then(function (response) {
         if (response.status === 201) {
-          newBranch.branch_role.branch_id = response.data.id;
           newBranch.branch.id = response.data.id;
           $mdDialog.hide(newBranch);
         }

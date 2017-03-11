@@ -1,0 +1,41 @@
+<md-dialog aria-label="newNotification">
+  <form name="groupForm" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nuevo Grupo</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="newGroupCtrl.cancel()" aria-label="closeButton">
+          <md-icon class="material-icons" aria-label="Close dialog">clear</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout="column">
+      <br>
+      <md-input-container flex>
+        <label>Nombre del grupo:</label>
+        <md-icon class="material-icons">notifications</md-icon>
+        <input name="groupTitle"  ng-model="newGroupCtrl.name" type="text" required>
+        <div ng-messages="groupForm.groupTitle.$error">
+          <div ng-message="required">Necesitamos el nombre del grupo!</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Usuarios</label>
+        <md-select ng-model="newGroupCtrl.selectedUsers" multiple>
+          <md-optgroup label="Usuarios">
+            <md-option ng-value="user.user" ng-repeat="user in newGroupCtrl.users">{{user.user}}</md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="newGroupCtrl.cancel()">
+        Cancelar
+      </md-button>
+      <md-button ng-click="newGroupCtrl.save()" ng-show="groupForm.$valid">
+        Guardar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

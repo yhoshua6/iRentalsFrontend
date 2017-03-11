@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = ["$mdDialog"];
-  function gatheringsCtrl($mdDialog) {
+  gatheringsCtrl.$inject = ["$mdDialog", "$mdSidenav"];
+  function gatheringsCtrl($mdDialog, $mdSidenav) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
@@ -20,7 +20,9 @@
       { id: 3, fileName: "upload3.pdf", fileDate: "27-10-2017"}
     ];
     gatheringsScope.selected = [];
-
+    if ($mdSidenav("userProfile").isOpen()) {
+      $mdSidenav("userProfile").close()
+    }
     gatheringsScope.users = [
       { id: 0, userName: "someOne"},
       { id: 1, userName: "someOne 1"},
