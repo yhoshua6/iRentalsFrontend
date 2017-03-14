@@ -25,7 +25,7 @@
         requestInfo.headers = {
           "Content-Type": "application/json",
           "Authorization": userAuthToken
-        }
+        };
       }
 
       return promiseCreator(getRequest(requestInfo));

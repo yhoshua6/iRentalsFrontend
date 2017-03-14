@@ -45,6 +45,7 @@
           }
         }).catch(function (error) {
           //server error
+          $log.log(error);
           //toastServices.showFailureLoggedIn();
       });
 

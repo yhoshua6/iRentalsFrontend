@@ -22,7 +22,7 @@
 
     headerScope.links = [
       { linkTo: "root.users", label: "Usuarios" },
-      { linkTo: "root.groups", label: "Grupos" },
+      //{ linkTo: "root.groups", label: "Grupos" },
       { linkTo: "root.properties", label: "Propiedades"},
       { linkTo: "root.branches", label: "Ramas" },
       { linkTo: "root.notifications", label: "Notificaciones" }

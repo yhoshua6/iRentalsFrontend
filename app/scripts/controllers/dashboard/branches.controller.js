@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "$mdEditDialog", "$mdDialog", "requestService", "userInfoService", "USER", "BRANCHES"];
-  function adminBranchesCtrl($log,$mdSidenav, $mdEditDialog, $mdDialog, requestService, userInfoService, USER, BRANCHES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "USER", "BRANCHES"];
+  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, USER, BRANCHES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -30,15 +30,9 @@
     });
 
     branchesScope.modifyField = function (event, fieldNumber, branch) {
-      event.stopPropagation();
-      var promise = $mdEditDialog.small(getDialogOptions(fieldNumber, branch));
-      promise.then(function (ctrl) {
-        var input = ctrl.getInput();
-        input.$viewChangeListeners.push(function () {
-          input.$setValidity('test', input.$modelValue !== 'test');
-        });
-      });
+      crudService.edit(event, fieldNumber, branch, getDialogOptions(fieldNumber, branch));
     };
+
 
     branchesScope.deleteBranches = function () {
       for(var i=0; i<branchesScope.selected.length; i++)
@@ -55,15 +49,8 @@
     };
 
     branchesScope.newBranch = function (event) {
-      $mdDialog.show({
-        controller: "newBranchCtrl",
-        controllerAs: "newBranchCtrl",
-        templateUrl: "../../../views/dashboard/templates/new_branch_modal.html",
-        parent: angular.element(document.body),
-        targetEvent: event,
-        clickOutsideToClose:true
-      }).then(function(newBranch) {
-        $log.log(newBranch);
+      crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
+        .then(function(newBranch) {
         branchesScope.branches.push(newBranch.branch);
         updateUserRoles(newBranch.branch.sender_id, newBranch.branch.id);
         updateUserRoles(newBranch.branch.receiver_id, newBranch.branch.id);
@@ -71,53 +58,50 @@
     };
 
     function getDialogOptions(option, branch) {
-      var dialogOption = null;
+      var dialogOption = {
+        modelValue: null,
+        placeholder: "",
+        save: null,
+        targetEvent: event,
+        validators: null
+      };
+
       switch (option) {
         case 1:
-          dialogOption = {
-            modelValue: branch.title,
-            placeholder: 'Cambia el título.',
-            save: function (input) {
-              branch.title = input.$modelValue;
-              var updateData = {
-                "branch": {
-                  "title": branch.title
-                }
-              };
+          dialogOption.modelValue = branch.title;
+          dialogOption.placeholder = "Cambia el título.";
+          dialogOption.save = function (input) {
+            branch.title = input.$modelValue;
+            var updateData = {
+              "branch": {
+                "title": branch.title
+              }
+            };
 
-              var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateBranch.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
-              'md-maxlength': 40
-            }
+            var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
+            updateBranch.then(function (response) {
+              $log.log(response);
+            });
           };
+          dialogOption.validators = { 'md-maxlength': 40 };
           break;
         case 2:
-          dialogOption = {
-            modelValue: branch.url,
-            placeholder: 'Cambia la url.',
-            save: function (input) {
-              branch.url = input.$modelValue;
-              var updateData = {
-                "branch": {
-                  "url": branch.title
-                }
-              };
+          dialogOption.modelValue = branch.url;
+          dialogOption.placeholder = "Cambia la url.";
+          dialogOption.save = function (input) {
+            branch.url = input.$modelValue;
+            var updateData = {
+              "branch": {
+                "url": branch.title
+              }
+            };
 
-              var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateBranch.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
-              'md-maxlength': 40
-            }
+            var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
+            updateBranch.then(function (response) {
+              $log.log(response);
+            });
           };
+          dialogOption.validators = { 'md-maxlength': 40 };
           break;
       }
       return dialogOption;

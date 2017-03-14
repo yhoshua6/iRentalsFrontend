@@ -15,6 +15,7 @@
   angular
     .module("iRentalsApp")
     .config(routesConfig);
+
   routesConfig.$inject = ["$stateProvider", "$urlRouterProvider"];
   function routesConfig($stateProvider, $urlRouterProvider) {
 
@@ -96,13 +97,13 @@
       controllerAs: "adminUserCtrl"
     };
 
-    var adminGroupsState = {
+    /*var adminGroupsState = {
       name: "root.groups",
       url: "admin/groups",
       templateUrl: "/views/dashboard/groups.html",
       controller: "adminGroupsCtrl",
       controllerAs: "groupsCtrl"
-    };
+    };*/
 
     var adminNotificationsState = {
       name: "root.notifications",
@@ -132,7 +133,7 @@
     $stateProvider.state(adminUsersState);
     $stateProvider.state(adminNotificationsState);
     $stateProvider.state(adminBranchesState);
-    $stateProvider.state(adminGroupsState);
+    //$stateProvider.state(adminGroupsState);
     $urlRouterProvider.otherwise("/login");
   }
 })();

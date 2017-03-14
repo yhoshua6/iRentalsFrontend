@@ -7,9 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdSidenav", "$mdDialog", "$mdEditDialog", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function notificationsCtrl($log, $mdSidenav, $mdDialog, $mdEditDialog, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
-    //if (!isUserAlive) { $state.go("root.login"); }
+  notificationsCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function notificationsCtrl($log, $mdSidenav, crudService, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     var notificationsScope = this;
     notificationsScope.selected = [];
     notificationsScope.query = {
@@ -44,103 +43,92 @@
     };
 
     notificationsScope.modifyField = function (event,fieldNumber, notification) {
-      event.stopPropagation();
-      var promise = $mdEditDialog.small(getDialogOptions(fieldNumber, notification));
-      promise.then(function (ctrl) {
-        var input = ctrl.getInput();
-        input.$viewChangeListeners.push(function () {
-          input.$setValidity('test', input.$modelValue !== 'test');
-        });
-      });
+      crudService.edit(event, fieldNumber, notification, getDialogOptions(fieldNumber, notification));
     };
 
-
+    //EXACTLY WHAT I NEED TO AVOID... CALLBACK HELL
     notificationsScope.newNotification = function (event) {
-      $mdDialog.show({
-        controller: "newNotificationCtrl",
-        controllerAs: "newNotificationCtrl",
-        templateUrl: "../../../views/dashboard/templates/new_notification_modal.html",
-        parent: angular.element(document.body),
-        targetEvent: event,
-        clickOutsideToClose:true
-      }).then(function(newNotification) {
-        var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
-        notificationsRolesPromise.then(function (response) {
-          if (response.status === 201) {
-            var data = {
-              notification: {
-                notifications_roles_id: response.data.id
-              }
-            };
-            var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
-            notificationsRolesPromise.then(function (response) {
-              if (response.status === 200) {
-                data.user= {
-                  notifications_role: data.notification.notifications_roles_id
-                };
-                var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
-                userPromise.then(function (response) {
-                  if (response.status === 200) {
-                    notificationsScope.notifications.push(newNotification.notification);
-                  }
-                });
-              }
-            });
-          }
-        });
-      }, function () {});
+      crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/new_notification_modal.html", event)
+        .then(function(newNotification) {
+          var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
+          notificationsRolesPromise.then(function (response) {
+            if (response.status === 201) {
+              var data = {
+                notification: {
+                  notifications_roles_id: response.data.id
+                }
+              };
+              var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
+              notificationsRolesPromise.then(function (response) {
+                if (response.status === 200) {
+                  data.user= {
+                    notifications_role: data.notification.notifications_roles_id
+                  };
+                  var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
+                  userPromise.then(function (response) {
+                    if (response.status === 200) {
+                      notificationsScope.notifications.push(newNotification.notification);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }, function () {});
     };
 
     function getDialogOptions(option, notification) {
-      var dialogOption = null;
+      var dialogOption = {
+        modelValue: null,
+        placeholder: "",
+        save: null,
+        targetEvent: event,
+        validators: null
+      };
+
       switch (option) {
         case 1:
-          dialogOption = {
-            modelValue: notification.title,
-            placeholder: 'Cambia el título de la notificación.',
-            save: function (input) {
-              notification.title = input.$modelValue;
-              var updateData = {
-                "notification": {
-                  "title": notification.title
-                }
-              };
+          dialogOption.modelValue = notification.title;
+          dialogOption.placeholder = "Cambia el título de la notificación.";
+          dialogOption.save = function (input) {
+            notification.title = input.$modelValue;
+            var updateData = {
+              "notification": {
+                "title": notification.title
+              }
+            };
 
-              var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateNotification.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
+            var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
+            updateNotification.then(function (response) {
+              $log.log(response);
+            });
+          };
+          dialogOption.validators = {
               'md-maxlength': 10
-            }
           };
           break;
         case 2:
-          dialogOption = {
-            modelValue: notification.content,
-            placeholder: 'Cambia el contenido de la notificación.',
-            save: function (input) {
-              notification.content = input.$modelValue;
-              var updateData = {
-                "notification": {
-                  "content": notification.content
-                }
-              };
+          dialogOption.modelValue = notification.content;
+          dialogOption.placeholder = "Cambia el contenido de la notificación.";
+          dialogOption.save = function (input) {
+            notification.content = input.$modelValue;
+            var updateData = {
+              "notification": {
+                "content": notification.content
+              }
+            };
 
-              var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
-              updateNotification.then(function (response) {
-                $log.log(response);
-              });
-            },
-            targetEvent: event,
-            validators: {
-              'md-maxlength': 25
-            }
+            var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
+            updateNotification.then(function (response) {
+              $log.log(response);
+            });
+          };
+          dialogOption.validators = {
+            'md-maxlength': 45
           };
           break;
       }
+
       return dialogOption;
     }
 

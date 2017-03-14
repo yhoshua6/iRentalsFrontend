@@ -5,12 +5,12 @@
   "use strict";
 
   angular.module("iRentalsApp")
-    .directive("footer", headerDirective);
+    .directive("footer", footerDirective);
 
-  function headerDirective() {
+  function footerDirective() {
     return {
       restrict: "E",
       templateUrl: "../../views/directives/page_footer.html"
-    }
+    };
   }
 })();

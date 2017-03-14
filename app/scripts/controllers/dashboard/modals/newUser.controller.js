@@ -21,7 +21,7 @@
     newUserScope.bankName = "";
     newUserScope.bankClabe = 0;
     newUserScope.bankAccount = 0;
-    newUserScope.cedula = "";
+    newUserScope.rfc = "";
     newUserScope.email = "";
     newUserScope.user = "";
     newUserScope.roles = [];
@@ -54,7 +54,7 @@
           bank_name: newUserScope.bankName,
           bank_clabe: newUserScope.bankClabe,
           bank_account: newUserScope.bankAccount,
-          cedula: newUserScope.cedula
+          rfc: newUserScope.rfc
         },
         user: {
           user: newUserScope.user,

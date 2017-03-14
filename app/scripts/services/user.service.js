@@ -12,7 +12,6 @@
     userScope.user = {};
 
     userScope.setUserInfo = function () {
-      $log.log("hey");
       var INFO_USER = INFO_USER + "/" + userScope.user.infoId;
       var userPromise = requestService.getPromise("GET", INFO_USER, null, userScope.user.authToken);
 
