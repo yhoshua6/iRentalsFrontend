@@ -26,14 +26,8 @@
     }
 
     docsScope.newFile = function (event) {
-      $mdDialog.show({
-        controller: "newFileCtrl",
-        controllerAs: "newFileCtrl",
-        templateUrl: "../../../../views/dashboard/common/modals/upload_file.html",
-        parent: angular.element(document.body),
-        targetEvent: event,
-        clickOutsideToClose:true
-      }).then(function(newBranch) {
+      crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
+        .then(function(newBranch) {
         //branchesScope.branches.push(newBranch);
       }, function () {});
     };

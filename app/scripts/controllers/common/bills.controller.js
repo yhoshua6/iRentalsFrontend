@@ -54,16 +54,9 @@
     });
 
     billsScope.newFile = function (event) {
-      $mdDialog.show({
-        controller: "newFileCtrl",
-        controllerAs: "newFileCtrl",
-        templateUrl: "../../../../views/common/modals/upload_file.html",
-        parent: angular.element(document.body),
-        targetEvent: event,
-        clickOutsideToClose:true
-      }).then(function(newBranch) {
+      crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
+        .then(function(newBranch) {
         newBranch.depot_file.owner_id = billsScope.branchId;
-
         var filesDepotPromise = requestService.getPromise(
           "POST",
           FILES_DEPOT,
