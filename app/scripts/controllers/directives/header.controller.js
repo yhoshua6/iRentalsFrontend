@@ -17,7 +17,8 @@
       { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe},
       { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount},
       { title: "Forma de Pago: ", value: userInfoService.user.paymentMethod},
-      { title: "RFC: ", value: userInfoService.user.rfc}
+      { title: "RFC: ", value: userInfoService.user.rfc},
+      { title: "Rol: ", value: userInfoService.user.role}
     ];
 
     headerScope.links = [

@@ -25,7 +25,7 @@
             userInfoService.user = {
               authToken: response.data.authToken,
               infoId: response.data.infoId,
-              roleId: response.data.roleId,
+              role: response.data.role,
               branchId: response.data.branchId,
               notificationRoleId: response.data.notificationRole,
               id: response.data.id,

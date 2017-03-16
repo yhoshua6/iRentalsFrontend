@@ -50,7 +50,7 @@
         <md-input-container class="md-block" flex>
           <label>Forma de pago:</label>
             <md-select ng-model="newUserCtrl.paymentMethod">
-              <md-option ng-repeat="payment in newUserCtrl.paymentOptions" ng-value="newUserCtrl.paymentMethod">
+              <md-option ng-repeat="payment in newUserCtrl.paymentOptions" ng-value="payment.method">
                 {{payment.method}}
               </md-option>
             </md-select>
@@ -96,7 +96,7 @@
         <md-input-container flex>
           <label>Rol de usuario:</label>
           <md-select ng-model="newUserCtrl.selectedRole">
-            <md-option ng-repeat="role in newUserCtrl.roles" ng-value="role.id">
+            <md-option ng-repeat="role in newUserCtrl.roles" ng-value="role.role">
               {{role.role}}
             </md-option>
           </md-select>

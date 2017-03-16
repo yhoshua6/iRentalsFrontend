@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newUserCtrl", newUserCtrl);
 
-  newUserCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "requestService", "INFO_USER", "USER_ROLES"];
-  function newUserCtrl($log, $mdDialog, userInfoService, requestService, INFO_USER, USER_ROLES) {
+  newUserCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "requestService", "INFO_USER"];
+  function newUserCtrl($log, $mdDialog, userInfoService, requestService, INFO_USER) {
     var newUserScope = this;
     newUserScope.name = "";
     newUserScope.cellphone = "";
@@ -25,16 +25,17 @@
     newUserScope.email = "";
     newUserScope.user = "";
     newUserScope.roles = [];
+    newUserScope.paymentMethod = "";
     newUserScope.selectedRole = "";
     newUserScope.paymentOptions = [
       { id: 0, method: "Cheque" },
       { id: 1, method: "Transferencia" }
     ];
-
-    var rolesPomise = requestService.getPromise("GET", USER_ROLES, null, userInfoService.user.authToken)
-    rolesPomise.then(function (response) {
-      newUserScope.roles = response.data;
-    });
+    newUserScope.roles = [
+      { id: 0, role: "Condómino"},
+      { id: 1, role: "Arrendatario"},
+      { id: 2, role: "Administrador"}
+    ];
 
     newUserScope.hide = function() {
       $mdDialog.hide();
@@ -49,7 +50,7 @@
         info_user: {
           name: newUserScope.name,
           email: newUserScope.email,
-          payment_method: newUserScope.payment_method,
+          payment_method: newUserScope.paymentMethod,
           cellphone: newUserScope.cellphone,
           bank_name: newUserScope.bankName,
           bank_clabe: newUserScope.bankClabe,
@@ -58,9 +59,10 @@
         },
         user: {
           user: newUserScope.user,
-          role_id: newUserScope.selectedRole
+          role: newUserScope.selectedRole
         }
       };
+      $log.log(newUser);
       var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
         if (response.status === 201) {
