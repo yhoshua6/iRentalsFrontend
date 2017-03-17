@@ -10,35 +10,15 @@
   function toastServices($mdToast) {
     var toastScope = this;
 
-    toastScope.showSuccessfulLoggedIn = function() {
+    toastScope.toastIt = function(options) {
+      toastScope.icon = options.icon;
+      toastScope.message = options.message;
       $mdToast.show({
-        templateUrl: "../../views/toasts/login_success.html",
+        templateUrl: "../../views/toasts/message_template.html",
         hideDelay: 3500,
-        position: "top right"
-      });
-    };
-
-    toastScope.showFailureLoggedIn = function () {
-      $mdToast.show({
-        templateUrl: "../../views/toasts/login_failure.html",
-        hideDelay: 3500,
-        position: "top right"
-      });
-    };
-
-    toastScope.showSuccessfulSentEmail = function () {
-      $mdToast.show({
-        templateUrl: "../../views/toasts/successful_sent_email.html",
-        hideDelay: 3500,
-        position: "top right"
-      });
-    };
-
-    toastScope.showFailureSentEmail = function () {
-      $mdToast.show({
-        templateUrl: "../../views/toasts/failure_sent_email.html",
-        hideDelay: 3500,
-        position: "top right"
+        position: "top right",
+        controller: "toastCtrl",
+        controllerAs:"toastCtrl"
       });
     };
 

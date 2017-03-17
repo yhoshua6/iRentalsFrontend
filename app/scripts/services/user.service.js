@@ -11,25 +11,22 @@
     var userScope = this;
     userScope.user = {};
 
-    userScope.setUserInfo = function () {
-      var INFO_USER = INFO_USER + "/" + userScope.user.infoId;
-      var userPromise = requestService.getPromise("GET", INFO_USER, null, userScope.user.authToken);
-
-      return userPromise.then(function (response) {
-        var userInfo = response.data;
-        userScope.user.id = userInfo.user_id;
-        userScope.user.name = userInfo.name;
-        userScope.user.bankAccount = userInfo.bank_account;
-        userScope.user.bankClabe = userInfo.bank_clabe;
-        userScope.user.bankName = userInfo.bank_name;
-        userScope.user.cedula = userInfo.cedula;
-        userScope.user.cellPhone = userInfo.cell_phone;
-        userScope.user.isPartOfPool = userInfo.is_part_of_pool;
-        userScope.user.paymentMethod = userInfo.payment_method;
-        return true;
-      }).catch(function (error) {
-        return false;
-      });
+    userScope.setUserInfo = function (response) {
+      userScope.user = {
+        authToken: response.data.authToken,
+        infoId: response.data.infoId,
+        role: response.data.role,
+        branchId: response.data.branchId,
+        notificationRoleId: response.data.notificationRole,
+        id: response.data.id,
+        userName: response.data.userName,
+        cellphone: response.data.cellphone,
+        bankName: response.data.bankName,
+        bankAccount: response.data.bankAccount,
+        bankClabe: response.data.bankClabe,
+        paymentMethod: response.data.paymentMethod,
+        rfc: response.data.rfc
+      };
     };
 
   }
