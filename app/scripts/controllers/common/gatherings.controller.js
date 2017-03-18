@@ -5,30 +5,36 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = ["$mdDialog", "$mdSidenav"];
-  function gatheringsCtrl($mdDialog, $mdSidenav) {
+  gatheringsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
+  function gatheringsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    gatheringsScope.documents = [
-      { id: 0, fileName: "upload.pdf", fileDate: "20-10-2017"},
-      { id: 1, fileName: "upload1.pdf", fileDate: "22-10-2017"},
-      { id: 2, fileName: "upload2.pdf", fileDate: "24-10-2017"},
-      { id: 3, fileName: "upload3.pdf", fileDate: "27-10-2017"}
-    ];
+    gatheringsScope.users = [];
+    gatheringsScope.documents = [];
     gatheringsScope.selected = [];
+    var branch = { branch: { filter: "Asambleas" } };
+
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
-    gatheringsScope.users = [
-      { id: 0, userName: "someOne"},
-      { id: 1, userName: "someOne 1"},
-      { id: 2, userName: "someOne 2"},
-      { id: 3, userName: "someOne 3"},
-    ];
+
+    var branchPromise = requestService.getPromise(
+      "GET",
+      BRANCHES + "/" + userInfoService.user.branchId,
+      requestService.formatData(branch),
+      userInfoService.user.authToken
+    );
+
+    branchPromise.then(function (response) {
+      if (response.status === 200) {
+        gatheringsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+      }
+    });
+
 
     gatheringsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
@@ -36,5 +42,9 @@
         //branchesScope.branches.push(newBranch);
         }, function () {});
     };
+
+    function checkIfUserHasPermissions(receiverId, senderId) {
+      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
+    }
   }
 })();

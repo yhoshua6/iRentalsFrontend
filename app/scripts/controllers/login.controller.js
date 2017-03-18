@@ -8,8 +8,8 @@
     .controller("loginCtrl", loginCtrl);
 
 
-  loginCtrl.$inject = ["$log", "$state", "requestService", "toastServices", "userInfoService", "LOGIN_ENDPOINT", "SUCCESSFUL_LOGIN", "FAILURE_LOGIN", "SERVER_ERROR"];
-  function loginCtrl($log, $state, requestService, toastServices, userInfoService, LOGIN_ENDPOINT, SUCCESSFUL_LOGIN, FAILURE_LOGIN, SERVER_ERROR) {
+  loginCtrl.$inject = ["$log", "$state", "requestService", "toastServices", "userInfoService", "LOGIN_ENDPOINT"];
+  function loginCtrl($log, $state, requestService, toastServices, userInfoService, LOGIN_ENDPOINT) {
     var loginScope = this;
     loginScope.sending = false;
     loginScope.authenticateUser = function(user, pwd) {
@@ -30,13 +30,13 @@
               userInfoService.setUserInfo(response);
               $log.log(userInfoService.user);
               toastOptions.icon = "verified_user";
-              toastOptions.message = "Iniciaste sesion!"
+              toastOptions.message = "Iniciaste sesion!";
               toastServices.toastIt(toastOptions);
               $state.go('root.home');
             break;
             case 401:
               toastOptions.icon = "error_outline";
-              toastOptions.message = "Usuario/Contraseña invalidos"
+              toastOptions.message = "Usuario/Contraseña invalidos";
               toastServices.toastIt(toastOptions);
             break;
             default:

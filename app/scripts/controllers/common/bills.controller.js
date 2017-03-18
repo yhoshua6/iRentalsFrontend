@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdDialog", "$mdSidenav", "$log", "userInfoService", "requestService", "BRANCHES", "FILES_DEPOT"];
-  function billsCtrl($mdDialog, $mdSidenav, $log, userInfoService, requestService, BRANCHES, FILES_DEPOT) {
+  billsCtrl.$inject = ["$mdSidenav", "$log", "userInfoService", "requestService", "BRANCHES", "FILES_DEPOT"];
+  function billsCtrl($mdSidenav, $log, userInfoService, requestService, BRANCHES, FILES_DEPOT) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -16,6 +16,9 @@
     billsScope.files = [];
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
+    billsScope.isAdmin = function () {
+      return userInfoService.user.role === "Administrador";
+    };
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()

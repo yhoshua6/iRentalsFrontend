@@ -8,8 +8,8 @@
   <md-nav-item md-nav-sref="root.bills" name="bills">Facturas</md-nav-item>
   <md-nav-item md-nav-sref="root.voucher" name="vouchers">Comprobantes</md-nav-item>
   <md-nav-item md-nav-sref="root.documents" name="documents">Documentos</md-nav-item>
-  <md-nav-item md-nav-sref="root.reports" name="reports">Reportes</md-nav-item>
-  <md-nav-item md-nav-sref="root.gatherings" name="gatherings">Asambleas</md-nav-item>
+  <md-nav-item ng-hide="headerCtrl.isGuest()" md-nav-sref="root.reports" name="reports">Reportes</md-nav-item>
+  <md-nav-item ng-hide="headerCtrl.isGuest()" md-nav-sref="root.gatherings" name="gatherings">Asambleas</md-nav-item>
 </md-nav-bar>
 
 <section layout="row" flex>
@@ -27,10 +27,10 @@
         <h1 class="md-toolbar-tools">Soporte</h1>
       </md-toolbar>
       <md-button class="md-accent">Contactar a Chroma</md-button>
-      <md-toolbar class="md-theme-indigo">
+      <md-toolbar ng-show="headerCtrl.isAdmin()" class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Administración</h1>
       </md-toolbar>
-      <md-list-item ng-repeat="link in headerCtrl.links">
+      <md-list-item ng-show="headerCtrl.isAdmin()" ng-repeat="link in headerCtrl.links">
         <a class="md-accent md-raised" ui-sref="{{link.linkTo}}">{{link.label}}</a>
         <md-divider></md-divider>
       </md-list-item>

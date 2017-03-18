@@ -5,25 +5,34 @@
   angular.module("iRentalsApp")
     .controller("reportsCtrl", reportsCtrl);
 
-  reportsCtrl.$inject = ["$mdDialog", "$mdSidenav"];
-  function reportsCtrl($mdDialog, $mdSidenav) {
+  reportsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
+  function reportsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    reportsScope.reports = [
-      { id: 0, title: "hey", fileName: "upload.pdf", fileDate: "20-10-2017"},
-      { id: 1, title: "hey 4", fileName: "upload2.pdf", fileDate: "20-10-2017"},
-      { id: 2, title: "hey 3", fileName: "upload3.pdf", fileDate: "20-10-2017"},
-      { id: 3, title: "hey 2", fileName: "upload4.pdf", fileDate: "20-10-2017"}
-    ];
+    reportsScope.reports = [];
     reportsScope.selected = [];
+    var branch = { branch: { filter: "Reportes" } };
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
+
+    var branchPromise = requestService.getPromise(
+      "GET",
+      BRANCHES + "/" + userInfoService.user.branchId,
+      requestService.formatData(branch),
+      userInfoService.user.authToken
+    );
+
+    branchPromise.then(function (response) {
+      if (response.status === 200) {
+        reportsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+      }
+    });
 
     reportsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)

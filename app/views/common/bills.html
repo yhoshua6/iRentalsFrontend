@@ -1,6 +1,6 @@
 <div layout="column">
   <md-toolbar flex class="md-table-toolbar md-default clearContainer">
-    <div class="md-toolbar-tools">
+    <div class="md-toolbar-tools" ng-show="billsCtrl.isAdmin()">
       <span>Facturas por &nbsp</span>
       <span ng-show="billsCtrl.getFilesToPay"> Pagar</span>
       <span ng-hide="billsCtrl.getFilesToPay"> Cobrar</span>

@@ -20,6 +20,7 @@
       { title: "RFC: ", value: userInfoService.user.rfc},
       { title: "Rol: ", value: userInfoService.user.role}
     ];
+    headerScope.role = userInfoService.user.role;
 
     headerScope.links = [
       { linkTo: "root.users", label: "Usuarios" },
@@ -32,10 +33,18 @@
     headerScope.toggleLeft = buildToggler("userProfile");
     //dashHeaderScope.toggleRight = buildToggler("userNotifications");
 
-
     headerScope.close = function () {
       $mdSidenav("userProfile").close()
     };
+
+    headerScope.isAdmin = function () {
+      return headerScope.role === "Administrador";
+    };
+
+    headerScope.isGuest = function () {
+      return headerScope.role === "Arrendatario";
+    };
+
     function buildToggler(componentId) {
       return function() { $mdSidenav(componentId).toggle(); }
     }

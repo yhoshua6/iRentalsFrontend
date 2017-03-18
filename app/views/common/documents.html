@@ -4,13 +4,13 @@
       <span>Documentos</span>
     </div>
   </md-toolbar>
-  <md-button class="md-accent md-raised" ng-click="docsCtrl.newFile()">
+  <md-button class="md-accent md-raised" ng-click="docsCtrl.newFile()" ng-show="docsCtrl.isSender">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Subir un nuevo archivo</span>
   </md-button>
-  <md-button class="md-accent md-raised" ng-click="">
+  <md-button class="md-accent md-raised">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-click="">
+  <md-button class="md-warn md-raised" ng-show="docsCtrl.isSender">
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>

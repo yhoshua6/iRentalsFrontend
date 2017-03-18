@@ -5,25 +5,34 @@
   angular.module("iRentalsApp")
     .controller("docsCtrl", docsCtrl);
 
-  docsCtrl.$inject = ["$mdDialog", "$mdSidenav"];
-  function docsCtrl($mdDialog, $mdSidenav) {
+  docsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
+  function docsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
     var docsScope = this;
     docsScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    docsScope.documents = [
-      { id: 0, fileName: "upload.pdf", fileDate: "20-10-2017"},
-      { id: 1, fileName: "upload1.pdf", fileDate: "22-10-2017"},
-      { id: 2, fileName: "upload2.pdf", fileDate: "24-10-2017"},
-      { id: 3, fileName: "upload3.pdf", fileDate: "27-10-2017"}
-    ];
+    docsScope.documents = [];
     docsScope.selected = [];
+    var branch = { branch: { filter: "Documentos" } };
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
+
+    var branchPromise = requestService.getPromise(
+      "GET",
+      BRANCHES + "/" + userInfoService.user.branchId,
+      requestService.formatData(branch),
+      userInfoService.user.authToken
+    );
+
+    branchPromise.then(function (response) {
+      if (response.status === 200) {
+        docsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+      }
+    });
 
     docsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
@@ -31,5 +40,9 @@
         //branchesScope.branches.push(newBranch);
       }, function () {});
     };
+
+    function checkIfUserHasPermissions(receiverId, senderId) {
+      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
+    }
   }
 })();

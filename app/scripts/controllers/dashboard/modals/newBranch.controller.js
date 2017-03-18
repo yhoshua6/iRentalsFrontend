@@ -30,6 +30,7 @@
       {id: 2, type: "Reportes"},
       {id: 3, type: "Documentos"},
       {id: 4, type: "Asambleas"},
+      {id: 5, type: "Comprobantes"}
     ];
 
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
