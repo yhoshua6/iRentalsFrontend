@@ -24,8 +24,7 @@
       if (file) {
         var newFile = {
           depot_file: {
-            owner_id: "Test",
-            receiver_id: "testing",
+            owner_id: userInfoService.user.branchId,
             file: file,
             file_name: file.name
           }

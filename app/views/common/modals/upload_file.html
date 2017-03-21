@@ -20,25 +20,21 @@
             <div ng-message="required">¿Sin nombre?</div>
           </div>
         </md-input-container>
-        <!--<md-button>
+        <md-button ng-show="fileForm.$valid">
           <label for="fileInput">
             <span ng-hide="newFileCtrl.file.name">Seleccionar un archivo</span>
             <span ng-show="newFileCtrl.file.name">{{newFileCtrl.file.name}}</span>
           </label>
-          <input id="fileInput" type="file" ngf-select ng-model="newFileCtrl.file" ngf-accept="'pdf/*'" hidden="true"/>
-        </md-button>-->
-        <button type="application/pdf" ngf-select="newFileCtrl.save($file, $invalidFiles)"
-                accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-          Select File</button>
+          <button id="fileInput" hidden="true" type="application/pdf" ngf-select="newFileCtrl.save($file, $invalidFiles)"
+                  accept="application/pdf" ngf-max-height="1000" ngf-max-size="1MB">
+            Select File</button>
+        </md-button>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="newFileCtrl.cancel()">
         Cancelar
-      </md-button>
-      <md-button ng-click="newFileCtrl.save()" ng-show="fileForm.$valid">
-        Guardar
       </md-button>
     </md-dialog-actions>
   </form>

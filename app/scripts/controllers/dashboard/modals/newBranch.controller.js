@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newBranchCtrl", newBranchCtrl);
 
-  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES"];
-  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES) {
+  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES", "BRANCHES_ROLES"];
+  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES, BRANCHES_ROLES) {
     var newBranchScope = this;
     newBranchScope.title = "";
     newBranchScope.branchType = "";
@@ -63,15 +63,14 @@
     };
 
     newBranchScope.save = function () {
-
       var newBranch = {
         branch: {
           title: newBranchScope.title,
           branch_type: newBranchScope.branchType,
           property_type: newBranchScope.propertyType,
-          property_id: newBranchScope.selectedProperty.property_id,
-          sender_name: newBranchScope.senderUser.user,
-          receiver_name: newBranchScope.receiverUser.user,
+          property_id: newBranchScope.selectedProperty.property_id
+        },
+        branch_roles: {
           sender_id: newBranchScope.senderUser.id,
           receiver_id: newBranchScope.receiverUser.id
         }
@@ -80,7 +79,14 @@
       branchesPromise.then(function (response) {
         if (response.status === 201) {
           newBranch.branch.id = response.data.id;
-          $mdDialog.hide(newBranch);
+          newBranch.branch_id.id = response.data.id;
+          var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
+          branchesRolesPromise.then(function (response) {
+            if (response.status === 201) {
+              newBranch.branch.branch_roles_id = response.data.id;
+              $mdDialog.hide(newBranch);
+            }
+          });
         }
       });
     };

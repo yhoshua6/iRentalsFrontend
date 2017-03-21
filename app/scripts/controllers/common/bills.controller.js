@@ -45,7 +45,7 @@
 
     var filesDepotPromise = requestService.getPromise(
       "GET",
-      FILES_DEPOT,
+      FILES_DEPOT + "/" + userInfoService.user.branchId,
       null,
       userInfoService.user.authToken
     );
@@ -56,24 +56,31 @@
       }
     });
 
-    billsScope.newFile = function (event) {
-      crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newBranch) {
-        newBranch.depot_file.owner_id = billsScope.branchId;
-        var filesDepotPromise = requestService.getPromise(
-          "POST",
-          FILES_DEPOT,
-          requestService.formatData(newBranch),
-          userInfoService.user.authToken
-        );
-
-        filesDepotPromise.then(function (response) {
-          if (response.status === 201) {
-            billsScope.files.push(response.data);
+    billsScope.delete = function() {
+      for(var i=0; i<billsScope.selected.length; i++)
+      {
+        var deleteBranch = requestService.getPromise("DELETE", FILES_DEPOT + "/" + billsScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteBranch.then(function (response) {
+          toastServices.toastIt(response.status, "update_field");
+          $log.log(response);
+          if (response.status === 204) {
+              billsScope.branches.splice(billsScope.branches.indexOf(billsScope.selected[i]), 1);
           }
         });
+      }
+      billsScope.selected = [];
+    };
 
-      }, function () {});
+    billsScope.newFile = function (event) {
+      crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
+        .then(function(newFile) {
+          $log.log(newFile);
+          billsScope.files.push(newFile);
+        }, function () {});
+    };
+
+    billsScope.download = function() {
+        $log.log("Downloading");
     };
 
     function checkIfUserHasPermissions(receiverId, senderId) {

@@ -7,8 +7,8 @@
     .controller("adminPropertiesCtrl", adminPropertiesCtrl);
 
 
-  adminPropertiesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "INFO_PROPERTIES", "PROPERTIES"];
-  function adminPropertiesCtrl($log, $mdSidenav, crudService, userInfoService, requestService, INFO_PROPERTIES, PROPERTIES) {
+  adminPropertiesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "INFO_PROPERTIES", "PROPERTIES"];
+  function adminPropertiesCtrl($log, $mdSidenav, crudService, userInfoService, requestService, toastServices, INFO_PROPERTIES, PROPERTIES) {
     var propertiesScope = this;
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];
@@ -38,6 +38,7 @@
           if (response.status === 204) {
             var deleteProperty = requestService.getPromise("DELETE", PROPERTIES + "/" + propertiesScope.selected[i].property_id, null, userInfoService.user.authToken);
             deleteProperty.then(function (response) {
+              toastServices.toastIt(response.status, "delete_record");
               if (response.status === 204) {
                 propertiesScope.properties.splice(propertiesScope.properties.indexOf(propertiesScope.selected[i]), 1);
               }
@@ -65,7 +66,10 @@
             newProperty.info_property.property_id = response.data.id;
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + newProperty.info_property.id, requestService.formatData(propertyId), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              propertiesScope.properties.push(newProperty.info_property);
+              toastServices.toastIt(response.status, "create_record");
+              if (response.status === 201) {
+                propertiesScope.properties.push(newProperty.info_property);
+              }
             });
           });
         }, function() {});
@@ -94,7 +98,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -114,7 +118,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -134,7 +138,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -154,7 +158,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -174,7 +178,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -194,7 +198,7 @@
 
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + property.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateProperty.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {

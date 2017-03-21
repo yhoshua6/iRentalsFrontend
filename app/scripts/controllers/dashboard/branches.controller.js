@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "USER", "BRANCHES"];
-  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, USER, BRANCHES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES"];
+  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -39,9 +39,9 @@
       {
         var deleteBranch = requestService.getPromise("DELETE", BRANCHES + "/" + branchesScope.selected[i].id, null, userInfoService.user.authToken);
         deleteBranch.then(function (response) {
-          $log.log(response);
+          toastServices.toastIt(response.status, "delete_record");
           if (response.status === 204) {
-              branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
+            branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
           }
         });
       }
@@ -51,9 +51,10 @@
     branchesScope.newBranch = function (event) {
       crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
         .then(function(newBranch) {
+        toastServices.toastIt(response.status, "create_record");
         branchesScope.branches.push(newBranch.branch);
-        updateUserRoles(newBranch.branch.sender_id, newBranch.branch.id);
-        updateUserRoles(newBranch.branch.receiver_id, newBranch.branch.id);
+        updateUserRoles(newBranch.branch_roles.sender_id, newBranch.branch.id);
+        updateUserRoles(newBranch.branch_roles.receiver_id, newBranch.branch.id);
       }, function () {});
     };
 
@@ -80,7 +81,7 @@
 
             var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateBranch.then(function (response) {
-              $log.log(response);
+                toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 40 };
@@ -98,7 +99,7 @@
 
             var updateBranch = requestService.getPromise("PATCH", BRANCHES + "/" + branch.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateBranch.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 40 };

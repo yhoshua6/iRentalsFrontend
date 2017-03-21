@@ -7,8 +7,8 @@
     .controller("adminUserCtrl", adminUserCtrl);
 
 
-  adminUserCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "USER", "INFO_USER"];
-  function adminUserCtrl($log, $mdSidenav, crudService, userInfoService, requestService, USER, INFO_USER) {
+  adminUserCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "USER", "INFO_USER"];
+  function adminUserCtrl($log, $mdSidenav, crudService, userInfoService, requestService, toastServices, USER, INFO_USER) {
     var adminUserScope = this;
     adminUserScope.users = [];
     adminUserScope.selected = [];
@@ -34,12 +34,12 @@
       for(var i=0; i<adminUserScope.selected.length; i++)
       {
         var user_id = adminUserScope.selected[i].user_id;
-        $log.log(user_id);
         var deleteInfo = requestService.getPromise("DELETE", INFO_USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
           if (response.status === 204) {
             var deletedUser = requestService.getPromise("DELETE", USER + "/" + user_id, null, userInfoService.user.authToken);
             deletedUser.then(function (response) {
+              toastServices.toastIt(response.status, "delete_record");
               if (response.status === 204) {
                 adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
               }
@@ -64,7 +64,7 @@
       };
       var userInfo = requestService.getPromise("PATCH", INFO_USER + "/"  + user.id, requestService.formatData(info), userInfoService.user.authToken);
       userInfo.then(function (response) {
-        $log.log(response);
+        toastServices.toastIt(response.status, "update_field");
       });
     };
 
@@ -80,7 +80,10 @@
             };
             var userInfo = requestService.getPromise("PATCH", INFO_USER + "/"  + newUser.info_user.id, requestService.formatData(info), userInfoService.user.authToken);
             userInfo.then(function (response) {
-              adminUserScope.users.push(newUser.info_user);
+              toastServices.toastIt(response.status, "create_record");
+              if (response.status === 200) {
+                adminUserScope.users.push(newUser.info_user);
+              }
             });
           });
         }, function () {});
@@ -109,7 +112,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 15 };
@@ -127,7 +130,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 25 };
@@ -145,7 +148,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 10 };
@@ -154,6 +157,7 @@
           dialogOption.modelValue = user.bank_name;
           dialogOption.placeholder = "Cambia el nombre del banco.";
           dialogOption.save = function (input) {
+            user.bank_name = input.$modelValue;
             var updateData = {
               "info_user": {
                 "bank_name": user.bank_name
@@ -162,7 +166,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 15 };
@@ -180,7 +184,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 15 };
@@ -198,7 +202,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 15 };
@@ -216,7 +220,7 @@
 
             var updateUser = requestService.getPromise("PATCH", INFO_USER + "/" + user.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateUser.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = { 'md-maxlength': 15 };

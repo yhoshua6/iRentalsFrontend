@@ -7,8 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function notificationsCtrl($log, $mdSidenav, crudService, requestService, userInfoService, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
+  notificationsCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function notificationsCtrl($log, $mdSidenav, crudService, requestService, userInfoService, toastServices, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     var notificationsScope = this;
     notificationsScope.selected = [];
     notificationsScope.query = {
@@ -34,6 +34,7 @@
       {
         var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + notificationsScope.selected[i].id, null, userInfoService.user.authToken);
         deleteNotifications.then(function (response) {
+          toastServices.toastIt(response.status, "delete_record");
           if (response.status === 204) {
             notificationsScope.notifications.splice(notificationsScope.selected.indexOf(notificationsScope.selected[i]), 1);
           }
@@ -66,6 +67,7 @@
                   };
                   var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
                   userPromise.then(function (response) {
+                    toastServices.toastIt(response.status, "create_record");
                     if (response.status === 200) {
                       notificationsScope.notifications.push(newNotification.notification);
                     }
@@ -100,7 +102,7 @@
 
             var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateNotification.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
@@ -120,7 +122,7 @@
 
             var updateNotification = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + notification.id, requestService.formatData(updateData), userInfoService.user.authToken);
             updateNotification.then(function (response) {
-              $log.log(response);
+              toastServices.toastIt(response.status, "update_field");
             });
           };
           dialogOption.validators = {
