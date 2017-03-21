@@ -32,10 +32,17 @@
     notificationsScope.deleteNotifications = function () {
       for(var i=0; i<notificationsScope.selected.length; i++)
       {
+        $log.log(notificationsScope.selected[i].notifications_roles_id);
+        var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + notificationsScope.selected[i].notifications_roles_id, null, userInfoService.user.authToken);
+        notificationsRolesPromise.then(function (response) {
+          if (response.status === 204) {
+            //toastServices.toastIt(response.status, "delete_record");
+          }
+        });
         var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + notificationsScope.selected[i].id, null, userInfoService.user.authToken);
         deleteNotifications.then(function (response) {
-          toastServices.toastIt(response.status, "delete_record");
           if (response.status === 204) {
+            toastServices.toastIt(response.status, "delete_record");
             notificationsScope.notifications.splice(notificationsScope.selected.indexOf(notificationsScope.selected[i]), 1);
           }
         });
@@ -51,29 +58,12 @@
     notificationsScope.newNotification = function (event) {
       crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/new_notification_modal.html", event)
         .then(function(newNotification) {
-          var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
+          var data = { notification: { notifications_roles_id: newNotification.notification.notifications_roles_id } };
+          var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
           notificationsRolesPromise.then(function (response) {
-            if (response.status === 201) {
-              var data = {
-                notification: {
-                  notifications_roles_id: response.data.id
-                }
-              };
-              var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
-              notificationsRolesPromise.then(function (response) {
-                if (response.status === 200) {
-                  data.user= {
-                    notifications_role: data.notification.notifications_roles_id
-                  };
-                  var userPromise = requestService.getPromise("PATCH", USER + "/" + newNotification.notifications_role.receiver_id, requestService.formatData(data), userInfoService.user.authToken);
-                  userPromise.then(function (response) {
-                    toastServices.toastIt(response.status, "create_record");
-                    if (response.status === 200) {
-                      notificationsScope.notifications.push(newNotification.notification);
-                    }
-                  });
-                }
-              });
+            toastServices.toastIt(response.status, "update_field");
+            if (response.status === 200) {
+              notificationsScope.notifications.push(newNotification.notification);
             }
           });
         }, function () {});

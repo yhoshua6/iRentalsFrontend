@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newNotificationCtrl", newNotificationCtrl);
 
-  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "USER"];
-  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, USER) {
+  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES", "USER"];
+  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, NOTIFICATIONS_ROLES, USER) {
     var newNotificationScope = this;
     newNotificationScope.title = "";
     newNotificationScope.content = "";
@@ -59,7 +59,13 @@
         if (response.status === 201) {
           newNotification.notification.id = response.data.id;
           newNotification.notifications_role.notification_id = response.data.id
-          $mdDialog.hide(newNotification);
+          var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
+          notificationsRolesPromise.then(function (response) {
+            if (response.status === 201) {
+              newNotification.notification.notifications_roles_id = response.data.id;
+              $mdDialog.hide(newNotification);
+            }
+          });
         }
       });
 
