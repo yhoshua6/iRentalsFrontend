@@ -67,7 +67,7 @@
             var updateProperty = requestService.getPromise("PATCH", INFO_PROPERTIES + "/" + newProperty.info_property.id, requestService.formatData(propertyId), userInfoService.user.authToken);
             updateProperty.then(function (response) {
               toastServices.toastIt(response.status, "create_record");
-              if (response.status === 201) {
+              if (response.status === 200) {
                 propertiesScope.properties.push(newProperty.info_property);
               }
             });

@@ -51,10 +51,7 @@
     branchesScope.newBranch = function (event) {
       crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
         .then(function(newBranch) {
-        toastServices.toastIt(response.status, "create_record");
         branchesScope.branches.push(newBranch.branch);
-        updateUserRoles(newBranch.branch_roles.sender_id, newBranch.branch.id);
-        updateUserRoles(newBranch.branch_roles.receiver_id, newBranch.branch.id);
       }, function () {});
     };
 
@@ -106,24 +103,6 @@
           break;
       }
       return dialogOption;
-    }
-
-    function updateUserRoles(userId, id) {
-      var data = {
-        user: {
-          branch_id: id
-        }
-      };
-      var userBranchRole = requestService.getPromise(
-        "PATCH",
-        USER + "/" + userId,
-        requestService.formatData(data),
-        userInfoService.user.authToken
-      );
-
-      userBranchRole.then(function (response) {
-        $log.log(response);
-      });
     }
   }
 })();

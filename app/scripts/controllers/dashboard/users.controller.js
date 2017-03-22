@@ -37,15 +37,18 @@
         var deleteInfo = requestService.getPromise("DELETE", INFO_USER + "/" + adminUserScope.selected[i].id, null, userInfoService.user.authToken);
         deleteInfo.then(function (response) {
           if (response.status === 204) {
-            var deletedUser = requestService.getPromise("DELETE", USER + "/" + user_id, null, userInfoService.user.authToken);
-            deletedUser.then(function (response) {
-              toastServices.toastIt(response.status, "delete_record");
-              if (response.status === 204) {
-                adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
-              }
-            });
+
           }
         });
+
+        var deletedUser = requestService.getPromise("DELETE", USER + "/" + user_id, null, userInfoService.user.authToken);
+        deletedUser.then(function (response) {
+          toastServices.toastIt(response.status, "delete_record");
+          if (response.status === 204) {
+            adminUserScope.users.splice(adminUserScope.users.indexOf(adminUserScope.selected[i]), 1);
+          }
+        });
+
 
       }
       adminUserScope.selected = [];

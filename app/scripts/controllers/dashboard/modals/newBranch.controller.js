@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newBranchCtrl", newBranchCtrl);
 
-  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES", "BRANCHES_ROLES"];
-  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES, BRANCHES_ROLES) {
+  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "toastServices", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES", "BRANCHES_ROLES"];
+  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, toastServices, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES, BRANCHES_ROLES) {
     var newBranchScope = this;
     newBranchScope.title = "";
     newBranchScope.branchType = "";
@@ -70,7 +70,7 @@
           property_type: newBranchScope.propertyType,
           property_id: newBranchScope.selectedProperty.property_id
         },
-        branch_roles: {
+        branch_role: {
           sender_id: newBranchScope.senderUser.id,
           receiver_id: newBranchScope.receiverUser.id
         }
@@ -79,10 +79,11 @@
       branchesPromise.then(function (response) {
         if (response.status === 201) {
           newBranch.branch.id = response.data.id;
-          newBranch.branch_id.id = response.data.id;
+          newBranch.branch_role.branch_id = response.data.id;
           var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
           branchesRolesPromise.then(function (response) {
             if (response.status === 201) {
+              toastServices.toastIt(response.status, "create_record");
               newBranch.branch.branch_roles_id = response.data.id;
               $mdDialog.hide(newBranch);
             }
