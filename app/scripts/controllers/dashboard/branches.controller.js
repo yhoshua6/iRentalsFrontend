@@ -51,7 +51,12 @@
     branchesScope.newBranch = function (event) {
       crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
         .then(function(newBranch) {
-        branchesScope.branches.push(newBranch.branch);
+          var updateData = { user: { branch_role: newBranch.branch.branch_roles_id}};
+          var updateUser = requestService.getPromise("PATCH", USER + "/" + userInfoService.user.id, requestService.formatData(updateData), userInfoService.user.authToken);
+          updateUser.then(function (response) {
+            $log.log(response, "///////");
+          });
+          branchesScope.branches.push(newBranch.branch);
       }, function () {});
     };
 

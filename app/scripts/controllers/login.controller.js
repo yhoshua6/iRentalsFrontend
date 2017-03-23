@@ -24,7 +24,6 @@
           toastServices.toastIt(response.status, "session");
           if (response.status === 200) {
             userInfoService.setUserInfo(response);
-            $log.log(userInfoService.user);
             $state.go('root.home');
           }
         });

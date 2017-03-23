@@ -16,6 +16,7 @@
     billsScope.files = [];
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
+    billsScope.isSender = userInfoService.user.isSender;
     billsScope.isAdmin = function () {
       return userInfoService.user.role === "Administrador";
     };
@@ -24,33 +25,21 @@
       $mdSidenav("userProfile").close()
     }
 
-    var branch = {
-      branch: {
-        filter: "Facturas"
+
+    var depotFilter = {
+      depot_file: {
+        owner_id: userInfoService.user.currentBranch
       }
     };
-
-    var branchPromise = requestService.getPromise(
+    $log.log(depotFilter);
+    var filesDepot = requestService.getPromise(
       "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
+      FILES_DEPOT,
+      requestService.formatData(depotFilter),
       userInfoService.user.authToken
     );
 
-    branchPromise.then(function (response) {
-      if (response.status === 200) {
-        billsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-      }
-    });
-
-    var filesDepotPromise = requestService.getPromise(
-      "GET",
-      FILES_DEPOT + "/" + userInfoService.user.branchId,
-      null,
-      userInfoService.user.authToken
-    );
-
-    filesDepotPromise.then(function (response) {
+    filesDepot.then(function (response) {
       if (response.status === 200) {
         billsScope.files = response.data;
       }
@@ -82,9 +71,5 @@
     billsScope.download = function() {
         $log.log("Downloading");
     };
-
-    function checkIfUserHasPermissions(receiverId, senderId) {
-      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
-    }
   }
 })();
