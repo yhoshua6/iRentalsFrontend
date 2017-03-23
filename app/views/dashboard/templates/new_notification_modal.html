@@ -20,6 +20,15 @@
           </div>
         </md-input-container>
         <md-input-container flex>
+          <md-icon class="material-icons">image</md-icon>
+          <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="file">
+          <div ng-messages="notificationsForm.notificationContent.$error">
+            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div flex layout="column" layout-align="space-between stretch">
+        <md-input-container flex>
           <label>Contenido de la notificación:</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="text" required>
@@ -27,8 +36,6 @@
             <div ng-message="required">Necesitamos el contenido de la notificación!</div>
           </div>
         </md-input-container>
-      </div>
-      <div flex layout="column" layout-align="space-between stretch">
         <md-input-container flex>
           <label>Usuario receptor:</label>
             <md-autocomplete

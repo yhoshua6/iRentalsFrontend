@@ -18,6 +18,7 @@
         <th md-column md-order-by="title">Título</th>
         <th md-column md-order-by="content">Contenido</th>
         <th md-column md-order-by="receiver_user">Para</th>
+        <th md-column md-order-by="created_at">Fecha</th>
       </tr>
       </thead>
       <tbody md-body>
@@ -26,6 +27,7 @@
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification)">{{notification.title}}</td>
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification)">{{notification.content}}</td>
         <td md-cell>{{notification.receiver_user}}</td>
+        <td md-cell ng-bind="notification.created_at | date:'MM/dd/yyyy'"></td>
       </tr>
       </tbody>
     </table>
