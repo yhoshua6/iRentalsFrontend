@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdSidenav", "$log", "userInfoService", "requestService", "crudService", "BRANCHES", "FILES_DEPOT"];
-  function billsCtrl($mdSidenav, $log, userInfoService, requestService, crudService, BRANCHES, FILES_DEPOT) {
+  billsCtrl.$inject = ["$mdSidenav", "$log", "userInfoService", "requestService", "crudService", "toastServices", "FILES_DEPOT"];
+  function billsCtrl($mdSidenav, $log, userInfoService, requestService, crudService, toastServices, FILES_DEPOT) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -48,12 +48,12 @@
     billsScope.delete = function() {
       for(var i=0; i<billsScope.selected.length; i++)
       {
+        var indexItem = billsScope.files.indexOf(billsScope.selected[i]);
         var deleteBranch = requestService.getPromise("DELETE", FILES_DEPOT + "/" + billsScope.selected[i].id, null, userInfoService.user.authToken);
         deleteBranch.then(function (response) {
-          toastServices.toastIt(response.status, "update_field");
-          $log.log(response);
+          toastServices.toastIt(response.status, "file_upload");
           if (response.status === 204) {
-              billsScope.branches.splice(billsScope.branches.indexOf(billsScope.selected[i]), 1);
+            billsScope.files.splice(indexItem, 1);
           }
         });
       }
@@ -69,7 +69,18 @@
     };
 
     billsScope.download = function() {
-        $log.log("Downloading");
+      for(var i=0; i<billsScope.selected.length; i++)
+      {
+        var indexItem = billsScope.files.indexOf(billsScope.selected[i]);
+        var deleteBranch = requestService.getPromise("GET", FILES_DEPOT + "/" + billsScope.selected[i].id, null, userInfoService.user.authToken);
+        deleteBranch.then(function (response) {
+          toastServices.toastIt(response.status, "file_get");
+          if (response.status === 204) {
+            billsScope.files.splice(indexItem, 1);
+          }
+        });
+      }
+      billsScope.selected = [];
     };
   }
 })();

@@ -14,7 +14,7 @@
   <md-button class="md-accent md-raised" ng-click="billsCtrl.download()">
     <span><md-icon flex class="material-icons">file_download</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-click="billsCtrl.delete()" ng-show="billsCtrl.isSender">
+  <md-button class="md-warn md-raised" ng-click="billsCtrl.delete()"> <!-- ng-show="billsCtrl.isSender" -->
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>
@@ -27,7 +27,7 @@
       </tr>
       </thead>
       <tbody md-body>
-      <tr md-row md-select="bill" md-select-id="file.id" md-auto-select ng-repeat="file in billsCtrl.files | orderBy: billsCtrl.query.order | limitTo: billsCtrl.query.limit: (billsCtrl.query.page - 1) * billsCtrl.query.limit">
+      <tr md-row md-select="file" md-select-id="file.id" md-auto-select ng-repeat="file in billsCtrl.files | orderBy: billsCtrl.query.order | limitTo: billsCtrl.query.limit: (billsCtrl.query.page - 1) * billsCtrl.query.limit">
         <td md-cell>{{file.id}}</td>
         <td md-cell>{{file.file_name}}</td>
         <td md-cell>{{file.created_at}}</td>
@@ -40,7 +40,7 @@
     md-limit="billsCtrl.query.limit"
     md-page="billsCtrl.query.page"
     md-limit-options="[5, 10, 15]"
-    md-total="{{billsCtrl.reports.length}}"
+    md-total="{{billsCtrl.files.length}}"
     md-page-select
   >
   </md-table-pagination>

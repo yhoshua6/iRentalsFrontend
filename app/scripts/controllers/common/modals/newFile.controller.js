@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("newFileCtrl", newFileCtrl);
 
-  newFileCtrl.$inject = ["$mdDialog", "$log", "userInfoService", "Upload", "FILES_DEPOT"];
-  function newFileCtrl($mdDialog, $log, userInfoService, Upload, FILES_DEPOT) {
+  newFileCtrl.$inject = ["$mdDialog", "$log", "userInfoService", "toastServices", "Upload", "FILES_DEPOT"];
+  function newFileCtrl($mdDialog, $log, userInfoService, toastServices, Upload, FILES_DEPOT) {
     var newFileScope = this;
     newFileScope.fileName = "";
     newFileScope.file = null;
@@ -39,6 +39,7 @@
       });
 
       file.upload.then(function (response) {
+        toastServices.toastIt(response.status, "file_upload");
         newFile.id = response.data.id;
         newFile.created_at = response.data.created_at;
         $mdDialog.hide(newFile);

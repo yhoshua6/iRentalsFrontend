@@ -81,9 +81,29 @@
           toastElement.message = "No estas autorizado para borrar el registro.";
         break;
 
+        case "file_upload_success":
+          toastElement.icon = "file_upload";
+          toastElement.message = "Se subió el archivo correctamente.";
+          break;
+
+        case "file_get_success":
+          toastElement.icon = "file_upload";
+          toastElement.message = "get archivo success.";
+          break;
+
+        case "file_get_failure":
+          toastElement.icon = "file_upload";
+          toastElement.message = "get archivo failure.";
+          break;
+
+        case "file_upload_failure":
+          toastElement.icon = "error_outline";
+          toastElement.message = "No se pudo subir el archivo al servidor.";
+          break;
+
         default:
           toastElement.icon = "report_problem";
-          toastElement.message = "Revisa tu conexión de internet, si persiste el error contacta a los administradores.";
+          toastElement.message = "Hubo un error con el servidor. Si los errores persisten contacte al administrador.";
       }
 
       return toastElement;
