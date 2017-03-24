@@ -7,8 +7,8 @@
     <div flex="45" flex-offset="5">
       <img width="600" height="400" ng-src="../../images/principal.jpg">
     </div>
-    <div flex="45" flex-offset="5" style="margin-top: -60px;">
-    <h2><strong>Notificaciones</strong></h2>
+    <div flex="40" flex-offset="5" style="margin-top: -60px;">
+    <h2 style="margin: 10px; color: #01579b;"><strong>Notificaciones</strong></h2>
     <md-content style="height: 400px;">
       <md-list ng-repeat="notification in homeCtrl.notifications | orderBy:'-created_at'">
         <md-list-item class="md-3-line" ng-click="homeCtrl.newNotification($event, notification)">

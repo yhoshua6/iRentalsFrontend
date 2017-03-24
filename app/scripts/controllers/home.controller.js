@@ -51,7 +51,7 @@
          parent: parentEl,
          targetEvent: $event,
          template:
-           "<md-dialog flex='90' aria-label='newNotification'><md-toolbar><div class='md-toolbar-tools'><h2>Notificación</h2><span flex></span><md-button class='md-icon-button' ng-click='closeDialog()' aria-label='closeButton'><md-icon class='material-icons' aria-label='Close dialog'>clear</md-icon></md-button></div></md-toolbar><md-dialog-content layout style='margin-top: 10px;'><div flex='45' flex-offset='5'><img width='520' height='400' ng-src='../../images/principal.jpg''></div><div flex='45' flex-offset='5'><h1>{{info.title}}</h1><p>{{info.content}}</p><p ng-bind='info.created_at | date:MM/dd/yyyy'></p></div></md-dialog-content><md-dialog-actions layout='row'><span flex></span><md-button ng-click='closeDialog()'>Cancelar</md-button></md-dialog-actions></md-dialog>",
+           "<md-dialog flex='90' aria-label='newNotification'><md-toolbar><div class='md-toolbar-tools'><h2>Notificación</h2><span flex></span><md-button class='md-icon-button' ng-click='closeDialog()' aria-label='closeButton'><md-icon class='material-icons' aria-label='Close dialog'>clear</md-icon></md-button></div></md-toolbar><md-dialog-content layout style='margin-top: 50px;'><div flex='45' flex-offset='5'><img width='520' height='400' ng-src='../../images/principal.jpg''></div><div flex='40' flex-offset='5'><h1>{{info.title}}</h1><p style='text-align: justify;'>{{info.content}}</p></div></md-dialog-content><md-dialog-actions layout='row'><span flex></span><md-button ng-click='closeDialog()'>Cancelar</md-button></md-dialog-actions></md-dialog>",
          locals: {
            info: info
          },

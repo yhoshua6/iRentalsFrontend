@@ -26,6 +26,7 @@
     usersPromise.then(function (response) {
       if (response.status === 200) {
         newNotificationScope.users = response.data;
+          $log.info(newNotificationScope.users);
       }
     });
 

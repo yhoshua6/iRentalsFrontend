@@ -1,4 +1,4 @@
-<md-dialog aria-label="newNotification">
+<md-dialog flex='90' aria-label="newNotification">
   <form name="notificationsForm" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -10,7 +10,7 @@
       </div>
     </md-toolbar>
     <md-dialog-content layout>
-      <div flex layout="column" layout-align="space-between stretch">
+      <div flex='45' flex-offset='5' layout="column" layout-align="space-between stretch">
         <md-input-container flex>
           <label>Título de la notificación:</label>
           <md-icon class="material-icons">notifications</md-icon>
@@ -20,15 +20,6 @@
           </div>
         </md-input-container>
         <md-input-container flex>
-          <md-icon class="material-icons">image</md-icon>
-          <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="file">
-          <div ng-messages="notificationsForm.notificationContent.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
-          </div>
-        </md-input-container>
-      </div>
-      <div flex layout="column" layout-align="space-between stretch">
-        <md-input-container flex>
           <label>Contenido de la notificación:</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="text" required>
@@ -37,18 +28,33 @@
           </div>
         </md-input-container>
         <md-input-container flex>
-          <label>Usuario receptor:</label>
-            <md-autocomplete
-              md-selected-item="newNotificationCtrl.receiver"
-              md-search-text="receiverSearch"
-              md-items="receiver in newNotificationCtrl.querySearchForUsers(receiverSearch)"
-              md-item-text = "receiver.user"
-            >
-              <md-item-template>
-                <span md-highlight-text="senderSearch">{{receiver.user}}</span>
-              </md-item-template>
-            </md-autocomplete>
+          <md-icon class="material-icons">image</md-icon>
+           <label style="margin-bottom: -46px;">Cargar imagen (520x400px)</label>
+          <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="file">
+          <div ng-messages="notificationsForm.notificationContent.$error">
+            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+          </div>
         </md-input-container>
+      </div>
+      <div flex='40' flex-offset='5' layout="column" layout-align="space-between stretch">
+          <div layout="column" flex style="margin-top: 20px;">
+          <div layout="row" layout-wrap flex>
+            <div flex="33">
+              <md-checkbox ng-model="newNotificationCtrl.admin" aria-label="Administradores">Administradores</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-model="newNotificationCtrl.cond" aria-label="Condominos">Condominos</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-model="newNotificationCtrl.arre" aria-label="Arrendadores">Arrendadores</md-checkbox>
+            </div>
+            </div>
+          </div>
+          <div layout="column" layout-wrap flex>
+              <md-content style="height: 400px; margin-top: -100px;">
+                  <md-checkbox style="width: 90%;" ng-repeat="user in newNotificationCtrl.users | orderBy: newNotificationCtrl.query.order" aria-label="{{user.user}}"><strong>{{user.user}}</strong> | {{user.role}}</md-checkbox>
+              </md-content>
+          </div>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
