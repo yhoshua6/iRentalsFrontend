@@ -27,31 +27,14 @@
         paymentMethod: response.data.paymentMethod,
         rfc: response.data.rfc
       };
-      getBranchAndRole();
     };
 
-    function getBranchAndRole () {
-      var branchRole = requestService.getPromise(
-        "GET",
-        BRANCHES_ROLES + "/" + userScope.user.branchRoleId,
-        null,
-        userScope.user.authToken
-      );
+    userScope.setCurrentBranchToUser = function(branchFilter) {
+      getBranchAndRole(branchFilter);
 
-      branchRole.then(function (response) {
-        if (response.status === 200) {
-          userScope.user.branchId = response.data.branch_id;
-          userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-          setCurrentBranchToUser();
-          $log.log(userScope.user);
-        }
-      });
-    }
-
-    function setCurrentBranchToUser() {
       var branch = {
         branch: {
-          filter: "Facturas"
+          filter: branchFilter
         }
       };
 
@@ -64,13 +47,55 @@
 
       branchPromise.then(function (response) {
         if (response.status === 200) {
-          $log.log(response);
           userScope.user.currentBranch = response.data.id;
           switch (response.data.branch_type) {
             case "Facturas":
               userScope.user.branchLocation = "bills";
-              break;
+             break;
+
+            case "Documentos":
+              userScope.user.branchLocation = "documents";
+            break;
+
+            case "Asambleas":
+              userScope.user.branchLocation = "gatherings";
+            break;
+
+            case "Reportes":
+              userScope.user.branchLocation = "reports";
+            break;
+
+            case "Comprobantes":
+              userScope.user.branchLocation = "vouchers";
+            break;
           }
+        }
+      });
+
+      $log.log(userScope.user);
+    };
+
+    function getBranchAndRole (filterBranch) {
+      var roleFilter = {
+        branch_role: {
+          sender_id: userScope.user.id,
+          filter: filterBranch
+        }
+      };
+      $log.log(roleFilter);
+      var branchRole = requestService.getPromise(
+        "GET",
+        BRANCHES_ROLES,
+        requestService.formatData(roleFilter),
+        userScope.user.authToken
+      );
+
+      branchRole.then(function (response) {
+        if (response.status === 200) {
+          userScope.user.branchId = response.data.branch_id;
+          userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+          //userScope.setCurrentBranchToUser("Facturas");
+          $log.log(userScope.user);
         }
       });
     }

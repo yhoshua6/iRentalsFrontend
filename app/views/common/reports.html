@@ -4,13 +4,13 @@
       <span>Reportes</span>
     </div>
   </md-toolbar>
-  <md-button class="md-accent md-raised" ng-click="reportsCtrl.newFile()">
+  <md-button class="md-accent md-raised" ng-click="reportsCtrl.newFile()" ng-show="reportsCtrl.isSender">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Subir un nuevo archivo</span>
   </md-button>
-  <md-button class="md-accent md-raised" ng-click="">
+  <md-button class="md-accent md-raised" ng-click="reportsCtrl.download()">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-click="">
+  <md-button class="md-warn md-raised" ng-click="reportsCtrl.delete()" ng-show="reportsCtrl.isSender">
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>
@@ -19,16 +19,16 @@
       <tr md-row>
         <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title"><span>Titulo de la ramas</span></th>
-        <th md-column md-order-by="fileName"><span>Nombre del archivo</span></th>
+        <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
         <th md-column md-order-by="fileDate">Fecha del Archivo</th>
       </tr>
       </thead>
       <tbody md-body>
-      <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.reports | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
+      <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.files | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
         <td md-cell>{{report.id}}</td>
         <td md-cell>{{report.title}}</td>
-        <td md-cell>{{report.fileName}}</td>
-        <td md-cell ng-click="">{{report.fileDate}}</td>
+        <td md-cell>{{report.file_name}}</td>
+        <td md-cell>{{report.created_at}}</td>
       </tr>
       </tbody>
     </table>
@@ -38,7 +38,7 @@
     md-limit="reportsCtrl.query.limit"
     md-page="reportsCtrl.query.page"
     md-limit-options="[5, 10, 15]"
-    md-total="{{reportsCtrl.reports.length}}"
+    md-total="{{reportsCtrl.files.length}}"
     md-page-select
   >
   </md-table-pagination>

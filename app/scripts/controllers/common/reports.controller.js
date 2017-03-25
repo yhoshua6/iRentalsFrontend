@@ -5,40 +5,60 @@
   angular.module("iRentalsApp")
     .controller("reportsCtrl", reportsCtrl);
 
-  reportsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
-  function reportsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
+  reportsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function reportsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    reportsScope.reports = [];
+    reportsScope.files = [];
     reportsScope.selected = [];
-    var branch = { branch: { filter: "Reportes" } };
+    reportsScope.isSender = userInfoService.user.isSender;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var branchPromise = requestService.getPromise(
+    userInfoService.setCurrentBranchToUser("Reportes");
+
+    var depotFilter = {
+      depot_file: {
+        owner_id: userInfoService.user.currentBranch
+      }
+    };
+
+    var filesDepot = requestService.getPromise(
       "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
+      FILES_DEPOT,
+      requestService.formatData(depotFilter),
       userInfoService.user.authToken
     );
 
-    branchPromise.then(function (response) {
+    filesDepot.then(function (response) {
+      $log.log(response);
       if (response.status === 200) {
-        reportsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+        reportsScope.files = response.data;
       }
     });
 
+    reportsScope.delete = function() {
+      reportsScope.files = crudService.deleteFiles(reportsScope.files, reportsScope.selected);
+      reportsScope.selected = [];
+    };
+
     reportsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newBranch) {
-        //branchesScope.branches.push(newBranch);
-      }, function () {});
+        .then(function(newFile) {
+          $log.log(newFile);
+          reportsScope.files.push(newFile);
+        }, function () {});
+    };
+
+    reportsScope.download = function() {
+      crudService.getFiles(reportsScope.selected);
+      reportsScope.selected = [];
     };
   }
 })();

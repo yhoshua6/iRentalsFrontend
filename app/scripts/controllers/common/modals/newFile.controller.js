@@ -30,6 +30,7 @@
         },
         file_name: newFileScope.fileName
       };
+      $log.log(newFile);
       file.upload = Upload.upload({
         url: FILES_DEPOT,
         data: newFile,

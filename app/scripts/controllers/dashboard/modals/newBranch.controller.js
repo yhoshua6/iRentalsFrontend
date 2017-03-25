@@ -72,7 +72,8 @@
         },
         branch_role: {
           sender_id: newBranchScope.senderUser.id,
-          receiver_id: newBranchScope.receiverUser.id
+          receiver_id: newBranchScope.receiverUser.id,
+          branch_type: newBranchScope.branchType
         }
       };
       var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);

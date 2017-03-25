@@ -5,46 +5,60 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
-  function gatheringsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
+  gatheringsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function gatheringsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    gatheringsScope.users = [];
-    gatheringsScope.documents = [];
+    gatheringsScope.files = [];
     gatheringsScope.selected = [];
-    var branch = { branch: { filter: "Asambleas" } };
+    gatheringsScope.isSender = userInfoService.user.isSender;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var branchPromise = requestService.getPromise(
+    userInfoService.setCurrentBranchToUser("Asambleas");
+
+    var depotFilter = {
+      depot_file: {
+        owner_id: userInfoService.user.currentBranch
+      }
+    };
+
+    var filesDepot = requestService.getPromise(
       "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
+      FILES_DEPOT,
+      requestService.formatData(depotFilter),
       userInfoService.user.authToken
     );
 
-    branchPromise.then(function (response) {
+    filesDepot.then(function (response) {
+      $log.log(response);
       if (response.status === 200) {
-        gatheringsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+        gatheringsScope.files = response.data;
       }
     });
 
+    gatheringsScope.delete = function() {
+      gatheringsScope.files = crudService.deleteFiles(gatheringsScope.files, gatheringsScope.selected);
+      gatheringsScope.selected = [];
+    };
 
     gatheringsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newBranch) {
-        //branchesScope.branches.push(newBranch);
+        .then(function(newFile) {
+          $log.log(newFile);
+          gatheringsScope.files.push(newFile);
         }, function () {});
     };
 
-    function checkIfUserHasPermissions(receiverId, senderId) {
-      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
-    }
+    gatheringsScope.download = function() {
+      crudService.getFiles(gatheringsScope.selected);
+      gatheringsScope.selected = [];
+    };
   }
 })();

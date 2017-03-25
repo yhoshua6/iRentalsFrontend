@@ -8,13 +8,13 @@
       <md-switch ng-model="billsCtrl.getFilesToPay"></md-switch>
     </div>
   </md-toolbar>
-  <md-button class="md-accent md-raised" ng-click="billsCtrl.newFile()">
+  <md-button class="md-accent md-raised" ng-click="billsCtrl.newFile()" ng-show="billsCtrl.isSender">
     <span><md-icon flex class="material-icons">file_upload</md-icon>  Subir un nuevo archivo</span>
   </md-button>
   <md-button class="md-accent md-raised" ng-click="billsCtrl.download()">
     <span><md-icon flex class="material-icons">file_download</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-click="billsCtrl.delete()"> <!-- ng-show="billsCtrl.isSender" -->
+  <md-button class="md-warn md-raised" ng-click="billsCtrl.delete()" ng-show="billsCtrl.isSender"> <!-- ng-show="billsCtrl.isSender" -->
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>

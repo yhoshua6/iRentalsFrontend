@@ -4,55 +4,41 @@
       <span>Asambleas</span>
     </div>
   </md-toolbar>
-  <md-button class="md-accent md-raised" ng-click="gatheringsCtrl.newFile()">
+  <md-button class="md-accent md-raised" ng-click="gatheringsCtrl.newFile()" ng-show="gatheringsCtrl.isSender">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Subir un nuevo archivo</span>
   </md-button>
-  <md-button class="md-accent md-raised" ng-click="">
+  <md-button class="md-accent md-raised" ng-click="gatheringsCtrl.download()">
     <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-click="">
+  <md-button class="md-warn md-raised" ng-click="gatheringsCtrl.delete()" ng-show="gatheringsCtrl.isSender">
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
-  <div flex layout>
-    <div flex layout="column">
-      <md-table-container>
-        <table md-table md-row-select multiple ng-model="gatheringsCtrl.selected">
-          <thead md-head md-order="gatheringsCtrl.query.order">
-          <tr md-row>
-            <th md-column md-order-by="id"><span>ID</span></th>
-            <th md-column md-order-by="fileName"><span>Nombre del archivo</span></th>
-            <th md-column md-order-by="fileDate">Fecha del Archivo</th>
-          </tr>
-          </thead>
-          <tbody md-body>
-          <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in gatheringsCtrl.documents | orderBy: gatheringsCtrl.query.order | limitTo: gatheringsCtrl.query.limit: (gatheringsCtrl.query.page - 1) * gatheringsCtrl.query.limit">
-            <td md-cell>{{document.id}}</td>
-            <td md-cell>{{document.fileName}}</td>
-            <td md-cell>{{document.fileDate}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-      <md-table-pagination
-        md-limit="gatheringsCtrl.query.limit"
-        md-page="gatheringsCtrl.query.page"
-        md-limit-options="[5, 10, 15]"
-        md-total="{{gatheringsCtrl.documents.length}}"
-        md-page-select
-      >
-      </md-table-pagination>
-    </div>
-    <div flex>
-      <md-list class="fixedRows">
-      <md-subheader class="md-no-sticky clearContainer">Usuarios</md-subheader>
-      <md-list-item class="md-2-line contact-item" ng-repeat="user in gatheringsCtrl.users">
-        <!--<img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" /> -->
-        <div class="md-list-item-text compact">
-          <h3>{{user.userName}}</h3>
-          <p>hola</p>
-        </div>
-      </md-list-item>
-    </md-list>
-    </div>
+  <div flex>
+    <md-table-container>
+      <table md-table md-row-select multiple ng-model="gatheringsCtrl.selected">
+        <thead md-head md-order="gatheringsCtrl.query.order">
+        <tr md-row>
+          <th md-column md-order-by="id"><span>ID</span></th>
+          <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
+          <th md-column md-order-by="created_at">Fecha del Archivo</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in gatheringsCtrl.files | orderBy: gatheringsCtrl.query.order | limitTo: gatheringsCtrl.query.limit: (gatheringsCtrl.query.page - 1) * gatheringsCtrl.query.limit">
+          <td md-cell>{{document.id}}</td>
+          <td md-cell>{{document.file_name}}</td>
+          <td md-cell>{{document.created_at}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination
+      md-limit="gatheringsCtrl.query.limit"
+      md-page="gatheringsCtrl.query.page"
+      md-limit-options="[5, 10, 15]"
+      md-total="{{gatheringsCtrl.files.length}}"
+      md-page-select
+    >
+    </md-table-pagination>
   </div>
 </div>

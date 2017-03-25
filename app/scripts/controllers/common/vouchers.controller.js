@@ -5,35 +5,60 @@
   angular.module("iRentalsApp")
     .controller("vouchersCtrl", vouchersCtrl);
 
-  vouchersCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
-  function vouchersCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
+  vouchersCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function vouchersCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var vouchersScope = this;
     vouchersScope.query = {
       order: 'title',
       limit: 5,
       page: 1
     };
-    var branch = { branch: { filter: "Comprobantes" } };
+    vouchersScope.files = [];
+    vouchersScope.selected = [];
+    vouchersScope.isSender = userInfoService.user.isSender;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var branchPromise = requestService.getPromise(
+    userInfoService.setCurrentBranchToUser("Comprobantes");
+
+    var depotFilter = {
+      depot_file: {
+        owner_id: userInfoService.user.currentBranch
+      }
+    };
+
+    var filesDepot = requestService.getPromise(
       "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
+      FILES_DEPOT,
+      requestService.formatData(depotFilter),
       userInfoService.user.authToken
     );
 
-    branchPromise.then(function (response) {
+    filesDepot.then(function (response) {
+      $log.log(response);
       if (response.status === 200) {
-        vouchersScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+        vouchersScope.files = response.data;
       }
     });
 
-    function checkIfUserHasPermissions(receiverId, senderId) {
-      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
-    }
+    vouchersScope.delete = function() {
+      vouchersScope.files = crudService.deleteFiles(vouchersScope.files, vouchersScope.selected);
+      vouchersScope.selected = [];
+    };
+
+    vouchersScope.newFile = function (event) {
+      crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
+        .then(function(newFile) {
+          $log.log(newFile);
+          vouchersScope.files.push(newFile);
+        }, function () {});
+    };
+
+    vouchersScope.download = function() {
+      crudService.getFiles(vouchersScope.selected);
+      vouchersScope.selected = [];
+    };
   }
 })();
