@@ -37,7 +37,7 @@
     );
 
     filesDepot.then(function (response) {
-      $log.log(response);
+      $log.log(response, 'files');
       if (response.status === 200) {
         reportsScope.files = response.data;
       }

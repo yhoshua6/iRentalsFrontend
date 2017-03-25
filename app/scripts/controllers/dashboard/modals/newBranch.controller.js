@@ -70,7 +70,7 @@
           property_type: newBranchScope.propertyType,
           property_id: newBranchScope.selectedProperty.property_id
         },
-        branch_role: {
+        branches_role: {
           sender_id: newBranchScope.senderUser.id,
           receiver_id: newBranchScope.receiverUser.id,
           branch_type: newBranchScope.branchType
@@ -80,7 +80,7 @@
       branchesPromise.then(function (response) {
         if (response.status === 201) {
           newBranch.branch.id = response.data.id;
-          newBranch.branch_role.branch_id = response.data.id;
+          newBranch.branches_role.branch_id = response.data.id;
           var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
           branchesRolesPromise.then(function (response) {
             if (response.status === 201) {

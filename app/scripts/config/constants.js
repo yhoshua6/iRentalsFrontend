@@ -13,7 +13,7 @@
     .constant("INFO_PROPERTIES", "http://localhost:3000/api/v1/info_properties")
     .constant("PROPERTY_TYPES", "http://localhost:3000/api/v1/property_types")
     .constant("BRANCHES", "http://localhost:3000/api/v1/branches")
-    .constant("BRANCHES_ROLES", "http://localhost:3000/api/v1/branch_roles")
+    .constant("BRANCHES_ROLES", "http://localhost:3000/api/v1/branches_roles")
     .constant("GROUP_USERS", "http://localhost:3000/api/v1/groups_users")
     .constant("GROUPS", "http://localhost:3000/api/v1/groups")
     .constant("FILES_DEPOT", "http://localhost:3000/api/v1/depot_files");

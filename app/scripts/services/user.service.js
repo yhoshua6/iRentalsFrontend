@@ -16,7 +16,6 @@
         authToken: response.data.authToken,
         infoId: response.data.infoId,
         role: response.data.role,
-        branchRoleId: response.data.branchRoleId,
         notificationRoleId: response.data.notificationRole,
         id: response.data.id,
         userName: response.data.userName,
@@ -29,9 +28,24 @@
       };
     };
 
-    userScope.setCurrentBranchToUser = function(branchFilter) {
-      getBranchAndRole(branchFilter);
+    userScope.setCurrentBranchToUser = function (filterBranch) {
+      var branchRole = requestService.getPromise(
+        "GET",
+        BRANCHES_ROLES + "/" + userScope.user.id + "?filter=" + filterBranch,
+        null,
+        userScope.user.authToken
+      );
 
+      branchRole.then(function (response) {
+        if (response.status === 200) {
+          userScope.user.branchId = response.data.branch_id;
+          userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+          setBranch(filterBranch);
+        }
+      });
+    };
+
+    function setBranch (branchFilter) {
       var branch = {
         branch: {
           filter: branchFilter
@@ -51,53 +65,28 @@
           switch (response.data.branch_type) {
             case "Facturas":
               userScope.user.branchLocation = "bills";
-             break;
+              break;
 
             case "Documentos":
               userScope.user.branchLocation = "documents";
-            break;
+              break;
 
             case "Asambleas":
               userScope.user.branchLocation = "gatherings";
-            break;
+              break;
 
             case "Reportes":
               userScope.user.branchLocation = "reports";
-            break;
+              break;
 
             case "Comprobantes":
               userScope.user.branchLocation = "vouchers";
-            break;
+              break;
           }
         }
       });
 
-      $log.log(userScope.user);
-    };
-
-    function getBranchAndRole (filterBranch) {
-      var roleFilter = {
-        branch_role: {
-          sender_id: userScope.user.id,
-          filter: filterBranch
-        }
-      };
-      $log.log(roleFilter);
-      var branchRole = requestService.getPromise(
-        "GET",
-        BRANCHES_ROLES,
-        requestService.formatData(roleFilter),
-        userScope.user.authToken
-      );
-
-      branchRole.then(function (response) {
-        if (response.status === 200) {
-          userScope.user.branchId = response.data.branch_id;
-          userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-          //userScope.setCurrentBranchToUser("Facturas");
-          $log.log(userScope.user);
-        }
-      });
+      $log.log(userScope.user,'ASLKDLAKSLDK');
     }
 
     function checkIfUserHasPermissions(receiverId, senderId) {
