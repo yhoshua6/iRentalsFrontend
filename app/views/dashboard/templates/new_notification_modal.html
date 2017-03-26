@@ -30,8 +30,18 @@
         <md-input-container flex>
           <md-icon class="material-icons">image</md-icon>
            <label style="margin-bottom: -46px;">Cargar imagen (520x400px)</label>
-           <input ng-model="newNotificationCtrl.content" type="file">
+           <input ng-model="newNotificationCtrl.image" type="file">
         </md-input-container>
+        <md-button flex>
+          <label for="fileInput">
+            <md-icon class="material-icons">image</md-icon>
+            <span ng-hide="newNotificationCtrl.file.name">Cargar imagen (520x400px)</span>
+            <span ng-show="newNotificationCtrl.file.name">{{newNotificationCtrl.file.name}}</span>
+          </label>
+          <button id="fileInput" hidden="true" type="image/*" ngf-select="newNotificationCtrl.save($file, $invalidFiles)"
+                  accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+            Select File</button>
+        </md-button>
       </div>
       <div flex='40' flex-offset='5' layout="column" layout-align="space-between stretch">
           <div layout="column" flex style="margin-top: 20px;">

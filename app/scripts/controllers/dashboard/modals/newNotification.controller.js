@@ -58,6 +58,27 @@
 
     newNotificationScope.save = function() {
         var arrayNotification = [];
+        
+        newFileScope.file = file;
+        if (file) {
+            var newFile = {
+                depot_file: {
+                    owner_id: userInfoService.user.currentBranch,
+                    file: file,
+                    file_name: file.name
+                }
+            };
+            $log.log(newFile);
+            file.upload = Upload.upload({
+                url: FILES_DEPOT,
+                data: newFile,
+                headers: {
+                    "Authorization": userInfoService.user.authToken
+                }
+            });
+      }
+      
+        
         angular.forEach(newNotificationScope.users, function(value) {
             if(value.selected == true){
                 var newNotification = {

@@ -37,6 +37,9 @@
       <md-button ng-click="newFileCtrl.cancel()">
         Cancelar
       </md-button>
+        <md-button ng-click="newNotificationCtrl.save()" ng-show="fileForm.$valid">
+            Guardar
+        </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
