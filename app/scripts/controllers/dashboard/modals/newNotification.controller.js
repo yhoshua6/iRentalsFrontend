@@ -26,7 +26,9 @@
     usersPromise.then(function (response) {
       if (response.status === 200) {
         newNotificationScope.users = response.data;
-          $log.info(newNotificationScope.users);
+          angular.forEach(newNotificationScope.users, function(value) {
+              value.select = false;
+          });
       }
     });
 
@@ -37,13 +39,60 @@
     newNotificationScope.hide = function() {
       $mdDialog.hide();
     };
+    
+    newNotificationScope.selectUsers = function (thisone){
+        angular.forEach(newNotificationScope.users, function(value) {
+            if(value.role == thisone){
+                if(value.selected == true){
+                    value.selected = false;
+                }else{
+                    value.selected = true;
+                }
+            }
+        });
+    };
 
     newNotificationScope.cancel = function() {
       $mdDialog.cancel();
     };
 
     newNotificationScope.save = function() {
-      $log.log(userInfoService.user);
+        var arrayNotification = [];
+        angular.forEach(newNotificationScope.users, function(value) {
+            if(value.selected == true){
+                var newNotification = {
+                    notification: {
+                        user_id: userInfoService.user.id,
+                        title: newNotificationScope.title,
+                        content: newNotificationScope.content,
+                        receiver_user: value.user
+                    },
+                    notifications_role: {
+                        receiver_id: value.id
+                    }
+                };
+                arrayNotification.push(newNotification);
+            }
+        });
+        angular.forEach(arrayNotification, function(value, key) {
+            var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(value), userInfoService.user.authToken);
+            notificationsPromise.then(function (response) {
+                if (response.status === 201) {
+                    value.notification.id = response.data.id;
+                    value.notifications_role.notification_id = response.data.id
+                    var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, value, userInfoService.user.authToken);
+                    notificationsRolesPromise.then(function (response) {
+                        if (response.status === 201) {
+                            value.notification.notifications_roles_id = response.data.id;
+                            if(arrayNotification.length == key+1){
+                                $mdDialog.hide(value);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+      /*
       var newNotification = {
         notification: {
           user_id: userInfoService.user.id,
@@ -68,8 +117,7 @@
             }
           });
         }
-      });
-
+      });*/
     };
 
     function createFilterFor(query) {

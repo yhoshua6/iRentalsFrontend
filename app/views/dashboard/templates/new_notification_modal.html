@@ -30,29 +30,26 @@
         <md-input-container flex>
           <md-icon class="material-icons">image</md-icon>
            <label style="margin-bottom: -46px;">Cargar imagen (520x400px)</label>
-          <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="file">
-          <div ng-messages="notificationsForm.notificationContent.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
-          </div>
+           <input ng-model="newNotificationCtrl.content" type="file">
         </md-input-container>
       </div>
       <div flex='40' flex-offset='5' layout="column" layout-align="space-between stretch">
           <div layout="column" flex style="margin-top: 20px;">
           <div layout="row" layout-wrap flex>
             <div flex="33">
-              <md-checkbox ng-model="newNotificationCtrl.admin" aria-label="Administradores">Administradores</md-checkbox>
+              <md-checkbox ng-click="newNotificationCtrl.selectUsers('Administrador')" ng-model="newNotificationCtrl.admin" aria-label="Administradores">Administradores</md-checkbox>
             </div>
             <div flex="33">
-              <md-checkbox ng-model="newNotificationCtrl.cond" aria-label="Condominos">Condominos</md-checkbox>
+              <md-checkbox ng-click="newNotificationCtrl.selectUsers('Condómino')" ng-model="newNotificationCtrl.cond" aria-label="Condominos">Condominos</md-checkbox>
             </div>
             <div flex="33">
-              <md-checkbox ng-model="newNotificationCtrl.arre" aria-label="Arrendadores">Arrendadores</md-checkbox>
+              <md-checkbox ng-click="newNotificationCtrl.selectUsers('Arrendatario')" ng-model="newNotificationCtrl.arren" aria-label="Arrendadores">Arrendadores</md-checkbox>
             </div>
             </div>
           </div>
           <div layout="column" layout-wrap flex>
               <md-content style="height: 400px; margin-top: -100px;">
-                  <md-checkbox style="width: 90%;" ng-repeat="user in newNotificationCtrl.users | orderBy: newNotificationCtrl.query.order" aria-label="{{user.user}}"><strong>{{user.user}}</strong> | {{user.role}}</md-checkbox>
+                  <md-checkbox style="width: 90%;" ng-repeat="user in newNotificationCtrl.users | orderBy: newNotificationCtrl.query.order" ng-model="user.selected"><strong>{{user.user}}</strong> | {{user.role}}</md-checkbox>
               </md-content>
           </div>
       </div>
@@ -62,7 +59,7 @@
       <md-button ng-click="newNotificationCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="newNotificationCtrl.save()" ng-show="notificationsForm.$valid && newNotificationCtrl.receiver">
+      <md-button ng-click="newNotificationCtrl.save()" ng-show="notificationsForm.$valid && (newNotificationCtrl.arren || newNotificationCtrl.admin || newNotificationCtrl.cond)">
         Guardar
       </md-button>
     </md-dialog-actions>

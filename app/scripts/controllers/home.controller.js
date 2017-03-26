@@ -30,16 +30,13 @@
       var notification;
       for (var i=0; i<notifications.length; i++) {
         notification = notifications[i];
-        var userRoleNotifications = requestService.getPromise(
-          "GET",
-          NOTIFICATIONS + "/" + notification.notification_id,
-          null,
-          userInfoService.user.authToken
-        );
+        var userRoleNotifications = requestService.getPromise("GET",NOTIFICATIONS + "/" + notification.notification_id,null,userInfoService.user.authToken);
 
         userRoleNotifications.then(function (response) {
           if (response.status === 200) {
-            homeScope.notifications.push(response.data);
+              if(userInfoService.user.userName == response.data.receiver_user){
+                  homeScope.notifications.push(response.data);
+              }
           }
         });
       }

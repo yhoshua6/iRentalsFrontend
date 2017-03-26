@@ -63,7 +63,13 @@
           notificationsRolesPromise.then(function (response) {
             toastServices.toastIt(response.status, "update_field");
             if (response.status === 200) {
-              notificationsScope.notifications.push(newNotification.notification);
+              notificationsScope.notifications = null;
+                var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
+                notificationsPromise.then(function (response) {
+                    if (response.status === 200) {
+                        notificationsScope.notifications = response.data;
+                    }
+                });
             }
           });
         }, function () {});
