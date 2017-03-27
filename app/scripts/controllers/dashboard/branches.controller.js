@@ -49,9 +49,14 @@
     };
 
     branchesScope.newBranch = function (event) {
-      crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
-        .then(function(newBranch) {
+      crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event).then(function(newBranch) {
         branchesScope.branches.push(newBranch.branch);
+          var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
+            branchesPromise.then(function (response) {
+              if (response.status === 200) {
+                branchesScope.branches = response.data;
+              }
+            });
       }, function () {});
     };
 

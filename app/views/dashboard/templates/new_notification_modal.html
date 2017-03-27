@@ -1,4 +1,4 @@
-<md-dialog flex='90' aria-label="newNotification">
+<md-dialog flex='80' aria-label="newNotification">
   <form name="notificationsForm" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -27,18 +27,18 @@
             <div ng-message="required">Necesitamos el contenido de la notificación!</div>
           </div>
         </md-input-container>
-        <md-input-container flex>
+        <!--<md-input-container flex>
           <md-icon class="material-icons">image</md-icon>
            <label style="margin-bottom: -46px;">Cargar imagen (520x400px)</label>
            <input ng-model="newNotificationCtrl.image" type="file">
-        </md-input-container>
-        <md-button flex>
+        </md-input-container>-->
+        <md-button>
           <label for="fileInput">
             <md-icon class="material-icons">image</md-icon>
             <span ng-hide="newNotificationCtrl.file.name">Cargar imagen (520x400px)</span>
             <span ng-show="newNotificationCtrl.file.name">{{newNotificationCtrl.file.name}}</span>
           </label>
-          <button id="fileInput" hidden="true" type="image/*" ngf-select="newNotificationCtrl.save($file, $invalidFiles)"
+          <button id="fileInput" hidden="true" type="image/*" ngf-select="newNotificationCtrl.uploadImage($file, $invalidFiles)"
                   accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
             Select File</button>
         </md-button>

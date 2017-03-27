@@ -1,4 +1,4 @@
-<md-dialog aria-label="newNotification">
+<md-dialog flex='90' aria-label="newNotification">
   <form name="branchesForm" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -11,7 +11,7 @@
     </md-toolbar>
 
     <md-dialog-content layout>
-      <div flex layout="column" layout-align="space-between stretch">
+      <div  flex='45' flex-offset='5' flex layout="column" layout-align="space-between stretch">
         <md-input-container flex>
           <label>Título:</label>
           <md-icon class="material-icons">notifications</md-icon>
@@ -38,8 +38,7 @@
               </md-option>
             </md-select>
         </md-input-container>
-      </div>
-      <div flex layout="column" layout-align="space-between stretch">
+        <br>
         <md-input-container flex>
           <label>Propiedad</label>
             <md-autocomplete
@@ -53,8 +52,51 @@
               </md-item-template>
             </md-autocomplete>
         </md-input-container>
-        <br>
-        <md-input-container flex>
+      </div>
+      <div flex='40' flex-offset='5' layout="column" layout-align="space-between stretch">
+        <div layout="column" flex style="margin-top: 20px;">
+              <div layout="row" layout-wrap flex>
+              <h4>Usuarios Emisores</h4>
+              </div>
+          <div layout="row" layout-wrap flex>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Administrador', 'Sender')" ng-model="newBranchCtrl.adminSender" ng-if="!newBranchCtrl.adminReceiver" aria-label="Administradores">Administradores</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Condómino', 'Sender')" ng-if="!newBranchCtrl.condReceiver && !newBranchCtrl.arrenReceiver" ng-model="newBranchCtrl.condSender" aria-label="Condominos">Condominos</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Arrendatario', 'Sender')" ng-if="!newBranchCtrl.condReceiver && !newBranchCtrl.arrenReceiver" ng-model="newBranchCtrl.arrenSender" aria-label="Arrendadores">Arrendadores</md-checkbox>
+            </div>
+            </div>
+          </div>
+          <div layout="column" layout-wrap flex>
+              <md-content style="height: 200px; margin-top: -30px;">
+                  <md-checkbox style="width: 90%;" ng-repeat="send in newBranchCtrl.myUsers" ng-model="send.selectS"><strong>{{send.user}}</strong> | {{send.role}}</md-checkbox>
+              </md-content>
+          </div>
+          <div layout="column" flex style="margin-top: 20px;">
+          <div layout="row" layout-wrap flex>
+              <h3>Usuarios Receptores</h3>
+          </div>
+          <div layout="row" layout-wrap flex>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Administrador', 'Receiver')" ng-model="newBranchCtrl.adminReceiver" ng-if="!newBranchCtrl.adminSender" aria-label="Administradores">Administradores</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Condómino', 'Receiver')" ng-if="!newBranchCtrl.condSender && !newBranchCtrl.arrenSender" ng-model="newBranchCtrl.condReceiver" aria-label="Condominos">Condominos</md-checkbox>
+            </div>
+            <div flex="33">
+              <md-checkbox ng-click="newBranchCtrl.selectUsers('Arrendatario', 'Receiver')" ng-if="!newBranchCtrl.condSender && !newBranchCtrl.arrenSender" ng-model="newBranchCtrl.arrenReceiver" aria-label="Arrendadores">Arrendadores</md-checkbox>
+            </div>
+            </div>
+          </div>
+          <div layout="column" layout-wrap flex>
+              <md-content style="height: 200px; margin-top: -30px;">
+                  <md-checkbox style="width: 90%;" ng-repeat="rece in newBranchCtrl.myUsers" ng-model="rece.selectR"><strong>{{rece.user}}</strong> | {{rece.role}}</md-checkbox>
+              </md-content>
+          </div>
+        <!--<md-input-container flex>
           <label>Usuario Emisor</label>
             <md-autocomplete
               md-selected-item="newBranchCtrl.senderUser"
@@ -80,7 +122,7 @@
                 <span md-highlight-text="receiverSearch">{{receiver.user}}</span>
               </md-item-template>
             </md-autocomplete>
-        </md-input-container>
+        </md-input-container>-->
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

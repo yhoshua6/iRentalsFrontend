@@ -29,7 +29,7 @@
                   accept="application/pdf" ngf-max-height="1000" ngf-max-size="1MB">
             Select File</button>
         </md-button>
-      </div>
+        </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
@@ -37,9 +37,6 @@
       <md-button ng-click="newFileCtrl.cancel()">
         Cancelar
       </md-button>
-        <md-button ng-click="newNotificationCtrl.save()" ng-show="fileForm.$valid">
-            Guardar
-        </md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
