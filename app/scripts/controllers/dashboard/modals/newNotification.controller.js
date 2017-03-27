@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newNotificationCtrl", newNotificationCtrl);
 
-  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "toastServices", "Upload", "NOTIFICATIONS_ROLES", "USER", "FILES_DEPOT"];
-  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, toastServices, NOTIFICATIONS_ROLES, Upload, USER, FILES_DEPOT) {
+  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "toastServices", "NOTIFICATIONS_ROLES", "USER", "Upload", "FILES_DEPOT"];
+  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, toastServices, NOTIFICATIONS_ROLES, USER, Upload, FILES_DEPOT) {
     var newNotificationScope = this;
     newNotificationScope.title = "";
     newNotificationScope.content = "";
@@ -57,14 +57,14 @@
     newNotificationScope.cancel = function() {
       $mdDialog.cancel();
     };
-
+      $log.info(userInfoService.user);
     newNotificationScope.uploadImage = function(file, errFiles) {
             newNotificationScope.file = file;
             var newFile = {
                 depot_file: {
                     owner_id: userInfoService.user.currentBranch,
                     file: file,
-                    file_name: newNotificationScope.fileName,
+                    file_name: file.name,
                     location: "images"
                 },
                 file_name: newNotificationScope.fileName
@@ -80,7 +80,7 @@
                 toastServices.toastIt(response.status, "file_upload");
             newFile.id = response.data.id;
             newFile.created_at = response.data.created_at;
-            $log.log(newFile);
+            newNotificationScope.successFile = newFile;
             //$mdDialog.hide(newNotificationScope.newFile);
         });
     };
@@ -95,6 +95,7 @@
                         user_id: userInfoService.user.id,
                         title: newNotificationScope.title,
                         content: newNotificationScope.content,
+                        image: newNotificationScope.successFile.name,
                         receiver_user: value.user
                     },
                     notifications_role: {

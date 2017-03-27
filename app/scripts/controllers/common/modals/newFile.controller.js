@@ -37,11 +37,11 @@
           "Authorization": userInfoService.user.authToken
         }
       });
+
       file.upload.then(function (response) {
         toastServices.toastIt(response.status, "file_upload");
         newFile.id = response.data.id;
         newFile.created_at = response.data.created_at;
-        $log.log(response.data);
         $mdDialog.hide(newFile);
       });
 
