@@ -20,15 +20,16 @@
     };
 
     newFileScope.save = function(file, errFiles) {
+      $log.log(file);
       newFileScope.file = file;
       var newFile = {
         depot_file: {
           owner_id: userInfoService.user.currentBranch,
           file: file,
           file_name: newFileScope.fileName,
+          originalName: file.name,
           location: userInfoService.user.branchLocation
-        },
-        file_name: newFileScope.fileName
+        }
       };
       file.upload = Upload.upload({
         url: FILES_DEPOT,
