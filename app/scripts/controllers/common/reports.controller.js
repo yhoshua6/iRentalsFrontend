@@ -21,8 +21,6 @@
       $mdSidenav("userProfile").close()
     }
 
-    userInfoService.setCurrentBranchToUser("Reportes");
-
     var depotFilter = {
       depot_file: {
         owner_id: userInfoService.user.currentBranch

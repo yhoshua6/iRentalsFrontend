@@ -45,6 +45,11 @@
       name: "root.voucher",
       url: "common/vouchers",
       templateUrl: "/views/common/vouchers.html",
+      resolve: {
+        isSender: ["userInfoService", function(userInfoService) {
+          userInfoService.setCurrentBranchToUser("Comprobantes");
+        }]
+      },
       controller: "vouchersCtrl",
       controllerAs: "vouchersCtrl"
     };
@@ -53,6 +58,11 @@
       name: "root.reports",
       url: "common/reports",
       templateUrl: "/views/common/reports.html",
+      resolve: {
+        isSender: ["userInfoService", function(userInfoService) {
+          userInfoService.setCurrentBranchToUser("Reportes");
+        }]
+      },
       controller: "reportsCtrl",
       controllerAs: "reportsCtrl"
     };
@@ -60,6 +70,11 @@
     var commonBillState = {
       name: "root.bills",
       url: "common/bills",
+      resolve: {
+        isSender: ["userInfoService", function(userInfoService) {
+          userInfoService.setCurrentBranchToUser("Facturas");
+        }]
+      },
       templateUrl: "/views/common/bills.html",
       controller: "billsCtrl",
       controllerAs: "billsCtrl"
@@ -68,6 +83,11 @@
     var commonDocumentState = {
       name: "root.documents",
       url: "common/documents",
+      resolve: {
+        isSender: ["userInfoService", function(userInfoService) {
+          userInfoService.setCurrentBranchToUser("Documentos");
+        }]
+      },
       templateUrl: "/views/common/documents.html",
       controller: "docsCtrl",
       controllerAs: "docsCtrl"
@@ -77,6 +97,11 @@
       name: "root.gatherings",
       url: "common/gatherings",
       templateUrl: "/views/common/gatherings.html",
+      resolve: {
+        isSender: ["userInfoService", function(userInfoService) {
+          userInfoService.setCurrentBranchToUser("Asambleas");
+        }]
+      },
       controller: "gatheringsCtrl",
       controllerAs: "gatheringsCtrl"
     };
