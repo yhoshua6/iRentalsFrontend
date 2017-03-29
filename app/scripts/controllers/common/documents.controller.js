@@ -20,7 +20,11 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> dc36d94ed834b5cc2621d1f000921e44fdd28fee
     var depotFilter = {
       depot_file: {
         owner_id: userInfoService.user.currentBranch
