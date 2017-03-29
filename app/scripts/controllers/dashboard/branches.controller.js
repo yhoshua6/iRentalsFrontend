@@ -13,7 +13,7 @@
     branchesScope.selected = [];
     branchesScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     branchesScope.branches = [];

@@ -190,7 +190,7 @@
               toastServices.toastIt(response.status, "update_field");
             });
           };
-          dialogOption.validators = { 'md-maxlength': 15 };
+          dialogOption.validators = { 'md-maxlength': 18 };
           break;
         case 6:
           dialogOption.modelValue = user.bank_account;

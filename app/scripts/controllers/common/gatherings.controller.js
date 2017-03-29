@@ -21,8 +21,6 @@
       $mdSidenav("userProfile").close()
     }
 
-    userInfoService.setCurrentBranchToUser("Asambleas");
-
     var depotFilter = {
       depot_file: {
         owner_id: userInfoService.user.currentBranch

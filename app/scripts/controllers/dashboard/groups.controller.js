@@ -13,7 +13,7 @@
     groupsScope.selected = [];
     groupsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     groupsScope.groups = [];

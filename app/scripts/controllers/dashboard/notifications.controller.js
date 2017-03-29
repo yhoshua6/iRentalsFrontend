@@ -13,7 +13,7 @@
     notificationsScope.selected = [];
     notificationsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     notificationsScope.notifications = [];

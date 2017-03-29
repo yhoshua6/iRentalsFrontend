@@ -14,7 +14,7 @@
     propertiesScope.selected = [];
     propertiesScope.query = {
       order: 'name',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     propertiesScope.properties = [];

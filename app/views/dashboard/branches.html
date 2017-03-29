@@ -14,7 +14,6 @@
     <table md-table md-row-select multiple ng-model="branchesCtrl.selected">
       <thead md-head md-order="branchesCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title"><span>Title</span></th>
         <th md-column md-order-by="branch_type">Tipo de Rama</th>
         <!--<th md-column md-order-by="property_type">Tipo de propiedad</th>-->
@@ -26,7 +25,6 @@
       </thead>
       <tbody md-body>
       <tr md-row md-select="branch" md-select-id="branch.id" md-auto-select ng-repeat="branch in branchesCtrl.branches | orderBy: branchesCtrl.query.order | limitTo: branchesCtrl.query.limit: (branchesCtrl.query.page - 1) * branchesCtrl.query.limit">
-        <td md-cell>{{branch.id}}</td>
         <td md-cell ng-click="branchesCtrl.modifyField($event, 1, branch)">{{branch.title}}</td>
         <td md-cell>{{branch.branch_type}}</td>
         <td md-cell>{{branch.property_id}}</td>
@@ -41,7 +39,7 @@
     flex
     md-limit="branchesCtrl.query.limit"
     md-page="branchesCtrl.query.page"
-    md-limit-options="[5, 10, 15]"
+    md-limit-options="[2, 4, 6]"
     md-total="{{branchesCtrl.branches.length}}"
     md-page-select
   >

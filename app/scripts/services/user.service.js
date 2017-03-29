@@ -38,9 +38,11 @@
 
       branchRole.then(function (response) {
         if (response.status === 200) {
-          userScope.user.branchId = response.data.branch_id;
-          userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-          setBranch(filterBranch);
+          if (response.data) {
+            userScope.user.branchId = response.data.branch_id;
+            userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
+            setBranch(filterBranch);
+          }
         }
       });
     };
@@ -84,9 +86,8 @@
               break;
           }
         }
+        $log.log(userScope.user);
       });
-
-      $log.log(userScope.user,'ASLKDLAKSLDK');
     }
 
     function checkIfUserHasPermissions(receiverId, senderId) {
