@@ -10,7 +10,7 @@
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     gatheringsScope.files = [];
@@ -20,11 +20,7 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> dc36d94ed834b5cc2621d1f000921e44fdd28fee
     var depotFilter = {
       depot_file: {
         owner_id: userInfoService.user.currentBranch
@@ -53,7 +49,6 @@
     gatheringsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
         .then(function(newFile) {
-          $log.log(newFile);
           gatheringsScope.files.push(newFile);
         }, function () {});
     };

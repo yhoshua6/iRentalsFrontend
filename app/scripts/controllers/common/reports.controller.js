@@ -10,7 +10,7 @@
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     reportsScope.files = [];
@@ -49,7 +49,6 @@
     reportsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
         .then(function(newFile) {
-          $log.log(newFile);
           reportsScope.files.push(newFile);
         }, function () {});
     };

@@ -38,7 +38,6 @@
     };
 
     newGroupScope.save = function() {
-      $log.log(newGroupScope.selectedUsers, newGroupScope.name);
       var newGroup = {
         group: { name: newGroupScope.name },
         groups_user: {}

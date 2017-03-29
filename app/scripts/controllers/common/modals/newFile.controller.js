@@ -20,7 +20,6 @@
     };
 
     newFileScope.save = function(file, errFiles) {
-      $log.log(file);
       newFileScope.file = file;
       var newFile = {
         depot_file: {
@@ -45,7 +44,6 @@
         newFile.created_at = response.data.created_at;
         $mdDialog.hide(newFile);
       });
-
     };
   }
 })();

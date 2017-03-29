@@ -42,7 +42,6 @@
     };
 
     newNotificationScope.save = function() {
-      $log.log(userInfoService.user);
       var newNotification = {
         notification: {
           user_id: userInfoService.user.id,

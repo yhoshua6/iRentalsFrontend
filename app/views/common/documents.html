@@ -17,14 +17,12 @@
     <table md-table md-row-select multiple ng-model="docsCtrl.selected">
       <thead md-head md-order="docsCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id">ID</th>
         <th md-column md-order-by="file_name">Nombre del Archivo</th>
         <th md-column md-order-by="created_at">Fecha del archivo</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in docsCtrl.files | orderBy: docsCtrl.query.order | limitTo: docsCtrl.query.limit: (docsCtrl.query.page - 1) * docsCtrl.query.limit">
-        <td md-cell>{{document.id}}</td>
         <td md-cell>{{document.file_name}}</td>
         <td md-cell>{{document.created_at}}</td>
       </tr>
@@ -35,7 +33,7 @@
     flex
     md-limit="docsCtrl.query.limit"
     md-page="docsCtrl.query.page"
-    md-limit-options="[4, 6, 8]"
+    md-limit-options="[2, 4, 6]"
     md-total="{{docsCtrl.files.length}}"
     md-page-select
   >

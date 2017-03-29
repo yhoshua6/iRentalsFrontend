@@ -32,7 +32,6 @@
     notificationsScope.deleteNotifications = function () {
       for(var i=0; i<notificationsScope.selected.length; i++)
       {
-        $log.log(notificationsScope.selected[i].notifications_roles_id);
         var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + notificationsScope.selected[i].notifications_roles_id, null, userInfoService.user.authToken);
         notificationsRolesPromise.then(function (response) {
           if (response.status === 204) {

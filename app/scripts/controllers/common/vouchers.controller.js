@@ -10,7 +10,7 @@
     var vouchersScope = this;
     vouchersScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     vouchersScope.files = [];
@@ -49,7 +49,6 @@
     vouchersScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
         .then(function(newFile) {
-          $log.log(newFile);
           vouchersScope.files.push(newFile);
         }, function () {});
     };

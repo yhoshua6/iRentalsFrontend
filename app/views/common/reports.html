@@ -17,7 +17,6 @@
     <table md-table md-row-select multiple ng-model="reportsCtrl.selected">
       <thead md-head md-order="reportsCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title"><span>Titulo de la ramas</span></th>
         <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
         <th md-column md-order-by="fileDate">Fecha del Archivo</th>
@@ -25,7 +24,6 @@
       </thead>
       <tbody md-body>
       <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.files | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
-        <td md-cell>{{report.id}}</td>
         <td md-cell>{{report.title}}</td>
         <td md-cell>{{report.file_name}}</td>
         <td md-cell>{{report.created_at}}</td>
@@ -37,7 +35,7 @@
     flex
     md-limit="reportsCtrl.query.limit"
     md-page="reportsCtrl.query.page"
-    md-limit-options="[4, 6, 8]"
+    md-limit-options="[2, 4, 6]"
     md-total="{{reportsCtrl.files.length}}"
     md-page-select
   >
