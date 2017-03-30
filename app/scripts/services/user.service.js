@@ -16,9 +16,12 @@
         authToken: response.data.authToken,
         infoId: response.data.infoId,
         role: response.data.role,
-        notificationRoleId: response.data.notificationRole,
+        notificationRoles: response.data.notificationRoles,
         id: response.data.id,
+        email: response.data.email,
+        partPool: response.data.partPool,
         userName: response.data.userName,
+        user: response.data.user,
         cellphone: response.data.cellphone,
         bankName: response.data.bankName,
         bankAccount: response.data.bankAccount,
@@ -26,6 +29,7 @@
         paymentMethod: response.data.paymentMethod,
         rfc: response.data.rfc
       };
+      console.log(userScope.user);
     };
 
     userScope.setCurrentBranchToUser = function (filterBranch) {
@@ -42,6 +46,8 @@
             userScope.user.branchId = response.data.branch_id;
             userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
             setBranch(filterBranch);
+          } else {
+            userScope.user.isSender = false;
           }
         }
       });

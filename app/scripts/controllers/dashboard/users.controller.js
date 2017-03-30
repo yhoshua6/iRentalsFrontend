@@ -62,7 +62,7 @@
       event.stopPropagation();
       var info = {
         info_user: {
-          part_of_pool: user.is_part_of_pool
+          part_of_pool: user.part_of_pool
         }
       };
       var userInfo = requestService.getPromise("PATCH", INFO_USER + "/"  + user.id, requestService.formatData(info), userInfoService.user.authToken);
@@ -211,13 +211,13 @@
           dialogOption.validators = { 'md-maxlength': 15 };
           break;
         case 7:
-          dialogOption.modelValue = user.cedula;
+          dialogOption.modelValue = user.rfc;
           dialogOption.placeholder = "Cambia el rfc del usuario.";
           dialogOption.save = function (input) {
-            user.cedula = input.$modelValue;
+            user.rfc = input.$modelValue;
             var updateData = {
               "info_user": {
-                "rfc": user.cedula
+                "rfc": user.rfc
               }
             };
 

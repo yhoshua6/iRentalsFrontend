@@ -28,7 +28,8 @@
           file_name: newFileScope.fileName,
           originalName: file.name,
           location: userInfoService.user.branchLocation
-        }
+        },
+        file_name: newFileScope.fileName
       };
       file.upload = Upload.upload({
         url: FILES_DEPOT,

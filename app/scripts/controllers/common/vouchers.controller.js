@@ -35,7 +35,6 @@
     );
 
     filesDepot.then(function (response) {
-      $log.log(response);
       if (response.status === 200) {
         vouchersScope.files = response.data;
       }

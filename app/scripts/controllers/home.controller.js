@@ -7,38 +7,24 @@
   angular.module("iRentalsApp")
     .controller("homeCtrl", homeCtrl);
 
-  homeCtrl.$inject = ["$log", "userInfoService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function homeCtrl($log, userInfoService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
+  homeCtrl.$inject = ["$log", "userInfoService", "requestService", "NOTIFICATIONS"];
+  function homeCtrl($log, userInfoService, requestService, NOTIFICATIONS) {
     var homeScope = this;
     homeScope.notifications = [];
     homeScope.userName = userInfoService.user.userName;
 
-    var userRoleNotifications = requestService.getPromise(
-      "GET",
-      NOTIFICATIONS_ROLES,
-      null,
-      userInfoService.user.authToken
-    );
-
-    userRoleNotifications.then(function (response) {
-      if (response.status === 200) {
-        setNotifications(response.data);
-      }
-    });
-
-    function setNotifications(notifications) {
-      var notification;
-      for (var i=0; i<notifications.length; i++) {
-        notification = notifications[i];
-        var userRoleNotifications = requestService.getPromise(
+    var userRoleNotifications = null;
+    if(userInfoService.user.notificationRoles) {
+      for(var i=0; i<userInfoService.user.notificationRoles.length; i++) {
+        userRoleNotifications = requestService.getPromise(
           "GET",
-          NOTIFICATIONS + "/" + notification.notification_id,
+          NOTIFICATIONS + "/" + userInfoService.user.notificationRoles[i].notification_id,
           null,
           userInfoService.user.authToken
         );
 
         userRoleNotifications.then(function (response) {
-          if (response.status === 200) {
+          if(response.status === 200 && response.data) {
             homeScope.notifications.push(response.data);
           }
         });

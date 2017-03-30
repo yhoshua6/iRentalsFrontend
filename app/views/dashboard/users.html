@@ -35,7 +35,7 @@
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 5, user)">{{user.bank_clabe}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 6, user)">{{user.bank_account}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 7, user)">{{user.rfc}}</td>
-        <td md-cell ng-click="adminUserCtrl.changeStatus($event, user)"><md-switch ng-model="user.is_part_of_pool" aria-label="partOfPool">{{user.is_part_of_pool}} </md-switch></td>
+        <td md-cell ng-click="adminUserCtrl.changeStatus($event, user)"><md-switch ng-model="user.part_of_pool" aria-label="partOfPool">{{user.part_of_pool}} </md-switch></td>
       </tr>
       </tbody>
     </table>

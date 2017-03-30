@@ -53,14 +53,13 @@
       crudService.edit(event, fieldNumber, notification, getDialogOptions(fieldNumber, notification));
     };
 
-    //EXACTLY WHAT I NEED TO AVOID... CALLBACK HELL
     notificationsScope.newNotification = function (event) {
       crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/new_notification_modal.html", event)
         .then(function(newNotification) {
           var data = { notification: { notifications_roles_id: newNotification.notification.notifications_roles_id } };
           var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
           notificationsRolesPromise.then(function (response) {
-            toastServices.toastIt(response.status, "update_field");
+            toastServices.toastIt(response.status, "create_record");
             if (response.status === 200) {
               notificationsScope.notifications.push(newNotification.notification);
             }
