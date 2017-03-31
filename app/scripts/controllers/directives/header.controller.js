@@ -7,8 +7,8 @@
   angular.module("iRentalsApp")
     .controller("headerCtrl", headerCtrl);
 
-  headerCtrl.$inject = ["$mdSidenav", "userInfoService"];
-  function headerCtrl($mdSidenav, userInfoService) {
+  headerCtrl.$inject = ["$mdSidenav", "userInfoService", "crudService"];
+  function headerCtrl($mdSidenav, userInfoService, crudService) {
     var headerScope = this;
     headerScope.userInfo = [
       { title: "Usuario: ", value: userInfoService.user.user},
@@ -32,6 +32,14 @@
       { linkTo: "root.branches", label: "Ramas" },
       { linkTo: "root.notifications", label: "Notificaciones" }
     ];
+
+    headerScope.showSupport = function () {
+      crudService.new("supportCtrl", "supportCtrl", "../../../views/dashboard/templates/support_contact.html", event)
+        .then(function(answer) {
+
+        }, function () {});
+      headerScope.close();
+    };
 
     headerScope.toggleLeft = buildToggler("userProfile");
     //dashHeaderScope.toggleRight = buildToggler("userNotifications");
