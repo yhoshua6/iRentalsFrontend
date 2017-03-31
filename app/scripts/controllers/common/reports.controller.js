@@ -15,44 +15,47 @@
     };
     reportsScope.files = [];
     reportsScope.selected = [];
-    reportsScope.isSender = userInfoService.user.isSender;
+    var branchIndex = userInfoService.getBranch('Reportes');
+    reportsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var depotFilter = {
-      depot_file: {
-        owner_id: userInfoService.user.currentBranch
-      }
-    };
+    if (branchIndex) {
+      var depotFilter = {
+        depot_file: {
+          owner_id: userInfoService.user.branches[branchIndex].branchId
+        }
+      };
 
-    var filesDepot = requestService.getPromise(
-      "GET",
-      FILES_DEPOT,
-      requestService.formatData(depotFilter),
-      userInfoService.user.authToken
-    );
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
 
-    filesDepot.then(function (response) {
-      if (response.status === 200) {
-        reportsScope.files = response.data;
-      }
-    });
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          reportsScope.files = response.data;
+        }
+      });
+    }
 
-    reportsScope.delete = function() {
+    reportsScope.delete = function () {
       reportsScope.files = crudService.deleteFiles(reportsScope.files, reportsScope.selected);
       reportsScope.selected = [];
     };
 
     reportsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newFile) {
+        .then(function (newFile) {
           reportsScope.files.push(newFile);
         }, function () {});
     };
 
-    reportsScope.download = function() {
+    reportsScope.download = function () {
       crudService.getFiles(reportsScope.selected);
       reportsScope.selected = [];
     };

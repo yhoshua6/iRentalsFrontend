@@ -29,70 +29,79 @@
         paymentMethod: response.data.paymentMethod,
         rfc: response.data.rfc
       };
+      userScope.user.branches = [];
+      setCurrentBranchToUser();
       console.log(userScope.user);
     };
 
-    userScope.setCurrentBranchToUser = function (filterBranch) {
+    userScope.getBranch = function (filter) {
+      for(var i=0; i<userScope.user.branches.length; i++) {
+        if (userScope.user.branches[i].type === filter) {
+          return  i;
+        }
+      }
+    };
+
+    function setCurrentBranchToUser() {
       var branchRole = requestService.getPromise(
         "GET",
-        BRANCHES_ROLES + "/" + userScope.user.id + "?filter=" + filterBranch,
+        BRANCHES_ROLES,
         null,
         userScope.user.authToken
       );
 
       branchRole.then(function (response) {
-        if (response.status === 200) {
-          if (response.data) {
-            userScope.user.branchId = response.data.branch_id;
-            userScope.user.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-            setBranch(filterBranch);
-          } else {
-            userScope.user.isSender = false;
+        if (response.status === 200 && response.data) {
+          for(var i=0; i<response.data.length; i++) {
+            var branch = {
+              roleId: response.data[i].branch_id,
+              isSender: checkIfUserHasPermissions(response.data[i].receiver_id, response.data[i].sender_id),
+              type: response.data[i].branch_type
+            };
+            setBranch(branch);
           }
+        } else {
+          userScope.user.isSender = false;
         }
       });
-    };
+    }
 
-    function setBranch (branchFilter) {
-      var branch = {
-        branch: {
-          filter: branchFilter
-        }
-      };
-
+    function setBranch (branch) {
       var branchPromise = requestService.getPromise(
         "GET",
-        BRANCHES + "/" + userScope.user.branchId,
-        requestService.formatData(branch),
+        BRANCHES + "/" + branch.roleId,
+        null,
         userScope.user.authToken
       );
 
       branchPromise.then(function (response) {
         if (response.status === 200) {
-          userScope.user.currentBranch = response.data.id;
+          branch.branchId = response.data.id;
+          branch.propertyId = response.data.propertyId;
+
           switch (response.data.branch_type) {
             case "Facturas":
-              userScope.user.branchLocation = "bills";
+              branch.location = "bills";
               break;
 
             case "Documentos":
-              userScope.user.branchLocation = "documents";
+              branch.location = "documents";
               break;
 
             case "Asambleas":
-              userScope.user.branchLocation = "gatherings";
+              branch.location = "gatherings";
               break;
 
             case "Reportes":
-              userScope.user.branchLocation = "reports";
+              branch.location = "reports";
               break;
 
             case "Comprobantes":
-              userScope.user.branchLocation = "vouchers";
+              branch.location = "vouchers";
               break;
           }
         }
-        $log.log(userScope.user);
+        userScope.user.branches.push(branch);
       });
     }
 

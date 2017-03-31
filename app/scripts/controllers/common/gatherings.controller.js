@@ -15,44 +15,47 @@
     };
     gatheringsScope.files = [];
     gatheringsScope.selected = [];
-    gatheringsScope.isSender = userInfoService.user.isSender;
+    var branchIndex = userInfoService.getBranch('Asambleas');
+    gatheringsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var depotFilter = {
-      depot_file: {
-        owner_id: userInfoService.user.currentBranch
-      }
-    };
+    if (branchIndex) {
+      var depotFilter = {
+        depot_file: {
+          owner_id: userInfoService.user.branches[branchIndex].branchId
+        }
+      };
 
-    var filesDepot = requestService.getPromise(
-      "GET",
-      FILES_DEPOT,
-      requestService.formatData(depotFilter),
-      userInfoService.user.authToken
-    );
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
 
-    filesDepot.then(function (response) {
-      if (response.status === 200) {
-        gatheringsScope.files = response.data;
-      }
-    });
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          gatheringsScope.files = response.data;
+        }
+      });
+    }
 
-    gatheringsScope.delete = function() {
+    gatheringsScope.delete = function () {
       gatheringsScope.files = crudService.deleteFiles(gatheringsScope.files, gatheringsScope.selected);
       gatheringsScope.selected = [];
     };
 
     gatheringsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newFile) {
+        .then(function (newFile) {
           gatheringsScope.files.push(newFile);
         }, function () {});
     };
 
-    gatheringsScope.download = function() {
+    gatheringsScope.download = function () {
       crudService.getFiles(gatheringsScope.selected);
       gatheringsScope.selected = [];
     };

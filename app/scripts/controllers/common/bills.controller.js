@@ -16,7 +16,8 @@
     billsScope.files = [];
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
-    billsScope.isSender = userInfoService.user.isSender;
+    var branchIndex = userInfoService.getBranch('Facturas');
+    billsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     billsScope.isAdmin = function () {
       return userInfoService.user.role === "Administrador";
@@ -25,39 +26,40 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
+    if (branchIndex) {
+      var depotFilter = {
+        depot_file: {
+          owner_id: userInfoService.user.branches[branchIndex].branchId
+        }
+      };
 
-    var depotFilter = {
-      depot_file: {
-        owner_id: userInfoService.user.currentBranch
-      }
-    };
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
 
-    var filesDepot = requestService.getPromise(
-      "GET",
-      FILES_DEPOT,
-      requestService.formatData(depotFilter),
-      userInfoService.user.authToken
-    );
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          billsScope.files = response.data;
+        }
+      });
+    }
 
-    filesDepot.then(function (response) {
-      if (response.status === 200) {
-        billsScope.files = response.data;
-      }
-    });
-
-    billsScope.delete = function() {
+    billsScope.delete = function () {
       billsScope.files = crudService.deleteFiles(billsScope.files, billsScope.selected);
       billsScope.selected = [];
     };
 
     billsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newFile) {
+        .then(function (newFile) {
           billsScope.files.push(newFile);
         }, function () {});
     };
 
-    billsScope.download = function() {
+    billsScope.download = function () {
       crudService.getFiles(billsScope.selected);
       billsScope.selected = [];
     };
