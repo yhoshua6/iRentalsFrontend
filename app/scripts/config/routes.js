@@ -45,11 +45,6 @@
       name: "root.voucher",
       url: "common/vouchers",
       templateUrl: "/views/common/vouchers.html",
-      resolve: {
-        setBranchTouser: ["userInfoService", function (userInfoService) {
-          userInfoService.setCurrentBranchToUser("Comprobantes");
-        }]
-      },
       controller: "vouchersCtrl",
       controllerAs: "vouchersCtrl"
     };
@@ -58,11 +53,6 @@
       name: "root.reports",
       url: "common/reports",
       templateUrl: "/views/common/reports.html",
-      resolve: {
-        setBranchTouser: ["userInfoService", function (userInfoService) {
-          userInfoService.setCurrentBranchToUser("Reportes");
-        }]
-      },
       controller: "reportsCtrl",
       controllerAs: "reportsCtrl"
     };
@@ -71,11 +61,6 @@
       name: "root.bills",
       url: "common/bills",
       templateUrl: "/views/common/bills.html",
-      resolve: {
-        setBranchTouser: ["userInfoService", function (userInfoService) {
-          userInfoService.setCurrentBranchToUser("Facturas");
-        }]
-      },
       controller: "billsCtrl",
       controllerAs: "billsCtrl"
     };
@@ -84,11 +69,6 @@
       name: "root.documents",
       url: "common/documents",
       templateUrl: "/views/common/documents.html",
-      resolve: {
-        setBranchTouser: ["userInfoService", function (userInfoService) {
-          userInfoService.setCurrentBranchToUser("Documentos");
-        }]
-      },
       controller: "docsCtrl",
       controllerAs: "docsCtrl"
     };
@@ -97,11 +77,6 @@
       name: "root.gatherings",
       url: "common/gatherings",
       templateUrl: "/views/common/gatherings.html",
-      resolve: {
-        setBranchTouser: ["userInfoService", function (userInfoService) {
-          userInfoService.setCurrentBranchToUser("Asambleas");
-        }]
-      },
       controller: "gatheringsCtrl",
       controllerAs: "gatheringsCtrl"
     };

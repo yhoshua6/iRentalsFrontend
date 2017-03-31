@@ -17,7 +17,8 @@
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
     var branchIndex = userInfoService.getBranch('Facturas');
-    billsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
+    console.log(branchIndex);
+    billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     billsScope.isAdmin = function () {
       return userInfoService.user.role === "Administrador";
@@ -26,6 +27,7 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
+
     if (branchIndex) {
       var depotFilter = {
         depot_file: {

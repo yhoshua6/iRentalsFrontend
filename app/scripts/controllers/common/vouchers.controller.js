@@ -16,7 +16,7 @@
     vouchersScope.files = [];
     vouchersScope.selected = [];
     var branchIndex = userInfoService.getBranch('Comprobantes');
-    vouchersScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
+    vouchersScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()

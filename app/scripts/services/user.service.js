@@ -35,9 +35,11 @@
     };
 
     userScope.getBranch = function (filter) {
-      for(var i=0; i<userScope.user.branches.length; i++) {
-        if (userScope.user.branches[i].type === filter) {
-          return  i;
+      if (userScope.user.branches) {
+        for(var i=0; i<userScope.user.branches.length; i++) {
+          if (userScope.user.branches[i].type === filter) {
+            return  i;
+          }
         }
       }
     };

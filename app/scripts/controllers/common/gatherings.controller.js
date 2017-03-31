@@ -16,7 +16,7 @@
     gatheringsScope.files = [];
     gatheringsScope.selected = [];
     var branchIndex = userInfoService.getBranch('Asambleas');
-    gatheringsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
+    gatheringsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()

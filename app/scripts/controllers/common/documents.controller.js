@@ -16,7 +16,7 @@
     docsScope.files = [];
     docsScope.selected = [];
     var branchIndex = userInfoService.getBranch('Documentos');
-    docsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
+    docsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()

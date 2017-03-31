@@ -16,7 +16,7 @@
     reportsScope.files = [];
     reportsScope.selected = [];
     var branchIndex = userInfoService.getBranch('Reportes');
-    reportsScope.isSender = (branchIndex) ? userInfoService.user.branches[branchIndex].isSender : false;
+    reportsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
