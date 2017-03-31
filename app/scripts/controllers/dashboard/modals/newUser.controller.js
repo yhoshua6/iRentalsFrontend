@@ -62,7 +62,6 @@
           role: newUserScope.selectedRole
         }
       };
-      $log.log(newUser);
       var userInfo = requestService.getPromise("POST", INFO_USER, requestService.formatData(newUser), userInfoService.user.authToken);
       userInfo.then(function (response) {
         if (response.status === 201) {

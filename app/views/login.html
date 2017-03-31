@@ -1,5 +1,4 @@
 <br>
-<br>
 <div layout>
   <img class="center" width="450" height="550" ng-src="../../images/chroma_logo.png" flex flex-offset="5">
   <form name="loginForm" layout="column" layout-align="space-around" flex flex-offset="5">
@@ -29,7 +28,7 @@
       <md-icon class="material-icons">lock_open</md-icon>
       Iniciar sesión!
     </md-button>
-    <md-button>
+    <md-button ng-click="loginCtrl.forgotPassword()">
       <md-icon class="material-icons">lock_open</md-icon>
       ¿Olvidaste tu contraseña?
     </md-button>

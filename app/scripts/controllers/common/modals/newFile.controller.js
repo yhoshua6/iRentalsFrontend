@@ -26,6 +26,7 @@
           owner_id: userInfoService.user.currentBranch,
           file: file,
           file_name: newFileScope.fileName,
+          originalName: file.name,
           location: userInfoService.user.branchLocation
         },
         file_name: newFileScope.fileName
@@ -44,7 +45,6 @@
         newFile.created_at = response.data.created_at;
         $mdDialog.hide(newFile);
       });
-
     };
   }
 })();

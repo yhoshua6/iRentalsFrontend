@@ -2,6 +2,7 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Add your site or application content here -->
+
 <md-nav-bar md-selected-nav-item="currentNavItem" layout layout-align="center center" aria-label="navBar">
   <md-icon class="material-icons" ng-click="headerCtrl.toggleLeft()">account_circle</md-icon>
   <md-nav-item md-nav-sref="root.home" name="home">Inicio</md-nav-item>
@@ -26,7 +27,7 @@
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Soporte</h1>
       </md-toolbar>
-      <md-button class="md-accent">Contactar a Chroma</md-button>
+      <md-button class="md-accent" ng-click="headerCtrl.showSupport()">Contactar a Chroma</md-button>
       <md-toolbar ng-show="headerCtrl.isAdmin()" class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Administración</h1>
       </md-toolbar>

@@ -2,7 +2,7 @@
   <form name="notificationsForm" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Nueva Notificación</h2>
+        <h2>Nueva notificación</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="newNotificationCtrl.cancel()" aria-label="closeButton">
           <md-icon class="material-icons" aria-label="Close dialog">clear</md-icon>
@@ -16,7 +16,7 @@
           <md-icon class="material-icons">notifications</md-icon>
           <input name="notificationTitle"  ng-model="newNotificationCtrl.title" type="text" required>
           <div ng-messages="notificationsForm.notificationTitle.$error">
-            <div ng-message="required">Necesitamos el titulo de la notificación!</div>
+            <div ng-message="required">El título de la notificación es obligatorio.</div>
           </div>
         </md-input-container>
         <md-input-container flex>
@@ -24,7 +24,7 @@
           <md-icon class="material-icons">create</md-icon>
           <input name="notificationContent"  ng-model="newNotificationCtrl.content" type="text" required>
           <div ng-messages="notificationsForm.notificationContent.$error">
-            <div ng-message="required">Necesitamos el contenido de la notificación!</div>
+            <div ng-message="required">El contenido de la notificación es obligatorio.</div>
           </div>
         </md-input-container>
         <!--<md-input-container flex>

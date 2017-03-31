@@ -5,46 +5,59 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
-  function gatheringsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
+  gatheringsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function gatheringsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
-    gatheringsScope.users = [];
-    gatheringsScope.documents = [];
+    gatheringsScope.files = [];
     gatheringsScope.selected = [];
-    var branch = { branch: { filter: "Asambleas" } };
+    var branchIndex = userInfoService.getBranch('Asambleas');
+    gatheringsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var branchPromise = requestService.getPromise(
-      "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
-      userInfoService.user.authToken
-    );
+    if (branchIndex) {
+      var depotFilter = {
+        depot_file: {
+          owner_id: userInfoService.user.branches[branchIndex].branchId
+        }
+      };
 
-    branchPromise.then(function (response) {
-      if (response.status === 200) {
-        gatheringsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-      }
-    });
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
 
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          gatheringsScope.files = response.data;
+        }
+      });
+    }
+
+    gatheringsScope.delete = function () {
+      gatheringsScope.files = crudService.deleteFiles(gatheringsScope.files, gatheringsScope.selected);
+      gatheringsScope.selected = [];
+    };
 
     gatheringsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newBranch) {
-        //branchesScope.branches.push(newBranch);
+        .then(function (newFile) {
+          gatheringsScope.files.push(newFile);
         }, function () {});
     };
 
-    function checkIfUserHasPermissions(receiverId, senderId) {
-      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
-    }
+    gatheringsScope.download = function () {
+      crudService.getFiles(gatheringsScope.selected);
+      gatheringsScope.selected = [];
+    };
   }
 })();

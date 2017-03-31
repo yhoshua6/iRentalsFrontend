@@ -13,7 +13,7 @@
     notificationsScope.selected = [];
     notificationsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     notificationsScope.notifications = [];
@@ -32,7 +32,6 @@
     notificationsScope.deleteNotifications = function () {
       for(var i=0; i<notificationsScope.selected.length; i++)
       {
-        $log.log(notificationsScope.selected[i].notifications_roles_id);
         var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + notificationsScope.selected[i].notifications_roles_id, null, userInfoService.user.authToken);
         notificationsRolesPromise.then(function (response) {
           if (response.status === 204) {
@@ -54,14 +53,13 @@
       crudService.edit(event, fieldNumber, notification, getDialogOptions(fieldNumber, notification));
     };
 
-    //EXACTLY WHAT I NEED TO AVOID... CALLBACK HELL
     notificationsScope.newNotification = function (event) {
       crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/new_notification_modal.html", event)
         .then(function(newNotification) {
           var data = { notification: { notifications_roles_id: newNotification.notification.notifications_roles_id } };
           var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
           notificationsRolesPromise.then(function (response) {
-            toastServices.toastIt(response.status, "update_field");
+            toastServices.toastIt(response.status, "create_record");
             if (response.status === 200) {
               notificationsScope.notifications = null;
                 var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);

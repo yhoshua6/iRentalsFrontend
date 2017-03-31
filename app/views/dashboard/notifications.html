@@ -14,7 +14,6 @@
     <table md-table md-row-select multiple ng-model="notificationsCtrl.selected">
       <thead md-head md-order="notificationsCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="title">Título</th>
         <th md-column md-order-by="content">Contenido</th>
         <th md-column md-order-by="receiver_user">Para</th>
@@ -23,7 +22,6 @@
       </thead>
       <tbody md-body>
       <tr md-row md-select="notification" md-select-id="notification.id" md-auto-select ng-repeat="notification in notificationsCtrl.notifications | orderBy: notificationsCtrl.query.order | limitTo: notificationsCtrl.query.limit: (notificationsCtrl.query.page - 1) * notificationsCtrl.query.limit">
-        <td md-cell>{{notification.id}}</td>
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification)">{{notification.title}}</td>
         <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification)">{{notification.content}}</td>
         <td md-cell>{{notification.receiver_user}}</td>
@@ -36,8 +34,8 @@
     flex
     md-limit="notificationsCtrl.query.limit"
     md-page="notificationsCtrl.query.page"
-    md-limit-options="[5, 10, 15]"
-    md-total="{{notificationsCtrl.notifications.length}}"
+    md-limit-options="[2, 4, 6]"
+    md-total="{{notificationsCtrl.properties.length}}"
     md-page-select
   >
   </md-table-pagination>

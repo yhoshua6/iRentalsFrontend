@@ -2,7 +2,7 @@
   <form name="userForm" ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Nuevo Usuario</h2>
+        <h2>Nuevo usuario</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="newUserCtrl.cancel()" aria-label="closeButton">
           <md-icon class="material-icons" aria-label="Close dialog">clear</md-icon>
@@ -12,11 +12,11 @@
     <md-dialog-content layout>
       <div flex layout="column" layout-align="spaces-between stretch">
         <md-input-container flex>
-          <label>Nombre:</label>
+          <label>Nombre</label>
           <md-icon class="material-icons">account_box</md-icon>
           <input name="userName"  ng-model="newUserCtrl.name" type="text" required>
           <div ng-messages="userForm.userName.$error">
-            <div ng-message="required">Necesitamos el nombre!</div>
+            <div ng-message="required">El nombre del usuario es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
@@ -25,7 +25,7 @@
           <md-icon class="material-icons">phone</md-icon>
           <input name="userPhone"  ng-model="newUserCtrl.cellphone" type="text" required>
           <div ng-messages="userForm.userPhone.$error">
-            <div ng-message="required">Necesitamos una forma de contacto!</div>
+            <div ng-message="required">El celular es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
@@ -34,21 +34,21 @@
           <md-icon class="material-icons">business</md-icon>
           <input name="userBankName"  ng-model="newUserCtrl.bankName" type="text" required>
           <div ng-messages="userForm.userBankName.$error">
-            <div ng-message="required">¿Nombre del Banco?</div>
+            <div ng-message="required">El nombre del banco es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>CLABE del banco:</label>
+          <label>CLABE del banco</label>
           <md-icon class="material-icons">business</md-icon>
           <input name="userBankClabe"  ng-model="newUserCtrl.bankClabe" type="text" required>
           <div ng-messages="userForm.userBankClabe.$error">
-            <div ng-message="required">¿Clabe Banco?</div>
+            <div ng-message="required">La CLABE del banco es obligatoria.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container class="md-block" flex>
-          <label>Forma de pago:</label>
+          <label>Forma de pago</label>
             <md-select ng-model="newUserCtrl.paymentMethod">
               <md-option ng-repeat="payment in newUserCtrl.paymentOptions" ng-value="payment.method">
                 {{payment.method}}
@@ -58,43 +58,43 @@
       </div>
       <div flex layout="column" layout-align="spaces-between stretch">
         <md-input-container flex>
-          <label>Cuenta del banco:</label>
+          <label>Cuenta del banco</label>
           <md-icon class="material-icons">business</md-icon>
           <input name="userBankAccount"  ng-model="newUserCtrl.bankAccount" type="text" required>
           <div ng-messages="userForm.userBankAccount.$error">
-            <div ng-message="required">¿Cuenta del banco?</div>
+            <div ng-message="required">La cuenta de banco es obligatoria.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>RFC:</label>
+          <label>RFC</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="userRfc"  ng-model="newUserCtrl.rfc" type="text" required>
           <div ng-messages="userForm.userRfc.$error">
-            <div ng-message="required">¿RFC?</div>
+            <div ng-message="required">El RFC es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Correo:</label>
+          <label>Correo</label>
           <md-icon class="material-icons">create</md-icon>
           <input name="userEmail"  ng-model="newUserCtrl.email" type="email" required>
           <div ng-messages="userForm.userEmail.$error">
-            <div ng-message="required">¿Sin Email?</div>
+            <div ng-message="required">El correo es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Usuario:</label>
+          <label>Usuario</label>
           <md-icon class="material-icons">contacts</md-icon>
           <input name="userUser"  ng-model="newUserCtrl.user" type="text" required>
           <div ng-messages="userForm.userUser.$error">
-            <div ng-message="required">¿usuario?</div>
+            <div ng-message="required">El usuario es obligatorio.</div>
           </div>
         </md-input-container>
         <br>
         <md-input-container flex>
-          <label>Rol de usuario:</label>
+          <label>Rol de usuario</label>
           <md-select ng-model="newUserCtrl.selectedRole">
             <md-option ng-repeat="role in newUserCtrl.roles" ng-value="role.role">
               {{role.role}}

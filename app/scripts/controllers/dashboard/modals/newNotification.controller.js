@@ -85,9 +85,8 @@
         });
     };
       
-    newNotificationScope.save = function() {
-        var arrayNotification = [];
-        
+    newNotificationScope.save = function() { 
+      var arrayNotification = [];
         angular.forEach(newNotificationScope.users, function(value) {
             if(value.selected == true){
                 var newNotification = {

@@ -5,28 +5,26 @@
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="docsCtrl.newFile()" ng-show="docsCtrl.isSender">
-    <span><md-icon flex class="material-icons">add_circle</md-icon>  Subir un nuevo archivo</span>
+    <span><md-icon flex class="material-icons">file_upload</md-icon>  Subir un nuevo archivo</span>
   </md-button>
-  <md-button class="md-accent md-raised">
-    <span><md-icon flex class="material-icons">add_circle</md-icon>  Descargar los archivos seleccionados</span>
+  <md-button class="md-accent md-raised" ng-click="docsCtrl.download()">
+    <span><md-icon flex class="material-icons">file_download</md-icon>  Descargar los archivos seleccionados</span>
   </md-button>
-  <md-button class="md-warn md-raised" ng-show="docsCtrl.isSender">
+  <md-button class="md-warn md-raised" ng-click="docsCtrl.delete()" ng-show="docsCtrl.isSender">
     <span><md-icon flex class="material-icons">delete</md-icon>  Borrar Archivos</span>
   </md-button>
   <md-table-container flex>
     <table md-table md-row-select multiple ng-model="docsCtrl.selected">
       <thead md-head md-order="docsCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id">ID</th>
-        <th md-column md-order-by="fileName">Nombre del Archivo</th>
-        <th md-column md-order-by="fileDate">Fecha del archivo</th>
+        <th md-column md-order-by="file_name">Nombre del Archivo</th>
+        <th md-column md-order-by="created_at">Fecha del archivo</th>
       </tr>
       </thead>
       <tbody md-body>
-      <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in docsCtrl.documents | orderBy: docsCtrl.query.order | limitTo: docsCtrl.query.limit: (docsCtrl.query.page - 1) * docsCtrl.query.limit">
-        <td md-cell>{{document.id}}</td>
-        <td md-cell>{{document.fileName}}</td>
-        <td md-cell>{{document.fileDate}}</td>
+      <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in docsCtrl.files | orderBy: docsCtrl.query.order | limitTo: docsCtrl.query.limit: (docsCtrl.query.page - 1) * docsCtrl.query.limit">
+        <td md-cell>{{document.file_name}}</td>
+        <td md-cell>{{document.created_at}}</td>
       </tr>
       </tbody>
     </table>
@@ -35,8 +33,8 @@
     flex
     md-limit="docsCtrl.query.limit"
     md-page="docsCtrl.query.page"
-    md-limit-options="[5, 10, 15]"
-    md-total="{{docsCtrl.reports.length}}"
+    md-limit-options="[2, 4, 6]"
+    md-total="{{docsCtrl.files.length}}"
     md-page-select
   >
   </md-table-pagination>

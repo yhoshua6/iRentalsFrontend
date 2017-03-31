@@ -5,44 +5,59 @@
   angular.module("iRentalsApp")
     .controller("docsCtrl", docsCtrl);
 
-  docsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "BRANCHES"];
-  function docsCtrl($mdSidenav, requestService, userInfoService, BRANCHES) {
+  docsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function docsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var docsScope = this;
     docsScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
-    docsScope.documents = [];
+    docsScope.files = [];
     docsScope.selected = [];
-    var branch = { branch: { filter: "Documentos" } };
+    var branchIndex = userInfoService.getBranch('Documentos');
+    docsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var branchPromise = requestService.getPromise(
-      "GET",
-      BRANCHES + "/" + userInfoService.user.branchId,
-      requestService.formatData(branch),
-      userInfoService.user.authToken
-    );
+    if (branchIndex) {
+      var depotFilter = {
+        depot_file: {
+          owner_id: userInfoService.user.branches[branchIndex].branchId
+        }
+      };
 
-    branchPromise.then(function (response) {
-      if (response.status === 200) {
-        docsScope.isSender = checkIfUserHasPermissions(response.data.receiver_id, response.data.sender_id);
-      }
-    });
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
+
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          docsScope.files = response.data;
+        }
+      });
+    }
+
+    docsScope.delete = function () {
+      docsScope.files = crudService.deleteFiles(docsScope.files, docsScope.selected);
+      docsScope.selected = [];
+    };
 
     docsScope.newFile = function (event) {
       crudService.new("newFileCtrl", "newFileCtrl", "../../../../views/common/modals/upload_file.html", event)
-        .then(function(newBranch) {
-        //branchesScope.branches.push(newBranch);
-      }, function () {});
+        .then(function (newFile) {
+          docsScope.files.push(newFile);
+        }, function () {});
     };
 
-    function checkIfUserHasPermissions(receiverId, senderId) {
-      return ((userInfoService.user.id !== receiverId) && (userInfoService.user.id === senderId));
-    }
+    docsScope.download = function () {
+      crudService.getFiles(docsScope.selected);
+      docsScope.selected = [];
+    };
   }
 })();

@@ -7,16 +7,19 @@
   angular.module("iRentalsApp")
     .controller("headerCtrl", headerCtrl);
 
-  headerCtrl.$inject = ["$mdSidenav", "userInfoService"];
-  function headerCtrl($mdSidenav, userInfoService) {
+  headerCtrl.$inject = ["$mdSidenav", "userInfoService", "crudService"];
+  function headerCtrl($mdSidenav, userInfoService, crudService) {
     var headerScope = this;
     headerScope.userInfo = [
+      { title: "Usuario: ", value: userInfoService.user.user},
       { title: "Nombre: ", value: userInfoService.user.userName},
+      { title: "Email: ", value: userInfoService.user.email},
       { title: "Teléfono: ", value: userInfoService.user.cellphone},
       { title: "Nombre del banco: ", value: userInfoService.user.bankName},
-      { title: "Clabe de Banco: ", value: userInfoService.user.bankClabe},
-      { title: "Número de Cuenta: ", value: userInfoService.user.bankAccount},
-      { title: "Forma de Pago: ", value: userInfoService.user.paymentMethod},
+      { title: "CLABE de banco: ", value: userInfoService.user.bankClabe},
+      { title: "Número de cuenta: ", value: userInfoService.user.bankAccount},
+      { title: "Forma de pago: ", value: userInfoService.user.paymentMethod},
+      { title: "Parte del pool: ", value: (userInfoService.user.partPool) ? "Si" : "No"},
       { title: "RFC: ", value: userInfoService.user.rfc},
       { title: "Rol: ", value: userInfoService.user.role}
     ];
@@ -29,6 +32,14 @@
       { linkTo: "root.branches", label: "Ramas" },
       { linkTo: "root.notifications", label: "Notificaciones" }
     ];
+
+    headerScope.showSupport = function () {
+      crudService.new("supportCtrl", "supportCtrl", "../../../views/dashboard/templates/support_contact.html", event)
+        .then(function(answer) {
+
+        }, function () {});
+      headerScope.close();
+    };
 
     headerScope.toggleLeft = buildToggler("userProfile");
     //dashHeaderScope.toggleRight = buildToggler("userNotifications");

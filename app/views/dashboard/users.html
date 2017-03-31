@@ -14,13 +14,12 @@
     <table md-table md-row-select multiple ng-model="adminUserCtrl.selected">
       <thead md-head md-order="adminUserCtrl.query.order">
       <tr md-row>
-        <th md-column md-order-by="id"><span>ID</span></th>
         <th md-column md-order-by="name"><span>Nombre</span></th>
         <th md-column md-order-by="email"><span>Correo</span></th>
         <th md-column md-order-by="cellphone">Celular</th>
         <th md-column md-order-by="payment_method">Método de Pago</th>
         <th md-column md-order-by="bank_name">Nombre del banco</th>
-        <th md-column md-order-by="bank_clabe">Clabe del banco</th>
+        <th md-column md-order-by="bank_clabe">CLABE del banco</th>
         <th md-column md-order-by="bank_account">Número de cuenta</th>
         <th md-column md-order-by="rfc">RFC</th>
         <th md-column md-order-by="is_part_of_pool">Parte del Pool?</th>
@@ -28,7 +27,6 @@
       </thead>
       <tbody md-body>
       <tr md-row md-select="user" md-select-id="user.id" md-auto-select ng-repeat="user in adminUserCtrl.users | orderBy: adminUserCtrl.query.order | limitTo: adminUserCtrl.query.limit: (adminUserCtrl.query.page - 1) * adminUserCtrl.query.limit">
-        <td md-cell>{{user.id}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 1, user)">{{user.name}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 2, user)">{{user.email}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 3, user)">{{user.cellphone}}</td>
@@ -37,7 +35,7 @@
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 5, user)">{{user.bank_clabe}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 6, user)">{{user.bank_account}}</td>
         <td md-cell ng-click="adminUserCtrl.modifyField($event, 7, user)">{{user.rfc}}</td>
-        <td md-cell ng-click="adminUserCtrl.changeStatus($event, user)"><md-switch ng-model="user.is_part_of_pool" aria-label="partOfPool">{{user.is_part_of_pool}} </md-switch></td>
+        <td md-cell ng-click="adminUserCtrl.changeStatus($event, user)"><md-switch ng-model="user.part_of_pool" aria-label="partOfPool">{{user.part_of_pool}} </md-switch></td>
       </tr>
       </tbody>
     </table>
@@ -46,7 +44,7 @@
     flex
     md-limit="adminUserCtrl.query.limit"
     md-page="adminUserCtrl.query.page"
-    md-limit-options="[5, 10, 15]"
+    md-limit-options="[2, 4, 6]"
     md-total="{{adminUserCtrl.users.length}}"
     md-page-select
   >

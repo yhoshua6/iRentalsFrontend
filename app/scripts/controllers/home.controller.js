@@ -7,7 +7,7 @@
   angular.module("iRentalsApp")
     .controller("homeCtrl", homeCtrl);
 
-  homeCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+homeCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
   function homeCtrl($log, $mdDialog, userInfoService, crudService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     var homeScope = this;
     homeScope.notifications = [];

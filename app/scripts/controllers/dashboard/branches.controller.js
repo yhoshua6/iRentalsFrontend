@@ -13,7 +13,7 @@
     branchesScope.selected = [];
     branchesScope.query = {
       order: 'title',
-      limit: 5,
+      limit: 4,
       page: 1
     };
     branchesScope.branches = [];
@@ -49,14 +49,9 @@
     };
 
     branchesScope.newBranch = function (event) {
-      crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event).then(function(newBranch) {
-        branchesScope.branches.push(newBranch.branch);
-          var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
-            branchesPromise.then(function (response) {
-              if (response.status === 200) {
-                branchesScope.branches = response.data;
-              }
-            });
+      crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
+        .then(function(newBranch) {
+          branchesScope.branches.push(newBranch.branch);
       }, function () {});
     };
 
