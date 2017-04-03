@@ -57,14 +57,14 @@
     newNotificationScope.cancel = function() {
       $mdDialog.cancel();
     };
-      $log.info(userInfoService.user);
     newNotificationScope.uploadImage = function(file, errFiles) {
             newNotificationScope.file = file;
-            var newFile = {
+            /*var newFile = {
                 depot_file: {
                     owner_id: userInfoService.user.currentBranch,
                     file: file,
                     file_name: file.name,
+                    originalName: file.name,
                     location: "images"
                 },
                 file_name: newNotificationScope.fileName
@@ -76,51 +76,95 @@
                     "Authorization": userInfoService.user.authToken
                 }
             });
-            file.upload.then(function (response) {
-                toastServices.toastIt(response.status, "file_upload");
+           file.upload.then(function (response) {
+            newNotificationScope.Uploadedimage = response;
+            toastServices.toastIt(response.status, "file_upload");
             newFile.id = response.data.id;
             newFile.created_at = response.data.created_at;
-            newNotificationScope.successFile = newFile;
-            //$mdDialog.hide(newNotificationScope.newFile);
-        });
+          });
+          */
+               
+           /*          var depotFilter = {
+        depot_file: {
+          id: newNotificationScope.Uploadedimage.data.id
+        }
+      };
+
+      var filesDepot = requestService.getPromise("GET",FILES_DEPOT,
+        requestService.formatData(depotFilter),
+        userInfoService.user.authToken
+      );
+
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          $log.info(response.data);
+        }
+      });*/
     };
       
     newNotificationScope.save = function() { 
-      var arrayNotification = [];
+        //$log.info(newNotificationScope.Uploadedimage.data.path_file);
+        //$log.info(newNotificationScope.Uploadedimage.data.id);        
+      var arrayNotificationRoles = [];
+        var myNotification = {
+            notification: {
+                user_id: userInfoService.user.id,
+                title: newNotificationScope.title,
+                content: newNotificationScope.content
+            }
+        };
         angular.forEach(newNotificationScope.users, function(value) {
             if(value.selected == true){
-                var newNotification = {
-                    notification: {
-                        user_id: userInfoService.user.id,
-                        title: newNotificationScope.title,
-                        content: newNotificationScope.content,
-                        image: newNotificationScope.successFile.name,
-                        receiver_user: value.user
-                    },
+                var myNotificationsRole = {
                     notifications_role: {
                         receiver_id: value.id
                     }
                 };
-                arrayNotification.push(newNotification);
+                arrayNotificationRoles.push(myNotificationsRole);
             }
         });
-        angular.forEach(arrayNotification, function(value, key) {
-            var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(value), userInfoService.user.authToken);
-            notificationsPromise.then(function (response) {
-                if (response.status === 201) {
-                    value.notification.id = response.data.id;
-                    value.notifications_role.notification_id = response.data.id
+        var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(myNotification), userInfoService.user.authToken);
+        notificationsPromise.then(function (response) {
+            if (response.status === 201) {
+                myNotification.notification.id = response.data.id;
+                    
+                    var newFile = {
+                        depot_file: {
+                            owner_id: response.data.id,
+                            file: newNotificationScope.file,
+                            file_name: newNotificationScope.title,
+                            originalName: newNotificationScope.file.name,
+                            location: "images"
+                        },
+                        file_name: newNotificationScope.file.name
+                    };
+                    newNotificationScope.file.upload = Upload.upload({
+                        url: FILES_DEPOT,
+                        data: newFile,
+                        headers: {
+                            "Authorization": userInfoService.user.authToken
+                        }
+                    });
+                    newNotificationScope.file.upload.then(function (response) {
+                        newNotificationScope.Uploadedimage = response;
+                        toastServices.toastIt(response.status, "file_upload");
+                        newFile.id = response.data.id;
+                        newFile.created_at = response.data.created_at;
+                    });
+               
+                    
+                angular.forEach(arrayNotificationRoles, function(value, key) {
+                    value.notifications_role.notification_id = response.data.id;
                     var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, value, userInfoService.user.authToken);
                     notificationsRolesPromise.then(function (response) {
                         if (response.status === 201) {
-                            value.notification.notifications_roles_id = response.data.id;
-                            if(arrayNotification.length == key+1){
+                            if(arrayNotificationRoles.length == key+1){
                                 $mdDialog.hide(value);
                             }
                         }
                     });
-                }
-            });
+                });
+            }
         });
     };
 

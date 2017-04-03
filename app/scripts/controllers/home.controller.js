@@ -7,8 +7,8 @@
   angular.module("iRentalsApp")
     .controller("homeCtrl", homeCtrl);
 
-homeCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function homeCtrl($log, $mdDialog, userInfoService, crudService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
+homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES", "FILES_DEPOT"];
+  function homeCtrl($log, $filter, $mdDialog, userInfoService, crudService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES, FILES_DEPOT) {
     var homeScope = this;
     homeScope.notifications = [];
     homeScope.userName = userInfoService.user.userName;
@@ -19,28 +19,29 @@ homeCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "crudService", "requ
       null,
       userInfoService.user.authToken
     );
-
-    userRoleNotifications.then(function (response) {
-      if (response.status === 200) {
-        setNotifications(response.data);
-      }
-    });
-
-    function setNotifications(notifications) {
-      var notification;
-      for (var i=0; i<notifications.length; i++) {
-        notification = notifications[i];
-        var userRoleNotifications = requestService.getPromise("GET",NOTIFICATIONS + "/" + notification.notification_id,null,userInfoService.user.authToken);
-
-        userRoleNotifications.then(function (response) {
-          if (response.status === 200) {
-              if(userInfoService.user.userName == response.data.receiver_user){
-                  homeScope.notifications.push(response.data);
-              }
-          }
+      
+    homeScope.notifications = userInfoService.user.notificationRoles;
+    homeScope.setNotifications = function() {
+    var filesDepot = requestService.getPromise("GET", FILES_DEPOT, null, userInfoService.user.authToken);
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          homeScope.images = response.data;
+            $log.info(homeScope.images);
+        }
+      });
+        angular.forEach(homeScope.notifications, function(value, key) {            
+            var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS + "/" + value.notification_id, null, userInfoService.user.authToken);
+            notificationsPromise.then(function (responseNot) {
+                if (responseNot.status === 200){
+                    value.notification = responseNot.data;
+                    var image = $filter('filter')(homeScope.images, {owner_id: value.notification_id})[0];
+                    value.notification.image = FILES_DEPOT+'/'+image.id;
+                }
+            });
         });
-      }
-    }
+    };
+    homeScope.setNotifications();
+
     
     homeScope.newNotification = function($event, info) {
        var parentEl = angular.element(document.body);
@@ -48,7 +49,7 @@ homeCtrl.$inject = ["$log", "$mdDialog", "userInfoService", "crudService", "requ
          parent: parentEl,
          targetEvent: $event,
          template:
-           "<md-dialog flex='90' aria-label='newNotification'><md-toolbar><div class='md-toolbar-tools'><h2>Notificación</h2><span flex></span><md-button class='md-icon-button' ng-click='closeDialog()' aria-label='closeButton'><md-icon class='material-icons' aria-label='Close dialog'>clear</md-icon></md-button></div></md-toolbar><md-dialog-content layout style='margin-top: 50px;'><div flex='45' flex-offset='5'><img width='520' height='400' ng-src='../../images/principal.jpg''></div><div flex='40' flex-offset='5'><h1>{{info.title}}</h1><p style='text-align: justify;'>{{info.content}}</p></div></md-dialog-content><md-dialog-actions layout='row'><span flex></span><md-button ng-click='closeDialog()'>Cancelar</md-button></md-dialog-actions></md-dialog>",
+           "<md-dialog flex='90' aria-label='newNotification'><md-toolbar><div class='md-toolbar-tools'><h2>Notificación</h2><span flex></span><md-button class='md-icon-button' ng-click='closeDialog()' aria-label='closeButton'><md-icon class='material-icons' aria-label='Close dialog'>clear</md-icon></md-button></div></md-toolbar><md-dialog-content layout style='margin-top: 50px;'><div flex='45' flex-offset='5'><img width='520' height='400' ng-src='{{info.image}}' data-err-src='../images/principal.jpg'></div><div flex='40' flex-offset='5'><h1>{{info.title}}</h1><p style='text-align: justify;'>{{info.content}}</p></div></md-dialog-content><md-dialog-actions layout='row'><span flex></span><md-button ng-click='closeDialog()'>Cancelar</md-button></md-dialog-actions></md-dialog>",
          locals: {
            info: info
          },

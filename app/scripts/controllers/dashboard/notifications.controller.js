@@ -16,36 +16,50 @@
       limit: 4,
       page: 1
     };
-    notificationsScope.notifications = [];
 
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
 
-    var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
-    notificationsPromise.then(function (response) {
-      if (response.status === 200) {
-        notificationsScope.notifications = response.data;
-      }
-    });
-
-    notificationsScope.deleteNotifications = function () {
-      for(var i=0; i<notificationsScope.selected.length; i++)
-      {
-        var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + notificationsScope.selected[i].notifications_roles_id, null, userInfoService.user.authToken);
+    notificationsScope.getNotification = function(){
+        notificationsScope.notifications = [];
+        var notificationsRolesPromise = requestService.getPromise("GET", NOTIFICATIONS_ROLES, null, userInfoService.user.authToken);
         notificationsRolesPromise.then(function (response) {
-          if (response.status === 204) {
-            //toastServices.toastIt(response.status, "delete_record");
+          if (response.status === 200) {
+              notificationsScope.notifications = response.data;
+              angular.forEach(notificationsScope.notifications, function(value, key) {
+                  var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS + "/" + value.notification_id, null, userInfoService.user.authToken);
+                  var recieverPromise = requestService.getPromise("GET", USER + "/" + value.receiver_id, null, userInfoService.user.authToken);
+                  notificationsPromise.then(function (responseNot) {
+                    recieverPromise.then(function (responseUser) {
+                      if (responseNot.status === 200 && responseUser.status === 200){
+                          value.notification = responseNot.data;
+                          value.user = responseUser.data;
+                      }
+                    });
+                  });
+              });
+              $log.info(notificationsScope.notifications);
           }
         });
-        var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + notificationsScope.selected[i].id, null, userInfoService.user.authToken);
-        deleteNotifications.then(function (response) {
-          if (response.status === 204) {
-            toastServices.toastIt(response.status, "delete_record");
-            notificationsScope.notifications.splice(notificationsScope.selected.indexOf(notificationsScope.selected[i]), 1);
-          }
+    };
+    notificationsScope.getNotification();
+      
+    notificationsScope.deleteNotifications = function () {
+        angular.forEach(notificationsScope.selected, function(value, key) {
+            var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + value.id, null, userInfoService.user.authToken);
+            notificationsRolesPromise.then(function (response) {
+              if (response.status === 204) {
+                toastServices.toastIt(response.status, "delete_record");
+                notificationsScope.getNotification();
+              }
+            });
+            /*var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + value.role.notification_id, null, userInfoService.user.authToken);
+            deleteNotifications.then(function (response) {
+              if (response.status === 204) {
+              }
+            });*/
         });
-      }
       notificationsScope.selected = [];
     };
 
@@ -56,20 +70,7 @@
     notificationsScope.newNotification = function (event) {
       crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/new_notification_modal.html", event)
         .then(function(newNotification) {
-          var data = { notification: { notifications_roles_id: newNotification.notification.notifications_roles_id } };
-          var notificationsRolesPromise = requestService.getPromise("PATCH", NOTIFICATIONS + "/" + newNotification.notification.id, requestService.formatData(data), userInfoService.user.authToken);
-          notificationsRolesPromise.then(function (response) {
-            toastServices.toastIt(response.status, "create_record");
-            if (response.status === 200) {
-              notificationsScope.notifications = null;
-                var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS, null, userInfoService.user.authToken);
-                notificationsPromise.then(function (response) {
-                    if (response.status === 200) {
-                        notificationsScope.notifications = response.data;
-                    }
-                });
-            }
-          });
+                notificationsScope.getNotification();
         }, function () {});
     };
 

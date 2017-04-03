@@ -11,12 +11,12 @@
     <h2 style="margin: 10px; color: #01579b;"><strong>Notificaciones</strong></h2>
     <md-content style="height: 400px;">
       <md-list ng-repeat="notification in homeCtrl.notifications | orderBy:'-created_at'">
-        <md-list-item class="md-3-line" ng-click="homeCtrl.newNotification($event, notification)">
+        <md-list-item class="md-3-line" ng-click="homeCtrl.newNotification($event, notification.notification)">
           <img ng-src="../../images/notification.png" class="md-avatar">
           <div class="md-list-item-text">
-            <h3>{{notification.title}}</h3>
-            <h4>{{notification.content}}</h4>
-            <p ng-bind="notification.created_at | date:'MM/dd/yyyy'"></p>
+            <h3>{{notification.notification.title}}</h3>
+            <h4>{{notification.notification.content}}</h4>
+            <p ng-bind="notification.notification.created_at | date:'MM/dd/yyyy'"></p>
           </div>
           <md-divider md-inset></md-divider>
         </md-list-item>
