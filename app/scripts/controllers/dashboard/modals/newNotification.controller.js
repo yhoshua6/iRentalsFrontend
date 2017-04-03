@@ -59,52 +59,9 @@
     };
     newNotificationScope.uploadImage = function(file, errFiles) {
             newNotificationScope.file = file;
-            /*var newFile = {
-                depot_file: {
-                    owner_id: userInfoService.user.currentBranch,
-                    file: file,
-                    file_name: file.name,
-                    originalName: file.name,
-                    location: "images"
-                },
-                file_name: newNotificationScope.fileName
-            };
-            file.upload = Upload.upload({
-                url: FILES_DEPOT,
-                data: newFile,
-                headers: {
-                    "Authorization": userInfoService.user.authToken
-                }
-            });
-           file.upload.then(function (response) {
-            newNotificationScope.Uploadedimage = response;
-            toastServices.toastIt(response.status, "file_upload");
-            newFile.id = response.data.id;
-            newFile.created_at = response.data.created_at;
-          });
-          */
-               
-           /*          var depotFilter = {
-        depot_file: {
-          id: newNotificationScope.Uploadedimage.data.id
-        }
-      };
-
-      var filesDepot = requestService.getPromise("GET",FILES_DEPOT,
-        requestService.formatData(depotFilter),
-        userInfoService.user.authToken
-      );
-
-      filesDepot.then(function (response) {
-        if (response.status === 200) {
-          $log.info(response.data);
-        }
-      });*/
     };
       
     newNotificationScope.save = function() { 
-        //$log.info(newNotificationScope.Uploadedimage.data.path_file);
-        //$log.info(newNotificationScope.Uploadedimage.data.id);        
       var arrayNotificationRoles = [];
         var myNotification = {
             notification: {

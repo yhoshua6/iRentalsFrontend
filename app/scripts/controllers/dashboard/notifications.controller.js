@@ -39,7 +39,6 @@
                     });
                   });
               });
-              $log.info(notificationsScope.notifications);
           }
         });
     };
@@ -54,11 +53,6 @@
                 notificationsScope.getNotification();
               }
             });
-            /*var deleteNotifications = requestService.getPromise("DELETE", NOTIFICATIONS + "/" + value.role.notification_id, null, userInfoService.user.authToken);
-            deleteNotifications.then(function (response) {
-              if (response.status === 204) {
-              }
-            });*/
         });
       notificationsScope.selected = [];
     };

@@ -26,19 +26,22 @@ homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudServ
       filesDepot.then(function (response) {
         if (response.status === 200) {
           homeScope.images = response.data;
-            $log.info(homeScope.images);
+            angular.forEach(homeScope.notifications, function(value, key) {            
+                var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS + "/" + value.notification_id, null, userInfoService.user.authToken);
+                notificationsPromise.then(function (responseNot) {
+                    if (responseNot.status === 200){
+                        value.notification = responseNot.data;
+                        var image = $filter('filter')(homeScope.images, {owner_id: value.notification_id});
+                        value.notification.image = FILES_DEPOT+'/'+image[0].id;
+                        if(image==undefined){
+                            value.notification.image = '../images/principal.jpg'
+                        }
+
+                    }
+                });
+            });
         }
       });
-        angular.forEach(homeScope.notifications, function(value, key) {            
-            var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS + "/" + value.notification_id, null, userInfoService.user.authToken);
-            notificationsPromise.then(function (responseNot) {
-                if (responseNot.status === 200){
-                    value.notification = responseNot.data;
-                    var image = $filter('filter')(homeScope.images, {owner_id: value.notification_id})[0];
-                    value.notification.image = FILES_DEPOT+'/'+image.id;
-                }
-            });
-        });
     };
     homeScope.setNotifications();
 

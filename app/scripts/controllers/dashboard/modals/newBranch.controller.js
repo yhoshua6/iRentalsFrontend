@@ -91,46 +91,39 @@
     };
       
     newBranchScope.save = function () {
-        newBranchScope.branches = [];
-        angular.forEach(newBranchScope.myUsers, function(x) {
-            if(x.selectS==true){
-                angular.forEach(newBranchScope.myUsers, function(y) {
-                    if(y.selectR==true){
-                        var newBranch = {
-                            branch: {
-                                title: newBranchScope.title,
-                                branch_type: newBranchScope.branchType,
-                                property_type: newBranchScope.propertyType,
-                                property_id: newBranchScope.selectedProperty.property_id
-                            },
-                            branch_role: {
-                                sender_id: x.id,
-                                receiver_id: y.id
+        var newBranch = {
+            branch: {
+                title: newBranchScope.title,
+                branch_type: newBranchScope.branchType,
+                property_id: newBranchScope.selectedProperty.property_id
+            }
+        };
+        var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);         branchesPromise.then(function (response) {
+            if (response.status === 201) {
+                angular.forEach(newBranchScope.myUsers, function(x) {
+                    if(x.selectS==true){
+                        angular.forEach(newBranchScope.myUsers, function(y) {
+                            if(y.selectR==true){
+                                var newBranchRole = {
+                                    branches_role: {
+                                        branch_id: response.data.id,
+                                        sender_id: x.id,
+                                        receiver_id: y.id,
+                                        branch_type: newBranchScope.branchType,
+                                    }
+                                };
+                                var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranchRole), userInfoService.user.authToken);
+                                  branchesRolesPromise.then(function (response) {
+                                    if (response.status === 201) {
+                                      toastServices.toastIt(response.status, "create_record");
+                                    }
+                                  });
                             }
-                        };
-                        newBranchScope.branches.push(newBranch);
+                        });
                     }
                 });
+                $mdDialog.hide();
             }
-        });
-        angular.forEach(newBranchScope.branches, function(z, key) {
-          var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(z), userInfoService.user.authToken);
-          branchesPromise.then(function (response) {
-            if (response.status === 201) {
-              z.branch.id = response.data.id;
-              z.branch_role.branch_id = response.data.id;
-              var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(z), userInfoService.user.authToken);
-              branchesRolesPromise.then(function (response) {
-                if (response.status === 201) {
-                  toastServices.toastIt(response.status, "create_record");
-                  z.branch.branch_roles_id = response.data.id;
-                }
-              });
-            if(newBranchScope.branches.length == key+1){
-                $mdDialog.hide(z);
-            }
-            }
-          });
         });
     };
 
