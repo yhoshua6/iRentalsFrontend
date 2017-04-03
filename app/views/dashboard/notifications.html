@@ -17,13 +17,15 @@
         <th md-column md-order-by="title">Título</th>
         <th md-column md-order-by="content">Contenido</th>
         <th md-column md-order-by="receiver_user">Para</th>
+        <th md-column md-order-by="created_at">Fecha</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="notification" md-select-id="notification.id" md-auto-select ng-repeat="notification in notificationsCtrl.notifications | orderBy: notificationsCtrl.query.order | limitTo: notificationsCtrl.query.limit: (notificationsCtrl.query.page - 1) * notificationsCtrl.query.limit">
-        <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification)">{{notification.title}}</td>
-        <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification)">{{notification.content}}</td>
-        <td md-cell>{{notification.receiver_user}}</td>
+        <td md-cell ng-click="notificationsCtrl.modifyField($event, 1, notification.notification)">{{notification.notification.title}}</td>
+        <td md-cell ng-click="notificationsCtrl.modifyField($event, 2, notification.notification)">{{notification.notification.content}}</td>
+        <td md-cell>{{notification.user.user}}</td>
+        <td md-cell ng-bind="notification.created_at | date:'MM/dd/yyyy'"></td>
       </tr>
       </tbody>
     </table>
@@ -33,7 +35,7 @@
     md-limit="notificationsCtrl.query.limit"
     md-page="notificationsCtrl.query.page"
     md-limit-options="[2, 4, 6]"
-    md-total="{{notificationsCtrl.properties.length}}"
+    md-total="{{notificationsCtrl.notifications.length}}"
     md-page-select
   >
   </md-table-pagination>

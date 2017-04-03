@@ -61,36 +61,70 @@
     newBranchScope.querySearchForProperties = function (criteria) {
       return criteria ? newBranchScope.properties.filter(createFilterPropertyFor(criteria)) : [];
     };
-
-    newBranchScope.save = function () {
-      var newBranch = {
-        branch: {
-          title: newBranchScope.title,
-          branch_type: newBranchScope.branchType,
-          property_type: newBranchScope.propertyType,
-          property_id: newBranchScope.selectedProperty.property_id
-        },
-        branches_role: {
-          sender_id: newBranchScope.senderUser.id,
-          receiver_id: newBranchScope.receiverUser.id,
-          branch_type: newBranchScope.branchType
-        }
-      };
-      var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);
-      branchesPromise.then(function (response) {
-        if (response.status === 201) {
-          newBranch.branch.id = response.data.id;
-          newBranch.branches_role.branch_id = response.data.id;
-          var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranch), userInfoService.user.authToken);
-          branchesRolesPromise.then(function (response) {
-            if (response.status === 201) {
-              toastServices.toastIt(response.status, "create_record");
-              newBranch.branch.branch_roles_id = response.data.id;
-              $mdDialog.hide(newBranch);
-            }
+    usersPromise.then(function (response) {
+      if (response.status === 200) {
+          angular.forEach(response.data, function(value) {
+              value.selectR = false;
+              value.selectS = false;
           });
-        }
-      });
+          newBranchScope.myUsers = response.data;
+      }
+    });
+      
+    newBranchScope.selectUsers = function (thisone, wichone){
+        angular.forEach(newBranchScope.myUsers, function(value) {
+            if(wichone === 'Receiver' && value.role === thisone){
+                if(value.selectR == true){
+                    value.selectR = false;
+                }else{
+                    value.selectR = true;
+                }
+            }
+            if(wichone === 'Sender' && value.role === thisone){
+                if(value.selectS == true){
+                    value.selectS = false;
+                }else{
+                    value.selectS = true;
+                }
+            }
+        });
+    };
+      
+    newBranchScope.save = function () {
+        var newBranch = {
+            branch: {
+                title: newBranchScope.title,
+                branch_type: newBranchScope.branchType,
+                property_id: newBranchScope.selectedProperty.property_id
+            }
+        };
+        var branchesPromise = requestService.getPromise("POST", BRANCHES, requestService.formatData(newBranch), userInfoService.user.authToken);         branchesPromise.then(function (response) {
+            if (response.status === 201) {
+                angular.forEach(newBranchScope.myUsers, function(x) {
+                    if(x.selectS==true){
+                        angular.forEach(newBranchScope.myUsers, function(y) {
+                            if(y.selectR==true){
+                                var newBranchRole = {
+                                    branches_role: {
+                                        branch_id: response.data.id,
+                                        sender_id: x.id,
+                                        receiver_id: y.id,
+                                        branch_type: newBranchScope.branchType,
+                                    }
+                                };
+                                var branchesRolesPromise = requestService.getPromise("POST", BRANCHES_ROLES, requestService.formatData(newBranchRole), userInfoService.user.authToken);
+                                  branchesRolesPromise.then(function (response) {
+                                    if (response.status === 201) {
+                                      toastServices.toastIt(response.status, "create_record");
+                                    }
+                                  });
+                            }
+                        });
+                    }
+                });
+                $mdDialog.hide();
+            }
+        });
     };
 
     newBranchScope.hide = function() {

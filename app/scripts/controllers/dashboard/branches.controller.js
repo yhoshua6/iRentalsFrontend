@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES"];
-  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES) {
+  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES", "BRANCHES_ROLES"];
+  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES, BRANCHES_ROLES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -21,13 +21,23 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
-
-    var branchesPromise = requestService.getPromise("GET", BRANCHES, null, userInfoService.user.authToken);
-    branchesPromise.then(function (response) {
-      if (response.status === 200) {
-        branchesScope.branches = response.data;
-      }
-    });
+      
+    branchesScope.allBranches = function(){
+        branchesScope.branchesRoles = [];
+        var branchesRolesPromise = requestService.getPromise("GET", BRANCHES_ROLES, null, userInfoService.user.authToken);
+        branchesRolesPromise.then(function (response) {
+          if (response.status === 200) {
+            branchesScope.branchesRoles = response.data;
+            angular.forEach(branchesScope.branchesRoles, function(value) {
+              var branchesPromise = requestService.getPromise("GET", BRANCHES+'/'+value.branch_id, null, userInfoService.user.authToken);
+                branchesPromise.then(function (responseB) {
+                    value.branch = responseB.data;
+                });
+            });
+          }
+        });
+    };
+    branchesScope.allBranches();
 
     branchesScope.modifyField = function (event, fieldNumber, branch) {
       crudService.edit(event, fieldNumber, branch, getDialogOptions(fieldNumber, branch));
@@ -35,23 +45,24 @@
 
 
     branchesScope.deleteBranches = function () {
-      for(var i=0; i<branchesScope.selected.length; i++)
-      {
-        var deleteBranch = requestService.getPromise("DELETE", BRANCHES + "/" + branchesScope.selected[i].id, null, userInfoService.user.authToken);
-        deleteBranch.then(function (response) {
-          toastServices.toastIt(response.status, "delete_record");
-          if (response.status === 204) {
-            branchesScope.branches.splice(branchesScope.branches.indexOf(branchesScope.selected[i]), 1);
-          }
+        angular.forEach(branchesScope.selected, function(value) {
+            $log.info(value);
+            var deleteBranch = requestService.getPromise("DELETE", BRANCHES_ROLES + "/" + value.id, null, userInfoService.user.authToken);
+            deleteBranch.then(function (response) {
+                toastServices.toastIt(response.status, "delete_record");
+                if (response.status === 204) {
+                    branchesScope.branchesRoles.splice(branchesScope.branchesRoles.indexOf(value), 1);
+                }
+            });
         });
-      }
       branchesScope.selected = [];
+      branchesScope.allBranches();
     };
 
     branchesScope.newBranch = function (event) {
       crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
         .then(function(newBranch) {
-          branchesScope.branches.push(newBranch.branch);
+          branchesScope.allBranches();
       }, function () {});
     };
 

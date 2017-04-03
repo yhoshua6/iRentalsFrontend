@@ -13,19 +13,24 @@
   angular.module("iRentalsApp")
     .controller("newNotificationCtrl", newNotificationCtrl);
 
-  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES", "USER"];
-  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, NOTIFICATIONS_ROLES, USER) {
+  newNotificationCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "NOTIFICATIONS", "toastServices", "NOTIFICATIONS_ROLES", "USER", "Upload", "FILES_DEPOT"];
+  function newNotificationCtrl($log, $mdDialog, requestService, userInfoService, NOTIFICATIONS, toastServices, NOTIFICATIONS_ROLES, USER, Upload, FILES_DEPOT) {
     var newNotificationScope = this;
     newNotificationScope.title = "";
     newNotificationScope.content = "";
+    newNotificationScope.fileName = newNotificationScope.title;
+    newNotificationScope.file = null;
     newNotificationScope.users = [];
     newNotificationScope.receiver;
     newNotificationScope.filterSelected = true;
-
+      
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
     usersPromise.then(function (response) {
       if (response.status === 200) {
         newNotificationScope.users = response.data;
+          angular.forEach(newNotificationScope.users, function(value) {
+              value.select = false;
+          });
       }
     });
 
@@ -36,38 +41,88 @@
     newNotificationScope.hide = function() {
       $mdDialog.hide();
     };
+    
+    newNotificationScope.selectUsers = function (thisone){
+        angular.forEach(newNotificationScope.users, function(value) {
+            if(value.role == thisone){
+                if(value.selected == true){
+                    value.selected = false;
+                }else{
+                    value.selected = true;
+                }
+            }
+        });
+    };
 
     newNotificationScope.cancel = function() {
       $mdDialog.cancel();
     };
-
-    newNotificationScope.save = function() {
-      var newNotification = {
-        notification: {
-          user_id: userInfoService.user.id,
-          title: newNotificationScope.title,
-          content: newNotificationScope.content,
-          receiver_user: newNotificationScope.receiver.user
-        },
-        notifications_role: {
-          receiver_id: newNotificationScope.receiver.id
-        }
-      };
-      var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(newNotification), userInfoService.user.authToken);
-      notificationsPromise.then(function (response) {
-        if (response.status === 201) {
-          newNotification.notification.id = response.data.id;
-          newNotification.notifications_role.notification_id = response.data.id
-          var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, newNotification, userInfoService.user.authToken);
-          notificationsRolesPromise.then(function (response) {
-            if (response.status === 201) {
-              newNotification.notification.notifications_roles_id = response.data.id;
-              $mdDialog.hide(newNotification);
+    newNotificationScope.uploadImage = function(file, errFiles) {
+            newNotificationScope.file = file;
+    };
+      
+    newNotificationScope.save = function() { 
+      var arrayNotificationRoles = [];
+        var myNotification = {
+            notification: {
+                user_id: userInfoService.user.id,
+                title: newNotificationScope.title,
+                content: newNotificationScope.content
             }
-          });
-        }
-      });
-
+        };
+        angular.forEach(newNotificationScope.users, function(value) {
+            if(value.selected == true){
+                var myNotificationsRole = {
+                    notifications_role: {
+                        receiver_id: value.id
+                    }
+                };
+                arrayNotificationRoles.push(myNotificationsRole);
+            }
+        });
+        var notificationsPromise = requestService.getPromise("POST", NOTIFICATIONS, requestService.formatData(myNotification), userInfoService.user.authToken);
+        notificationsPromise.then(function (response) {
+            if (response.status === 201) {
+                myNotification.notification.id = response.data.id;
+                    
+                    var newFile = {
+                        depot_file: {
+                            owner_id: response.data.id,
+                            file: newNotificationScope.file,
+                            file_name: newNotificationScope.title,
+                            originalName: newNotificationScope.file.name,
+                            location: "images"
+                        },
+                        file_name: newNotificationScope.file.name
+                    };
+                    newNotificationScope.file.upload = Upload.upload({
+                        url: FILES_DEPOT,
+                        data: newFile,
+                        headers: {
+                            "Authorization": userInfoService.user.authToken
+                        }
+                    });
+                    newNotificationScope.file.upload.then(function (response) {
+                        newNotificationScope.Uploadedimage = response;
+                        toastServices.toastIt(response.status, "file_upload");
+                        newFile.id = response.data.id;
+                        newFile.created_at = response.data.created_at;
+                    });
+               
+                    
+                angular.forEach(arrayNotificationRoles, function(value, key) {
+                    value.notifications_role.notification_id = response.data.id;
+                    var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, value, userInfoService.user.authToken);
+                    notificationsRolesPromise.then(function (response) {
+                        if (response.status === 201) {
+                            if(arrayNotificationRoles.length == key+1){
+                                $mdDialog.hide(value);
+                            }
+                        }
+                    });
+                });
+            }
+        });
     };
 
     function createFilterFor(query) {
