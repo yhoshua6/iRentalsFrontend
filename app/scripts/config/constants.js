@@ -17,5 +17,6 @@
     .constant("GROUP_USERS", "https://chromabackend.herokuapp.com/api/v1/groups_users")
     .constant("GROUPS", "https://chromabackend.herokuapp.com/api/v1/groups")
     .constant("FILES_DEPOT", "https://chromabackend.herokuapp.com/api/v1/depot_files")
-    .constant("FORGOT_PWD", "https://chromabackend.herokuapp.com/forgot_password");
+    .constant("FORGOT_PWD", "https://chromabackend.herokuapp.com/forgot_password")
+    .constant("SUPPORT", "https://chromabackend.herokuapp.com/support");
 })();

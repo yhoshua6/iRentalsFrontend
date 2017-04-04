@@ -7,12 +7,22 @@
   angular.module("iRentalsApp")
     .controller("supportCtrl", supportCtrl);
 
-  supportCtrl.$inject = ["$log", "$mdDialog"];
-  function supportCtrl($log, $mdDialog) {
+  supportCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "SUPPORT"];
+  function supportCtrl($log, $mdDialog, requestService, userInfoService, SUPPORT) {
     var supportScope = this;
     supportScope.name = '';
     supportScope.email = '';
     supportScope.comments = '';
+
+    supportScope.askForHelp = function () {
+      var data = {
+        user: userInfoService.user
+      };
+      var supportPromise = requestService.getPromise("POST", SUPPORT, requestService.formatData(data), null);
+      supportPromise.then(function (response) {
+        $log.log(response);
+      });
+    };
 
 
     supportScope.send = function () {
