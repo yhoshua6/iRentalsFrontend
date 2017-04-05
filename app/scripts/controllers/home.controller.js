@@ -32,11 +32,11 @@ homeCtrl.$inject = ["$filter", "$mdDialog", "userInfoService", "crudService", "r
                     if (responseNot.status === 200){
                         value.notification = responseNot.data;
                         var image = $filter('filter')(homeScope.images, {owner_id: value.notification_id});
-                        value.notification.image = FILES_DEPOT+'/'+image[0].id;
-                        if(image){
-                            value.notification.image = '../images/principal.jpg'
+                        if (image && image[0]) {
+                          value.notification.image = FILES_DEPOT + '/' + image[0].id;
+                        } else {
+                          value.notification.image = '../images/principal.jpg'
                         }
-
                     }
                 });
             });

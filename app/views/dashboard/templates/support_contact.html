@@ -9,8 +9,8 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content layout="row">
-      <div flex layout="column" layout-align="spaces-between stretch">
+    <md-dialog-content layout>
+      <div flex layout="row" layout-align="spaces-between stretch">
         <md-input-container flex="50">
           <label>Usuario</label>
           <md-icon class="material-icons">account_box</md-icon>
@@ -19,7 +19,6 @@
             <div ng-message="required">El nombre del usuario es obligatorio.</div>
           </div>
         </md-input-container>
-        <br>
         <md-input-container flex="50">
           <label>Correo</label>
           <md-icon class="material-icons">email</md-icon>
@@ -28,9 +27,8 @@
             <div ng-message="required">El correo del usuario es obligatorio.</div>
           </div>
         </md-input-container>
-        <br>
         <md-input-container flex="100">
-          <label>Cuéntanos en qué te podemos ayudar:</label>
+          <label>Qué pasa?:</label>
           <md-icon class="material-icons">build</md-icon>
           <input name="userComments"  ng-model="supportCtrl.comments" type="text" required>
           <div ng-messages="supportForm.userComments.$error">
@@ -45,7 +43,7 @@
       <md-button ng-click="supportCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="supportCtrl.send()" ng-show="supportForm.$valid">
+      <md-button ng-click="supportCtrl.askForHelp()" ng-show="supportForm.$valid" ng-disabled="supportCtrl.sending" >
         Enviar
       </md-button>
     </md-dialog-actions>

@@ -20,7 +20,6 @@
       };
       var pwdPromise = requestService.getPromise("POST", FORGOT_PWD, requestService.formatData(data), null);
       pwdPromise.then(function (response) {
-        console.log("asdasd");
         toastServices.toastIt(response.status, "email_sent");
         forgotPwdScope.sending = !forgotPwdScope.sending;
         $mdDialog.hide();
