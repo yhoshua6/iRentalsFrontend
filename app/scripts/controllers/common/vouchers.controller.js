@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("vouchersCtrl", vouchersCtrl);
 
-  vouchersCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
-  function vouchersCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
+  vouchersCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function vouchersCtrl($mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var vouchersScope = this;
     vouchersScope.query = {
       order: 'title',

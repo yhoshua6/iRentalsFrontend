@@ -7,8 +7,8 @@
     .controller("adminUserCtrl", adminUserCtrl);
 
 
-  adminUserCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "USER", "INFO_USER"];
-  function adminUserCtrl($log, $mdSidenav, crudService, userInfoService, requestService, toastServices, USER, INFO_USER) {
+  adminUserCtrl.$inject = ["$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "USER", "INFO_USER"];
+  function adminUserCtrl($mdSidenav, crudService, userInfoService, requestService, toastServices, USER, INFO_USER) {
     var adminUserScope = this;
     adminUserScope.users = [];
     adminUserScope.selected = [];

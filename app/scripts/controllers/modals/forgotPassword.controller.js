@@ -7,18 +7,23 @@
     .controller("forgotPwdCtrl", forgotPwdCtrl);
 
 
-  forgotPwdCtrl.$inject = ["$log", "$mdDialog", "requestService", "FORGOT_PWD"];
-  function forgotPwdCtrl($log, $mdDialog, requestService, FORGOT_PWD) {
+  forgotPwdCtrl.$inject = ["$mdDialog", "requestService", "toastServices", "FORGOT_PWD"];
+  function forgotPwdCtrl($mdDialog, requestService, toastServices, FORGOT_PWD) {
     var forgotPwdScope = this;
     forgotPwdScope.user = '';
+    forgotPwdScope.sending = false;
 
     forgotPwdScope.sendPwd = function () {
+      forgotPwdScope.sending = !forgotPwdScope.sending;
       var data = {
         user: forgotPwdScope.user
       };
       var pwdPromise = requestService.getPromise("POST", FORGOT_PWD, requestService.formatData(data), null);
       pwdPromise.then(function (response) {
-        $log.log(response);
+        console.log("asdasd");
+        toastServices.toastIt(response.status, "email_sent");
+        forgotPwdScope.sending = !forgotPwdScope.sending;
+        $mdDialog.hide();
       });
     };
 

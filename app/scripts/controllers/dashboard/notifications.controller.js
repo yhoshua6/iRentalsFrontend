@@ -7,8 +7,8 @@
     .controller("notificationsCtrl", notificationsCtrl);
 
 
-  notificationsCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
-  function notificationsCtrl($log, $mdSidenav, crudService, requestService, userInfoService, toastServices, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
+  notificationsCtrl.$inject = ["$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "NOTIFICATIONS", "NOTIFICATIONS_ROLES"];
+  function notificationsCtrl($mdSidenav, crudService, requestService, userInfoService, toastServices, USER, NOTIFICATIONS, NOTIFICATIONS_ROLES) {
     var notificationsScope = this;
     notificationsScope.selected = [];
     notificationsScope.query = {
@@ -43,7 +43,7 @@
         });
     };
     notificationsScope.getNotification();
-      
+
     notificationsScope.deleteNotifications = function () {
         angular.forEach(notificationsScope.selected, function(value, key) {
             var notificationsRolesPromise = requestService.getPromise("DELETE", NOTIFICATIONS_ROLES + "/" + value.id, null, userInfoService.user.authToken);

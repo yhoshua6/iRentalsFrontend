@@ -24,7 +24,6 @@
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
     usersPromise.then(function (response) {
       if (response.status === 200) {
-        $log.log(response);
         newGroupScope.users = response.data;
       }
     });

@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   // If we do not have CryptoJS defined; import it
-  if (typeof CryptoJS == 'undefined') {
+  if (typeof CryptoJS) {
     var cryptoSrc = '//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js';
     var scriptTag = document.createElement('script');
     scriptTag.setAttribute('src', cryptoSrc);
@@ -13,8 +13,8 @@
   angular.module("iRentalsApp")
     .controller("newBranchCtrl", newBranchCtrl);
 
-  newBranchCtrl.$inject = ["$log", "$mdDialog", "requestService", "userInfoService", "toastServices", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES", "BRANCHES_ROLES"];
-  function newBranchCtrl($log, $mdDialog, requestService, userInfoService, toastServices, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES, BRANCHES_ROLES) {
+  newBranchCtrl.$inject = ["$mdDialog", "requestService", "userInfoService", "toastServices", "USER", "PROPERTY_TYPES", "INFO_PROPERTIES", "BRANCHES", "BRANCHES_ROLES"];
+  function newBranchCtrl($mdDialog, requestService, userInfoService, toastServices, USER, PROPERTY_TYPES, INFO_PROPERTIES, BRANCHES, BRANCHES_ROLES) {
     var newBranchScope = this;
     newBranchScope.title = "";
     newBranchScope.branchType = "";
@@ -70,7 +70,7 @@
           newBranchScope.myUsers = response.data;
       }
     });
-      
+
     newBranchScope.selectUsers = function (thisone, wichone){
         angular.forEach(newBranchScope.myUsers, function(value) {
             if(wichone === 'Receiver' && value.role === thisone){
@@ -89,7 +89,7 @@
             }
         });
     };
-      
+
     newBranchScope.save = function () {
         var newBranch = {
             branch: {

@@ -6,8 +6,8 @@
   angular.module("iRentalsApp")
     .service("userInfoService", userInfo);
 
-  userInfo.$inject = ["$log", "requestService", "BRANCHES_ROLES", "BRANCHES"];
-  function userInfo ($log, requestService, BRANCHES_ROLES, BRANCHES) {
+  userInfo.$inject = ["requestService", "BRANCHES_ROLES", "BRANCHES"];
+  function userInfo (requestService, BRANCHES_ROLES, BRANCHES) {
     var userScope = this;
     userScope.user = {};
 
@@ -31,7 +31,6 @@
       };
       userScope.user.branches = [];
       setCurrentBranchToUser();
-      console.log(userScope.user);
     };
 
     userScope.getBranch = function (filter) {

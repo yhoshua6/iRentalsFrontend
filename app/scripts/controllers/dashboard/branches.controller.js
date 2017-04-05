@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES", "BRANCHES_ROLES"];
-  function adminBranchesCtrl($log,$mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES, BRANCHES_ROLES) {
+  adminBranchesCtrl.$inject = ["$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES", "BRANCHES_ROLES"];
+  function adminBranchesCtrl($mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES, BRANCHES_ROLES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -21,7 +21,7 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
-      
+
     branchesScope.allBranches = function(){
         branchesScope.branchesRoles = [];
         var branchesRolesPromise = requestService.getPromise("GET", BRANCHES_ROLES, null, userInfoService.user.authToken);
@@ -46,7 +46,6 @@
 
     branchesScope.deleteBranches = function () {
         angular.forEach(branchesScope.selected, function(value) {
-            $log.info(value);
             var deleteBranch = requestService.getPromise("DELETE", BRANCHES_ROLES + "/" + value.id, null, userInfoService.user.authToken);
             deleteBranch.then(function (response) {
                 toastServices.toastIt(response.status, "delete_record");

@@ -9,9 +9,9 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content layout>
+    <md-dialog-content layout="row">
       <div flex layout="column" layout-align="spaces-between stretch">
-        <md-input-container flex>
+        <md-input-container flex="50">
           <label>Usuario</label>
           <md-icon class="material-icons">account_box</md-icon>
           <input name="userName"  ng-model="supportCtrl.name" type="text" required>
@@ -20,7 +20,7 @@
           </div>
         </md-input-container>
         <br>
-        <md-input-container flex>
+        <md-input-container flex="50">
           <label>Correo</label>
           <md-icon class="material-icons">email</md-icon>
           <input name="userEmail"  ng-model="supportCtrl.email" type="text" required>
@@ -29,7 +29,7 @@
           </div>
         </md-input-container>
         <br>
-        <md-input-container flex>
+        <md-input-container flex="100">
           <label>Cuéntanos en qué te podemos ayudar:</label>
           <md-icon class="material-icons">build</md-icon>
           <input name="userComments"  ng-model="supportCtrl.comments" type="text" required>
@@ -46,7 +46,7 @@
         Cancelar
       </md-button>
       <md-button ng-click="supportCtrl.send()" ng-show="supportForm.$valid">
-        Guardar
+        Enviar
       </md-button>
     </md-dialog-actions>
   </form>

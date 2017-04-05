@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("gatheringsCtrl", gatheringsCtrl);
 
-  gatheringsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
-  function gatheringsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
+  gatheringsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function gatheringsCtrl($mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var gatheringsScope = this;
     gatheringsScope.query = {
       order: 'title',

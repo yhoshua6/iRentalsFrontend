@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("reportsCtrl", reportsCtrl);
 
-  reportsCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
-  function reportsCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
+  reportsCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function reportsCtrl($mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var reportsScope = this;
     reportsScope.query = {
       order: 'title',
