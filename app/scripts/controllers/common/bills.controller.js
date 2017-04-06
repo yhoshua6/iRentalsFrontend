@@ -17,7 +17,6 @@
     billsScope.selected = [];
     billsScope.getFilesToPay = true;
     var branchIndex = userInfoService.getBranch('Facturas');
-    console.log(branchIndex);
     billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
 
     billsScope.isAdmin = function () {
