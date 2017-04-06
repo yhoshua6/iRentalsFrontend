@@ -18,12 +18,15 @@
     supportScope.askForHelp = function () {
       supportScope.sending = !supportScope.sending;
       var data = {
-        user: userInfoService.user
+        user: userInfoService.user.user,
+        email: supportScope.email,
+        comments: supportScope.comments
       };
       var supportPromise = requestService.getPromise("POST", SUPPORT, requestService.formatData(data), null);
       supportPromise.then(function (response) {
         supportScope.sending = !supportScope.sending;
         toastServices.toastIt(response.status, "email_sent");
+        supportScope.hide();
       });
     };
 

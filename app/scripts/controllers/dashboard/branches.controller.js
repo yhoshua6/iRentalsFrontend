@@ -7,8 +7,8 @@
     .controller("adminBranchesCtrl", adminBranchesCtrl);
 
 
-  adminBranchesCtrl.$inject = ["$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "USER", "BRANCHES", "BRANCHES_ROLES"];
-  function adminBranchesCtrl($mdSidenav, crudService, requestService, userInfoService, toastServices, USER, BRANCHES, BRANCHES_ROLES) {
+  adminBranchesCtrl.$inject = ["$mdSidenav", "crudService", "requestService", "userInfoService", "toastServices", "BRANCHES", "BRANCHES_ROLES"];
+  function adminBranchesCtrl($mdSidenav, crudService, requestService, userInfoService, toastServices, BRANCHES, BRANCHES_ROLES) {
     var branchesScope = this;
     branchesScope.selected = [];
     branchesScope.query = {
@@ -61,6 +61,7 @@
     branchesScope.newBranch = function (event) {
       crudService.new("newBranchCtrl", "newBranchCtrl", "../../../views/dashboard/templates/new_branch_modal.html", event)
         .then(function(newBranch) {
+          userInfoService.setCurrentBranchToUser();
           branchesScope.allBranches();
       }, function () {});
     };

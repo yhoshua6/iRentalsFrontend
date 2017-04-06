@@ -30,7 +30,7 @@
         rfc: response.data.rfc
       };
       userScope.user.branches = [];
-      setCurrentBranchToUser();
+      userScope.setCurrentBranchToUser();
     };
 
     userScope.getBranch = function (filter) {
@@ -43,7 +43,7 @@
       }
     };
 
-    function setCurrentBranchToUser() {
+    userScope.setCurrentBranchToUser = function () {
       var branchRole = requestService.getPromise(
         "GET",
         BRANCHES_ROLES,
@@ -65,7 +65,7 @@
           userScope.user.isSender = false;
         }
       });
-    }
+    };
 
     function setBranch (branch) {
       var branchPromise = requestService.getPromise(

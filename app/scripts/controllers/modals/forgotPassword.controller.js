@@ -22,7 +22,7 @@
       pwdPromise.then(function (response) {
         toastServices.toastIt(response.status, "email_sent");
         forgotPwdScope.sending = !forgotPwdScope.sending;
-        $mdDialog.hide();
+        forgotPwdScope.hide();
       });
     };
 
