@@ -26,14 +26,14 @@
       userInfoService.setBranch(branchIndex);
       var filesDepot = requestService.getPromise(
         "GET",
-        FILES_DEPOT + "/" + userInfoService.user.branches[branchIndex].branchId,
+        FILES_DEPOT + "?owner=" + userInfoService.user.branches[branchIndex].branchId,
         null,
         userInfoService.user.authToken
       );
 
       filesDepot.then(function (response) {
         if (response.status === 200) {
-          reportsScope.files = response.data;
+          reportsScope.files = response.data.length > 1 ? response.data : [response.data];
         }
       });
     }
