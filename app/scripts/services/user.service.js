@@ -43,6 +43,11 @@
       }
     };
 
+    userScope.setBranch = function (branchIndex) {
+      userScope.user.currentBranch = userScope.user.branches[branchIndex].branchId;
+      userScope.user.branchLocation = userScope.user.branches[branchIndex].location;
+    };
+
     userScope.setCurrentBranchToUser = function () {
       var branchRole = requestService.getPromise(
         "GET",

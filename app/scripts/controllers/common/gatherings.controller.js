@@ -22,17 +22,12 @@
       $mdSidenav("userProfile").close()
     }
 
-    if (branchIndex) {
-      var depotFilter = {
-        depot_file: {
-          owner_id: userInfoService.user.branches[branchIndex].branchId
-        }
-      };
-
+    if (branchIndex >= 0) {
+      userInfoService.setBranch(branchIndex);
       var filesDepot = requestService.getPromise(
         "GET",
-        FILES_DEPOT,
-        requestService.formatData(depotFilter),
+        FILES_DEPOT + "/" + userInfoService.user.branches[branchIndex].branchId,
+        null,
         userInfoService.user.authToken
       );
 
