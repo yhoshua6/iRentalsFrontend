@@ -33,10 +33,10 @@
       userScope.setCurrentBranchToUser();
     };
 
-    userScope.getBranch = function (filter) {
+    userScope.getBranch = function (filter, isSender) {
       if (userScope.user.branches) {
         for(var i=0; i<userScope.user.branches.length; i++) {
-          if (userScope.user.branches[i].type === filter) {
+          if (userScope.user.branches[i].type === filter && userScope.user.branches[i].isSender === isSender) {
             return  i;
           }
         }
