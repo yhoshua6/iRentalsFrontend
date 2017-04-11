@@ -2,10 +2,10 @@
   <md-toolbar flex class="md-table-toolbar md-default clearContainer">
     <div class="md-toolbar-tools" ng-show="billsCtrl.isAdmin()">
       <span>Facturas por &nbsp</span>
-      <span ng-show="billsCtrl.getFilesToPay"> Pagar</span>
-      <span ng-hide="billsCtrl.getFilesToPay"> Cobrar</span>
+      <span ng-hide="billsCtrl.getFilesToBePayed"> Pagar</span>
+      <span ng-show="billsCtrl.getFilesToBePayed"> Cobrar</span>
       &nbsp
-      <md-switch ng-model="billsCtrl.getFilesToPay" ng-change="billsCtrl.changeUserFiles()"></md-switch>
+      <md-switch ng-model="billsCtrl.getFilesToBePayed" ng-change="billsCtrl.changeUserFiles()" ng-disabled="billsCtrl.waiting"></md-switch>
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="billsCtrl.newFile()" ng-show="billsCtrl.isSender">
