@@ -26,19 +26,7 @@
       $mdSidenav("userProfile").close()
     }
     if (branchIndex >= 0) {
-      userInfoService.setBranch(branchIndex);
-      var filesDepot = requestService.getPromise(
-        "GET",
-        FILES_DEPOT + "?owner=" + userInfoService.user.branches[branchIndex].branchId,
-        null,
-        userInfoService.user.authToken
-      );
-
-      filesDepot.then(function (response) {
-        if (response.status === 200) {
-          billsScope.files = response.data.length > 1 ? response.data : [response.data];
-        }
-      });
+      getFilesFromDepot(branchIndex);
     }
 
     billsScope.delete = function () {
@@ -57,5 +45,25 @@
       crudService.getFiles(billsScope.selected);
       billsScope.selected = [];
     };
+
+    billsScope.changeUserFiles = function () {
+      console.log(userInfoService.user.branches);
+    };
+
+    function getFilesFromDepot(branchIndex) {
+      userInfoService.setBranch(branchIndex);
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT + "?owner=" + userInfoService.user.branches[branchIndex].branchId,
+        null,
+        userInfoService.user.authToken
+      );
+
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          billsScope.files = response.data.length > 1 ? response.data : [response.data];
+        }
+      });
+    }
   }
 })();
