@@ -19,12 +19,16 @@
         <thead md-head md-order="gatheringsCtrl.query.order">
         <tr md-row>
           <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
-          <th md-column md-order-by="created_at">Fecha del Archivo</th>
+          <th md-column md-order-by="senderUser"><span>Usuario emisor</span></th>
+          <th md-column md-order-by="receiverUser">Usuario receptor</th>
+          <th md-column md-order-by="created_at">Fecha del archivo</th>
         </tr>
         </thead>
         <tbody md-body>
         <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in gatheringsCtrl.files | orderBy: gatheringsCtrl.query.order | limitTo: gatheringsCtrl.query.limit: (gatheringsCtrl.query.page - 1) * gatheringsCtrl.query.limit">
           <td md-cell>{{document.file_name}}</td>
+          <td md-cell>{{document.senderUser}}</td>
+          <td md-cell>{{document.receiverUser}}</td>
           <td md-cell>{{document.created_at}}</td>
         </tr>
         </tbody>

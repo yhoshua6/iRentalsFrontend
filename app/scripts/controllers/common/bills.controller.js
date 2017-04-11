@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("billsCtrl", billsCtrl);
 
-  billsCtrl.$inject = ["$mdSidenav", "$log", "userInfoService", "requestService", "crudService", "FILES_DEPOT"];
-  function billsCtrl($mdSidenav, $log, userInfoService, requestService, crudService, FILES_DEPOT) {
+  billsCtrl.$inject = ["$mdSidenav", "userInfoService", "requestService", "crudService", "FILES_DEPOT"];
+  function billsCtrl($mdSidenav, userInfoService, requestService, crudService, FILES_DEPOT) {
     var billsScope = this;
     billsScope.query = {
       order: 'title',
@@ -15,11 +15,10 @@
     };
     billsScope.files = [];
     billsScope.selected = [];
-    billsScope.getFilesToPay = true;
-    var branchIndex = userInfoService.getBranch('Facturas');
-    console.log(branchIndex);
+    billsScope.getFilesToBePayed = true;
+    billsScope.waiting = false;
+    var branchIndex = userInfoService.getBranch('Facturas', false);
     billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
-
     billsScope.isAdmin = function () {
       return userInfoService.user.role === "Administrador";
     };
@@ -29,24 +28,7 @@
     }
 
     if (branchIndex) {
-      var depotFilter = {
-        depot_file: {
-          owner_id: userInfoService.user.branches[branchIndex].branchId
-        }
-      };
-
-      var filesDepot = requestService.getPromise(
-        "GET",
-        FILES_DEPOT,
-        requestService.formatData(depotFilter),
-        userInfoService.user.authToken
-      );
-
-      filesDepot.then(function (response) {
-        if (response.status === 200) {
-          billsScope.files = response.data;
-        }
-      });
+      getFilesFromDepot(branchIndex);
     }
 
     billsScope.delete = function () {
@@ -65,5 +47,30 @@
       crudService.getFiles(billsScope.selected);
       billsScope.selected = [];
     };
+
+    billsScope.changeUserFiles = function () {
+      var branchIndex = (billsScope.getFilesToBePayed) ? userInfoService.getBranch('Facturas', false) : userInfoService.getBranch('Facturas', true);
+      billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
+      billsScope.files = [];
+      getFilesFromDepot(branchIndex);
+    };
+
+    function getFilesFromDepot(branchIndex) {
+      billsScope.waiting = !billsScope.waiting;
+      userInfoService.setBranch(branchIndex);
+      var filesDepot = requestService.getPromise(
+        "GET",
+        FILES_DEPOT + "?owner=" + userInfoService.user.branches[branchIndex].branchId,
+        null,
+        userInfoService.user.authToken
+      );
+
+      filesDepot.then(function (response) {
+        if (response.status === 200) {
+          billsScope.files = response.data.length > 1 ? response.data : [response.data];
+        }
+      });
+      billsScope.waiting = !billsScope.waiting;
+    }
   }
 })();

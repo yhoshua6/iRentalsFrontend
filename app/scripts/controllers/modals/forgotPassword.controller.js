@@ -7,9 +7,24 @@
     .controller("forgotPwdCtrl", forgotPwdCtrl);
 
 
-  forgotPwdCtrl.$inject = ["$log", "$mdDialog"];
-  function forgotPwdCtrl($mdDialog) {
+  forgotPwdCtrl.$inject = ["$mdDialog", "requestService", "toastServices", "FORGOT_PWD"];
+  function forgotPwdCtrl($mdDialog, requestService, toastServices, FORGOT_PWD) {
     var forgotPwdScope = this;
+    forgotPwdScope.user = '';
+    forgotPwdScope.sending = false;
+
+    forgotPwdScope.sendPwd = function () {
+      forgotPwdScope.sending = !forgotPwdScope.sending;
+      var data = {
+        user: forgotPwdScope.user
+      };
+      var pwdPromise = requestService.getPromise("POST", FORGOT_PWD, requestService.formatData(data), null);
+      pwdPromise.then(function (response) {
+        toastServices.toastIt(response.status, "email_sent");
+        forgotPwdScope.sending = !forgotPwdScope.sending;
+        forgotPwdScope.hide();
+      });
+    };
 
 
     forgotPwdScope.hide = function() {

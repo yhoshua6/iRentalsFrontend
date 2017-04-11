@@ -7,16 +7,25 @@
   angular.module("iRentalsApp")
     .controller("supportCtrl", supportCtrl);
 
-  supportCtrl.$inject = ["$log", "$mdDialog"];
-  function supportCtrl($log, $mdDialog) {
+  supportCtrl.$inject = ["$mdDialog", "requestService", "userInfoService", "toastServices", "SUPPORT"];
+  function supportCtrl($mdDialog, requestService, userInfoService, toastServices, SUPPORT) {
     var supportScope = this;
-    supportScope.name = '';
-    supportScope.email = '';
     supportScope.comments = '';
+    supportScope.sending = false;
 
-
-    supportScope.send = function () {
-
+    supportScope.askForHelp = function () {
+      supportScope.sending = !supportScope.sending;
+      var data = {
+        user: userInfoService.user.user,
+        email: userInfoService.user.email,
+        comments: supportScope.comments
+      };
+      var supportPromise = requestService.getPromise("POST", SUPPORT, requestService.formatData(data), null);
+      supportPromise.then(function (response) {
+        supportScope.sending = !supportScope.sending;
+        toastServices.toastIt(response.status, "email_sent");
+        supportScope.hide();
+      });
     };
 
     supportScope.hide = function() {

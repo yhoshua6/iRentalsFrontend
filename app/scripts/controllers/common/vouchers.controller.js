@@ -5,8 +5,8 @@
   angular.module("iRentalsApp")
     .controller("vouchersCtrl", vouchersCtrl);
 
-  vouchersCtrl.$inject = ["$log", "$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
-  function vouchersCtrl($log, $mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
+  vouchersCtrl.$inject = ["$mdSidenav", "requestService", "userInfoService", "crudService", "FILES_DEPOT"];
+  function vouchersCtrl($mdSidenav, requestService, userInfoService, crudService, FILES_DEPOT) {
     var vouchersScope = this;
     vouchersScope.query = {
       order: 'title',
@@ -22,23 +22,18 @@
       $mdSidenav("userProfile").close()
     }
 
-    if (branchIndex) {
-      var depotFilter = {
-        depot_file: {
-          owner_id: userInfoService.user.branches[branchIndex].branchId
-        }
-      };
-
+    if (branchIndex >= 0) {
+      userInfoService.setBranch(branchIndex);
       var filesDepot = requestService.getPromise(
         "GET",
-        FILES_DEPOT,
-        requestService.formatData(depotFilter),
+        FILES_DEPOT + "?owner=" + userInfoService.user.branches[branchIndex].branchId,
+        null,
         userInfoService.user.authToken
       );
 
       filesDepot.then(function (response) {
         if (response.status === 200) {
-          vouchersScope.files = response.data;
+          vouchersScope.files = response.data.length > 1 ? response.data : [response.data];
         }
       });
     }

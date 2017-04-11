@@ -8,8 +8,8 @@
     .controller("loginCtrl", loginCtrl);
 
 
-  loginCtrl.$inject = ["$log", "$state", "requestService", "toastServices", "crudService", "userInfoService", "LOGIN_ENDPOINT"];
-  function loginCtrl($log, $state, requestService, toastServices, crudService, userInfoService, LOGIN_ENDPOINT) {
+  loginCtrl.$inject = ["$state", "requestService", "toastServices", "crudService", "userInfoService", "LOGIN_ENDPOINT"];
+  function loginCtrl($state, requestService, toastServices, crudService, userInfoService, LOGIN_ENDPOINT) {
     var loginScope = this;
     loginScope.sending = false;
     loginScope.authenticateUser = function(user, pwd) {
@@ -32,9 +32,7 @@
 
     loginScope.forgotPassword = function (event) {
       crudService.new("forgotPwdCtrl", "forgotPwdCtrl", "../../../views/modals/forgot_password.html", event)
-        .then(function(newBranch) {
-          branchesScope.branches.push(newBranch.branch);
-      }, function () {});
+        .then(function() {}, function () {});
     };
 
   }

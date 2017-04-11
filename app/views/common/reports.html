@@ -18,12 +18,16 @@
       <thead md-head md-order="reportsCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
+        <th md-column md-order-by="senderUser"><span>Usuario emisor</span></th>
+        <th md-column md-order-by="receiverUser">Usuario receptor</th>
         <th md-column md-order-by="fileDate">Fecha del Archivo</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="report" md-select-id="report.id" md-auto-select ng-repeat="report in reportsCtrl.files | orderBy: reportsCtrl.query.order | limitTo: reportsCtrl.query.limit: (reportsCtrl.query.page - 1) * reportsCtrl.query.limit">
         <td md-cell>{{report.file_name}}</td>
+        <td md-cell>{{report.senderUser}}</td>
+        <td md-cell>{{report.receiverUser}}</td>
         <td md-cell>{{report.created_at}}</td>
       </tr>
       </tbody>

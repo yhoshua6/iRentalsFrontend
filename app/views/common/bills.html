@@ -2,10 +2,10 @@
   <md-toolbar flex class="md-table-toolbar md-default clearContainer">
     <div class="md-toolbar-tools" ng-show="billsCtrl.isAdmin()">
       <span>Facturas por &nbsp</span>
-      <span ng-show="billsCtrl.getFilesToPay"> Pagar</span>
-      <span ng-hide="billsCtrl.getFilesToPay"> Cobrar</span>
+      <span ng-hide="billsCtrl.getFilesToBePayed"> Pagar</span>
+      <span ng-show="billsCtrl.getFilesToBePayed"> Cobrar</span>
       &nbsp
-      <md-switch ng-model="billsCtrl.getFilesToPay"></md-switch>
+      <md-switch ng-model="billsCtrl.getFilesToBePayed" ng-change="billsCtrl.changeUserFiles()" ng-disabled="billsCtrl.waiting"></md-switch>
     </div>
   </md-toolbar>
   <md-button class="md-accent md-raised" ng-click="billsCtrl.newFile()" ng-show="billsCtrl.isSender">
@@ -22,12 +22,16 @@
       <thead md-head md-order="billsCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="file_name"><span>Nombre del archivo</span></th>
+        <th md-column md-order-by="senderUser"><span>Usuario emisor</span></th>
+        <th md-column md-order-by="receiverUser">Usuario receptor</th>
         <th md-column md-order-by="created_at">Fecha del Archivo</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="file" md-select-id="file.id" md-auto-select ng-repeat="file in billsCtrl.files | orderBy: billsCtrl.query.order | limitTo: billsCtrl.query.limit: (billsCtrl.query.page - 1) * billsCtrl.query.limit">
         <td md-cell>{{file.file_name}}</td>
+        <td md-cell>{{file.senderUser}}</td>
+        <td md-cell>{{file.receiverUser}}</td>
         <td md-cell>{{file.created_at}}</td>
       </tr>
       </tbody>

@@ -18,12 +18,16 @@
       <thead md-head md-order="docsCtrl.query.order">
       <tr md-row>
         <th md-column md-order-by="file_name">Nombre del Archivo</th>
+        <th md-column md-order-by="senderUser"><span>Usuario emisor</span></th>
+        <th md-column md-order-by="receiverUser">Usuario receptor</th>
         <th md-column md-order-by="created_at">Fecha del archivo</th>
       </tr>
       </thead>
       <tbody md-body>
       <tr md-row md-select="document" md-select-id="document.id" md-auto-select ng-repeat="document in docsCtrl.files | orderBy: docsCtrl.query.order | limitTo: docsCtrl.query.limit: (docsCtrl.query.page - 1) * docsCtrl.query.limit">
         <td md-cell>{{document.file_name}}</td>
+        <td md-cell>{{document.senderUser}}</td>
+        <td md-cell>{{document.receiverUser}}</td>
         <td md-cell>{{document.created_at}}</td>
       </tr>
       </tbody>

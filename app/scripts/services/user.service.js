@@ -6,8 +6,8 @@
   angular.module("iRentalsApp")
     .service("userInfoService", userInfo);
 
-  userInfo.$inject = ["$log", "requestService", "BRANCHES_ROLES", "BRANCHES"];
-  function userInfo ($log, requestService, BRANCHES_ROLES, BRANCHES) {
+  userInfo.$inject = ["requestService", "BRANCHES_ROLES", "BRANCHES"];
+  function userInfo (requestService, BRANCHES_ROLES, BRANCHES) {
     var userScope = this;
     userScope.user = {};
 
@@ -30,21 +30,25 @@
         rfc: response.data.rfc
       };
       userScope.user.branches = [];
-      setCurrentBranchToUser();
-      console.log(userScope.user);
+      userScope.setCurrentBranchToUser();
     };
 
-    userScope.getBranch = function (filter) {
+    userScope.getBranch = function (filter, isSender) {
       if (userScope.user.branches) {
         for(var i=0; i<userScope.user.branches.length; i++) {
-          if (userScope.user.branches[i].type === filter) {
+          if (userScope.user.branches[i].type === filter && userScope.user.branches[i].isSender === isSender) {
             return  i;
           }
         }
       }
     };
 
-    function setCurrentBranchToUser() {
+    userScope.setBranch = function (branchIndex) {
+      userScope.user.currentBranch = userScope.user.branches[branchIndex].branchId;
+      userScope.user.branchLocation = userScope.user.branches[branchIndex].location;
+    };
+
+    userScope.setCurrentBranchToUser = function () {
       var branchRole = requestService.getPromise(
         "GET",
         BRANCHES_ROLES,
@@ -66,7 +70,7 @@
           userScope.user.isSender = false;
         }
       });
-    }
+    };
 
     function setBranch (branch) {
       var branchPromise = requestService.getPromise(

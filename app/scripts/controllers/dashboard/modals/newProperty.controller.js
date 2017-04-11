@@ -37,7 +37,6 @@
     var propertiesTypes = requestService.getPromise("GET", PROPERTY_TYPES, null, userInfoService.user.authToken);
     propertiesTypes.then(function (response) {
       if (response.status === 200) {
-        $log.log(response.data)
         newPropertyScope.propertiesType = response.data;
       }
     });

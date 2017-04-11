@@ -7,8 +7,8 @@
   angular.module("iRentalsApp")
     .controller("homeCtrl", homeCtrl);
 
-homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES", "FILES_DEPOT"];
-  function homeCtrl($log, $filter, $mdDialog, userInfoService, crudService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES, FILES_DEPOT) {
+homeCtrl.$inject = ["$filter", "$mdDialog", "userInfoService", "crudService", "requestService", "NOTIFICATIONS", "NOTIFICATIONS_ROLES", "FILES_DEPOT"];
+  function homeCtrl($filter, $mdDialog, userInfoService, crudService, requestService, NOTIFICATIONS, NOTIFICATIONS_ROLES, FILES_DEPOT) {
     var homeScope = this;
     homeScope.notifications = [];
     homeScope.userName = userInfoService.user.userName;
@@ -19,24 +19,24 @@ homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudServ
       null,
       userInfoService.user.authToken
     );
-      
+
     homeScope.notifications = userInfoService.user.notificationRoles;
     homeScope.setNotifications = function() {
     var filesDepot = requestService.getPromise("GET", FILES_DEPOT, null, userInfoService.user.authToken);
       filesDepot.then(function (response) {
         if (response.status === 200) {
           homeScope.images = response.data;
-            angular.forEach(homeScope.notifications, function(value, key) {            
+            angular.forEach(homeScope.notifications, function(value, key) {
                 var notificationsPromise = requestService.getPromise("GET", NOTIFICATIONS + "/" + value.notification_id, null, userInfoService.user.authToken);
                 notificationsPromise.then(function (responseNot) {
                     if (responseNot.status === 200){
                         value.notification = responseNot.data;
                         var image = $filter('filter')(homeScope.images, {owner_id: value.notification_id});
-                        value.notification.image = FILES_DEPOT+'/'+image[0].id;
-                        if(image==undefined){
-                            value.notification.image = '../images/principal.jpg'
+                        if (image && image[0]) {
+                          value.notification.image = FILES_DEPOT + '/' + image[0].id;
+                        } else {
+                          value.notification.image = '../images/principal.jpg'
                         }
-
                     }
                 });
             });
@@ -45,7 +45,7 @@ homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudServ
     };
     homeScope.setNotifications();
 
-    
+
     homeScope.newNotification = function($event, info) {
        var parentEl = angular.element(document.body);
        $mdDialog.show({
@@ -65,7 +65,7 @@ homeCtrl.$inject = ["$log", "$filter", "$mdDialog", "userInfoService", "crudServ
         }
       }
     }
-    
+
     /*homeScope.newNotification = function (event, info) {
         $log.info(event);
       crudService.new("newNotificationCtrl", "newNotificationCtrl", "../../../views/dashboard/templates/get_notification_modal.html", event)

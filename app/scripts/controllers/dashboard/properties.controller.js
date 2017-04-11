@@ -7,8 +7,8 @@
     .controller("adminPropertiesCtrl", adminPropertiesCtrl);
 
 
-  adminPropertiesCtrl.$inject = ["$log", "$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "INFO_PROPERTIES", "PROPERTIES"];
-  function adminPropertiesCtrl($log, $mdSidenav, crudService, userInfoService, requestService, toastServices, INFO_PROPERTIES, PROPERTIES) {
+  adminPropertiesCtrl.$inject = ["$mdSidenav", "crudService", "userInfoService", "requestService", "toastServices", "INFO_PROPERTIES", "PROPERTIES"];
+  function adminPropertiesCtrl($mdSidenav, crudService, userInfoService, requestService, toastServices, INFO_PROPERTIES, PROPERTIES) {
     var propertiesScope = this;
     //if (!isUserAlive) { $state.go("root.login"); }
     propertiesScope.selected = [];

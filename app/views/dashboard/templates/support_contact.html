@@ -10,29 +10,11 @@
       </div>
     </md-toolbar>
     <md-dialog-content layout>
-      <div flex layout="column" layout-align="spaces-between stretch">
-        <md-input-container flex>
-          <label>Usuario</label>
-          <md-icon class="material-icons">account_box</md-icon>
-          <input name="userName"  ng-model="supportCtrl.name" type="text" required>
-          <div ng-messages="supportForm.userName.$error">
-            <div ng-message="required">El nombre del usuario es obligatorio.</div>
-          </div>
-        </md-input-container>
-        <br>
-        <md-input-container flex>
-          <label>Correo</label>
-          <md-icon class="material-icons">email</md-icon>
-          <input name="userEmail"  ng-model="supportCtrl.email" type="text" required>
-          <div ng-messages="supportForm.userEmail.$error">
-            <div ng-message="required">El correo del usuario es obligatorio.</div>
-          </div>
-        </md-input-container>
-        <br>
-        <md-input-container flex>
-          <label>Cuéntanos en qué te podemos ayudar:</label>
+      <div flex layout="row" layout-align="spaces-between stretch">
+        <md-input-container flex="100">
+          <label>Qué pasa?:</label>
           <md-icon class="material-icons">build</md-icon>
-          <input name="userComments"  ng-model="supportCtrl.comments" type="text" required>
+          <textarea name="userComments" ng-model="supportCtrl.comments" md-maxlength="250" rows="5" md-select-on-focus required></textarea>
           <div ng-messages="supportForm.userComments.$error">
             <div ng-message="required">Necesitamos saber qué pasó.</div>
           </div>
@@ -45,8 +27,8 @@
       <md-button ng-click="supportCtrl.cancel()">
         Cancelar
       </md-button>
-      <md-button ng-click="supportCtrl.send()" ng-show="supportForm.$valid">
-        Guardar
+      <md-button ng-click="supportCtrl.askForHelp()" ng-show="supportForm.$valid" ng-disabled="supportCtrl.sending" >
+        Enviar
       </md-button>
     </md-dialog-actions>
   </form>

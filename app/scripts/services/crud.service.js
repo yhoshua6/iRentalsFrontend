@@ -7,8 +7,8 @@
   angular.module("iRentalsApp")
     .service("crudService", crudService);
 
-  crudService.$inject = ["$log", "$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "toastServices", "FILES_DEPOT"];
-  function crudService ($log, $mdDialog, $mdEditDialog, userInfoService, requestService, toastServices, FILES_DEPOT) {
+  crudService.$inject = ["$mdDialog", "$mdEditDialog", "userInfoService", "requestService", "toastServices", "FILES_DEPOT"];
+  function crudService ($mdDialog, $mdEditDialog, userInfoService, requestService, toastServices, FILES_DEPOT) {
     var crudScope = this;
 
     crudScope.new = function (controller, controllerAs, templateUrl, event) {
@@ -53,7 +53,6 @@
       {
         var downloadFile = requestService.getPromise("GET", FILES_DEPOT + "/" + selected[i].id, null, userInfoService.user.authToken);
         downloadFile.then(function (response) {
-          $log.log(response);
           toastServices.toastIt(response.status, "file_get");
         });
       }

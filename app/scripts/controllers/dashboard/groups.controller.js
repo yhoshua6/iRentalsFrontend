@@ -7,8 +7,8 @@
     .controller("adminGroupsCtrl", adminGroupsCtrl);
 
 
-  adminGroupsCtrl.$inject = ["$log", "$mdSidenav", "crudService"];
-  function adminGroupsCtrl($log,$mdSidenav, crudService) {
+  adminGroupsCtrl.$inject = ["$mdSidenav", "crudService"];
+  function adminGroupsCtrl($mdSidenav, crudService) {
     var groupsScope = this;
     groupsScope.selected = [];
     groupsScope.query = {
@@ -25,7 +25,6 @@
     groupsScope.newBranch = function (event) {
       crudService.new("newGroupCtrl", "newGroupCtrl", "../../../views/dashboard/templates/new_group_modal.html", event)
         .then(function(newBranch) {
-          $log.log(newGroup);
         }, function () {});
     };
 

@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   // If we do not have CryptoJS defined; import it
-  if (typeof CryptoJS == 'undefined') {
+  if (typeof CryptoJS) {
     var cryptoSrc = '//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js';
     var scriptTag = document.createElement('script');
     scriptTag.setAttribute('src', cryptoSrc);
@@ -23,7 +23,7 @@
     newNotificationScope.users = [];
     newNotificationScope.receiver;
     newNotificationScope.filterSelected = true;
-      
+
     var usersPromise = requestService.getPromise("GET", USER, null, userInfoService.user.authToken);
     usersPromise.then(function (response) {
       if (response.status === 200) {
@@ -41,16 +41,10 @@
     newNotificationScope.hide = function() {
       $mdDialog.hide();
     };
-    
+
     newNotificationScope.selectUsers = function (thisone){
         angular.forEach(newNotificationScope.users, function(value) {
-            if(value.role == thisone){
-                if(value.selected == true){
-                    value.selected = false;
-                }else{
-                    value.selected = true;
-                }
-            }
+          value.selected = value.role === thisone;
         });
     };
 
@@ -60,8 +54,8 @@
     newNotificationScope.uploadImage = function(file, errFiles) {
             newNotificationScope.file = file;
     };
-      
-    newNotificationScope.save = function() { 
+
+    newNotificationScope.save = function() {
       var arrayNotificationRoles = [];
         var myNotification = {
             notification: {
@@ -71,7 +65,7 @@
             }
         };
         angular.forEach(newNotificationScope.users, function(value) {
-            if(value.selected == true){
+            if(value.selected){
                 var myNotificationsRole = {
                     notifications_role: {
                         receiver_id: value.id
@@ -84,7 +78,7 @@
         notificationsPromise.then(function (response) {
             if (response.status === 201) {
                 myNotification.notification.id = response.data.id;
-                    
+
                     var newFile = {
                         depot_file: {
                             owner_id: response.data.id,
@@ -108,8 +102,8 @@
                         newFile.id = response.data.id;
                         newFile.created_at = response.data.created_at;
                     });
-               
-                    
+
+
                 angular.forEach(arrayNotificationRoles, function(value, key) {
                     value.notifications_role.notification_id = response.data.id;
                     var notificationsRolesPromise = requestService.getPromise("POST", NOTIFICATIONS_ROLES, value, userInfoService.user.authToken);

@@ -24,7 +24,7 @@
           show(getIconsAndMessages("server_error"));
         break;
       }
-    }
+    };
 
     function show(options) {
       toastScope.icon = options.icon;
@@ -36,7 +36,7 @@
         controller: "toastCtrl",
         controllerAs:"toastCtrl"
       });
-    };
+    }
 
     function getIconsAndMessages(performedAction) {
       var toastElement = {};
@@ -101,13 +101,23 @@
           toastElement.message = "No se pudo subir el archivo al servidor.";
           break;
 
+        case "email_sent_success":
+          toastElement.icon = "mail";
+          toastElement.message = "Se envió el correo correctamente.";
+          break;
+
+        case "email_sent_failure":
+          toastElement.icon = "remove_circle";
+          toastElement.message = "Hubo un problema al intentar mandar el correo.";
+          break;
+
         default:
           toastElement.icon = "report_problem";
           toastElement.message = "Hubo un error con el servidor. Si los errores persisten contacte al administrador.";
       }
 
       return toastElement;
-    };
+    }
 
   }
 })();
