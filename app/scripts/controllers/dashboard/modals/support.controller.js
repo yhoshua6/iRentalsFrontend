@@ -10,8 +10,6 @@
   supportCtrl.$inject = ["$mdDialog", "requestService", "userInfoService", "toastServices", "SUPPORT"];
   function supportCtrl($mdDialog, requestService, userInfoService, toastServices, SUPPORT) {
     var supportScope = this;
-    supportScope.name = '';
-    supportScope.email = '';
     supportScope.comments = '';
     supportScope.sending = false;
 
@@ -19,7 +17,7 @@
       supportScope.sending = !supportScope.sending;
       var data = {
         user: userInfoService.user.user,
-        email: supportScope.email,
+        email: userInfoService.user.email,
         comments: supportScope.comments
       };
       var supportPromise = requestService.getPromise("POST", SUPPORT, requestService.formatData(data), null);
