@@ -15,8 +15,9 @@
     };
     billsScope.files = [];
     billsScope.selected = [];
-    billsScope.getFilesToPay = true;
-    var branchIndex = userInfoService.getBranch('Facturas');
+    billsScope.getFilesToBePayed = true;
+    billsScope.waiting = false;
+    var branchIndex = userInfoService.getBranch('Facturas', false);
     billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
     billsScope.isAdmin = function () {
       return userInfoService.user.role === "Administrador";
@@ -25,7 +26,8 @@
     if ($mdSidenav("userProfile").isOpen()) {
       $mdSidenav("userProfile").close()
     }
-    if (branchIndex >= 0) {
+
+    if (branchIndex) {
       getFilesFromDepot(branchIndex);
     }
 
@@ -47,10 +49,14 @@
     };
 
     billsScope.changeUserFiles = function () {
-      console.log(userInfoService.user.branches);
+      var branchIndex = (billsScope.getFilesToBePayed) ? userInfoService.getBranch('Facturas', false) : userInfoService.getBranch('Facturas', true);
+      billsScope.isSender = (branchIndex >= 0) ? userInfoService.user.branches[branchIndex].isSender : false;
+      billsScope.files = [];
+      getFilesFromDepot(branchIndex);
     };
 
     function getFilesFromDepot(branchIndex) {
+      billsScope.waiting = !billsScope.waiting;
       userInfoService.setBranch(branchIndex);
       var filesDepot = requestService.getPromise(
         "GET",
@@ -64,6 +70,7 @@
           billsScope.files = response.data.length > 1 ? response.data : [response.data];
         }
       });
+      billsScope.waiting = !billsScope.waiting;
     }
   }
 })();
