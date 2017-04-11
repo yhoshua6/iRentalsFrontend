@@ -118,7 +118,7 @@
               toastServices.toastIt(response.status, "update_field");
             });
           };
-          dialogOption.validators = { 'md-maxlength': 15 };
+          dialogOption.validators = { 'md-maxlength': 30 };
           break;
         case 2:
           dialogOption.modelValue = user.email;
@@ -136,7 +136,7 @@
               toastServices.toastIt(response.status, "update_field");
             });
           };
-          dialogOption.validators = { 'md-maxlength': 25 };
+          dialogOption.validators = { 'md-maxlength': 40 };
           break;
         case 3:
           dialogOption.modelValue = user.cellphone;
@@ -154,7 +154,7 @@
               toastServices.toastIt(response.status, "update_field");
             });
           };
-          dialogOption.validators = { 'md-maxlength': 10 };
+          dialogOption.validators = { 'md-maxlength': 20 };
           break;
         case 4:
           dialogOption.modelValue = user.bank_name;
